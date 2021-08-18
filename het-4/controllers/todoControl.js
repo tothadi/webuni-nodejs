@@ -30,13 +30,12 @@ function oneTodo(req, res, next) {
 
     try {
         res.locals.todo = todos.findOne({ id: req.params.id })
-        return next();
     } catch (err) {
         return res.json({
             err
         });
     }
-
+    return next();
 }
 module.exports.oneTodo = oneTodo;
 
