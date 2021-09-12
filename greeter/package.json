@@ -1,0 +1,24 @@
+{
+  "name": "greeter",
+  "version": "0.0.1",
+  "description": "Twitter clone app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "greeter",
+    "twitter",
+    "clone",
+    "app"
+  ],
+  "author": "tothadi",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "lokijs": "^1.5.12"
+  }
+}

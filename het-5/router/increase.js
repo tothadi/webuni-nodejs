@@ -8,8 +8,7 @@ module.exports = () => {
             if (err) {
                 return res.status(500).json({error: err.message});
             }
+            return res.redirect('/after-increase');
         });
-        console.log(req.session);
-        return res.redirect('/after-increase');
     }
 }
