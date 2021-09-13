@@ -41,3 +41,13 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+
+/*
+* Navbar styles
+*/
+
+.navbar-brand img {
+  height: 2rem;
+  filter: invert();
+}
