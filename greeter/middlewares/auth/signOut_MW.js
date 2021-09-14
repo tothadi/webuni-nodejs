@@ -1,11 +1,15 @@
 /**
- * Destroys session in order to force the user to be signed out
+ * Destroys session and redirects the user to '/'
  *
  * @param {*}
  * @returns next()
  */
 module.exports = () => {
 	return (req, res, next) => {
-		return next();
+		req.session.destroy((err) => {
+			if (err) console.error('Session destroy:', err.message);
+		});
+		console.log('valami');
+		return res.redirect('/');
 	};
 };

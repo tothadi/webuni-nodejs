@@ -6,6 +6,6 @@
  */
 module.exports = (view) => {
 	return (req, res, next) => {
-		return next();
+		res.render('index');
 	};
 };

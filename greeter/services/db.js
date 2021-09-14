@@ -25,6 +25,7 @@ function initDB(cb) {
          * followCount: number of followers
          * greetCount: number of greets
          * regDate: registration date from new Date()
+		 * lost: secret for lost password
          */
 		let userModel = db.getCollection('user');
 		if (userModel === null) {
@@ -77,7 +78,7 @@ function initDB(cb) {
 				return cb(err);
 			}
 			console.log('DB saved after initialization.');
-			return cb(undefined, { userModel, greetModel, commentModel });
+			return cb(undefined, { userModel, greetModel, commentModel, saveToDB: (cb) => {db.saveDatabase(cb)} });
 		});
 	});
 }

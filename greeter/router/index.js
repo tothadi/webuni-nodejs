@@ -1,4 +1,5 @@
-const { router } = require('express');
+const uuid = require('uuid');
+const { genPassHash, checkPassHash } = require('../services/password');
 
 const render_MW = require('../middlewares/render_MW');
 
@@ -8,53 +9,90 @@ const singOut_MW = require('../middlewares/auth/signOut_MW');
 const auth_MW = require('../middlewares/auth/auth_MW');
 const lostPW_MW = require('../middlewares/auth/lostPW_MW');
 
-module.exports = function (app, { userModel, greetModel, commentModel }) {
+const setGreet_MW = require('../middlewares/greet/setGreet_MW');
+const getGreets_MW = require('../middlewares/greet/getGreets_MW');
+const getGreetByID_MW = require('../middlewares/greet/getGreetByID_MW');
+const likeGreet_MW = require('../middlewares/greet/likeGreet_MW');
+module.exports = function (
+	app,
+	{ userModel, greetModel, commentModel, saveToDB }
+) {
 	const objRep = {
 		userModel,
 		greetModel,
 		commentModel,
+		saveToDB,
+		uuid,
+		genPassHash,
+		checkPassHash,
 	};
 
-	app.use('/', express.static(join(__dirname, 'assets')));
-
-	app.use(
-		session({
-			secret:
-				'glk64a31sdfg654616w585484185vasdf15646sd5f4v5ad1fvb3a2df1bdfgdfg',
-			resave: false,
-			saveUninitialized: true,
-		})
-	);
-
 	app.post(
-		'sign-up', //regisztráció
+		'/sign-up', //regisztráció
 		signUp_MW(objRep),
-		render_MW('ejs')
+		render_MW('index')
 	);
 
 	app.post(
-		'sign-in', // bejelentkezés
+		'/sign-in', // bejelentkezés
 		singIn_MW(objRep),
-		render_MW('ejs')
+		render_MW('index')
 	);
 
 	app.get(
-		'sign-out', // kijelentkezés
+		'/sign-out', // kijelentkezés
 		singOut_MW(),
-		render_MW('ejs')
+		render_MW('index')
 	);
 
 	app.use(
-		'lost-pw', // új jelszó kérés
+		'/lost-pw', // új jelszó kérés
 		lostPW_MW(objRep),
 		render_MW('ejs')
 	);
 
-	app.use(
-		'new-pw/:uid/:secret', // jelszó módosítás
-		getUserBySecret_MW,
-		setUser_MW('password'),
-		render_MW('ejs')
+	// app.use(
+	// 	'/new-pw/:uid/:secret', // jelszó módosítás
+	// 	getUserBySecret_MW,
+	// 	setUser_MW('password'),
+	// 	render_MW('ejs')
+	// );
+
+	app.get(
+		'/feed/followed',
+		auth_MW(objRep),
+		//getUserByID_MW,
+		getGreets_MW(objRep), // later getGreetsOfFollowed_MW
+		//getComments_MW,
+		render_MW('feed')
 	);
 
+	app.get(
+		'/feed/public',
+		auth_MW(objRep)
+		//getUserByID_MW,
+		//getGreets_MW,
+		//getComments_MW,
+		//render_MW
+	);
+
+	// Greets
+	app.post(
+		'/greet/:gid',
+		auth_MW(objRep),
+		//getGreetByID_MW,
+		//getUserByID_MW,
+		setGreet_MW(objRep)
+		//render_MW('index')
+	);
+
+	app.get(
+		'/greet/like/:gid',
+		auth_MW(objRep),
+		getGreetByID_MW(objRep),
+		likeGreet_MW(objRep),
+		//render_MW('index')
+	);
+
+	app.get('/', getGreets_MW(objRep), render_MW('index'));
 };

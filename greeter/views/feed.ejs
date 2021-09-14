@@ -1,18 +1,18 @@
 <%- include('header') %>
 
 <body cz-shortcut-listen="true">
-
-  <%- include('popups/signin') %>
-  <%- include('popups/signup') %>
   <header>
     <%- include('navbar') %>
   </header>
   <main>
     <div class="greets d-flex">
 
+
+
       <% greets.forEach(greet=> { %>
       <%- include('greet', {greet}) %>
       <% }) %>
+
 
     </div>
   </main>

@@ -5,15 +5,27 @@
   font-size: 100%;
 }
 
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
   position: relative;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  height: 100%;
+  width: 100%;
+  max-width: 1360px;
 }
 .footer {
   position: absolute;
@@ -29,11 +41,7 @@ body {
   -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-body > .container {
-  padding: 60px 15px 0;
-}
-
-.footer > .container {
+.footer {
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -44,10 +52,65 @@ code {
 
 
 /*
-* Navbar styles
-*/
+ * Navbar styles
+ */
+.navbar-brand {
+  margin: 1rem;
+}
 
-.navbar-brand img {
+.header-logo {
   height: 2rem;
   filter: invert();
+}
+
+.navbar-collapse {
+  justify-content: space-between;
+}
+
+
+/*
+ * Main Styles
+ */
+main {
+  height: 100%;
+  width: 100%;
+  padding-top: 15px;
+}
+
+.greets {
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.greet {
+  width: 90%;
+  margin-bottom: 30px;
+  max-width: 800px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+}
+
+.card-text {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(250, 250, 250);
+  box-shadow: 3px 3px 7px rgba(0,0,0,.1);
+}
+
+.likes p {
+  line-height: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+}
+
+/*
+ * Footer styles
+ */
+
+footer img {
+  height: 2rem;
+  margin-right: 1rem;
 }
