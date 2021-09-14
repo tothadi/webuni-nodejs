@@ -2,10 +2,11 @@ const uuid = require('uuid');
 const { genPassHash, checkPassHash } = require('../services/password');
 
 const render_MW = require('../middlewares/render_MW');
+const userError_MW = require('../middlewares/userError_MW');
 
 const signUp_MW = require('../middlewares/auth/signUp_MW');
-const singIn_MW = require('../middlewares/auth/signIn_MW');
-const singOut_MW = require('../middlewares/auth/signOut_MW');
+const signIn_MW = require('../middlewares/auth/signIn_MW');
+const signOut_MW = require('../middlewares/auth/signOut_MW');
 const auth_MW = require('../middlewares/auth/auth_MW');
 const lostPW_MW = require('../middlewares/auth/lostPW_MW');
 
@@ -35,14 +36,13 @@ module.exports = function (
 
 	app.post(
 		'/sign-in', // bejelentkezés
-		singIn_MW(objRep),
+		signIn_MW(objRep),
 		render_MW('index')
 	);
 
 	app.get(
 		'/sign-out', // kijelentkezés
-		singOut_MW(),
-		render_MW('index')
+		signOut_MW()
 	);
 
 	app.use(
@@ -94,5 +94,5 @@ module.exports = function (
 		//render_MW('index')
 	);
 
-	app.get('/', getGreets_MW(objRep), render_MW('index'));
+	app.get('/', getGreets_MW(objRep), userError_MW(), render_MW('index'));
 };

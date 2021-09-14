@@ -1,6 +1,8 @@
 <%- include('header') %>
 
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" <% if (typeof errorMessage !== 'undefined') { %> onload="showSignIn()" <% } %>>
+
+
 
   <%- include('popups/signin') %>
   <%- include('popups/signup') %>
@@ -8,6 +10,8 @@
     <%- include('navbar') %>
   </header>
   <main>
+
+
     <div class="greets d-flex">
 
       <% greets.forEach(greet=> { %>

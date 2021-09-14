@@ -9,15 +9,15 @@
 module.exports = (objRep) => {
 	const { userModel, checkPassHash } = objRep;
 	return (req, res, next) => {
+		
 		if (
 			typeof req.body.username === 'undefined' ||
 			typeof req.body.password === 'undefined'
 		) {
-			res.locals.errors = [
-				'A felhasználónév/email cím vagy jelszó nem megfelelő!',
-			];
+			res.locals.signInError = 'A felhasználónév/email cím vagy jelszó nem megfelelő!';
 			return next();
 		}
+
 
 		try {
 			res.locals.user = req.body.username.includes('@')
@@ -35,8 +35,8 @@ module.exports = (objRep) => {
 			}
 			req.session.uid = res.locals.user.uid;
 		} catch (err) {
-			res.locals.errors = [err.message];
-			return next();
+			req.session.signInError = err.message;
+			return res.redirect('/')//next();
 		}
 		return res.redirect('/feed/followed');
 	};
