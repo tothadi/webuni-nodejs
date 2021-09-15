@@ -14,8 +14,8 @@ module.exports = (objRep) => {
 			typeof req.body.username === 'undefined' ||
 			typeof req.body.password === 'undefined'
 		) {
-			res.locals.signInError = 'A felhasználónév/email cím vagy jelszó nem megfelelő!';
-			return next();
+			req.session.signInError = 'A felhasználónév/email cím vagy jelszó nem megfelelő!';
+			return res.redirect('/');
 		}
 
 
@@ -36,7 +36,7 @@ module.exports = (objRep) => {
 			req.session.uid = res.locals.user.uid;
 		} catch (err) {
 			req.session.signInError = err.message;
-			return res.redirect('/')//next();
+			return res.redirect('/');
 		}
 		return res.redirect('/feed/followed');
 	};

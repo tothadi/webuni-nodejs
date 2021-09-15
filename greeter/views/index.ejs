@@ -2,8 +2,6 @@
 
 <body cz-shortcut-listen="true" <% if (typeof errorMessage !== 'undefined') { %> onload="showSignIn()" <% } %>>
 
-
-
   <%- include('popups/signin') %>
   <%- include('popups/signup') %>
   <header>
@@ -15,7 +13,7 @@
     <div class="greets d-flex">
 
       <% greets.forEach(greet=> { %>
-      <%- include('greet', {greet}) %>
+      <%- include('greets/greet', {greet}) %>
       <% }) %>
 
     </div>

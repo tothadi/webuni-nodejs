@@ -1,31 +1,68 @@
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupModalLabel">Regisztráció</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Regisztráció</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/sign-up" method="POST">
+
+          <div class="mb-3">
+            <label for="role"></label>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email-cím</label>
+            <input type="text" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Írd ide az email-címedet!">
+          </div>
+
+          <div class="mb-3">
+            <label for="password" required class="form-label">Jelszó</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Add meg a jelszavad!">
+          </div>
+
+          <div class="row my-5">
+            <div class="col-md-4">
+              <div class="md-form">
+                <i class="fas fa-lock prefix"></i>
+                <input type="password" id="password" name="password" class="form-control validate" placeholder="Add meg a kívánt jelszót!">
+                <label for="password" data-error="wrong" data-success="right" style="width:200px;">Kívánt jelszó</label>
+              </div>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+            <div class="col-md-5">
+      
+              <div class="alert alert-warning password-alert" role="alert">
+                <ul>
+                  <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
+                  <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
+                  <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
+                  <li class="requirements special-char"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 special char.</li>
+                </ul>
+              </div>
+      
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="passwordcheck" required class="form-label">Jelszó mégegyszer</label>
+            <input type="password" class="form-control" name="passwordcheck" id="passwordcheck" placeholder="Add meg a jelszavad mégegyszer!">
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" required class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Greetelni is szeretnék!</label>
+          </div>
+
+
+          <div class="d-grid gap-2">
+            <button type="submit" disabled="#password !== #passwordcheck" class="btn btn-primary">Regisztráció</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>

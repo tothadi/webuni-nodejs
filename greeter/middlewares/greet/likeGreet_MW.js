@@ -22,6 +22,6 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
-		return saveToDB(next);
+		return saveToDB();
 	};
 };

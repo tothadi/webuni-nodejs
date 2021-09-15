@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="signinModalLabel">Bejelentkezés</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="/sign-in" method="POST">
@@ -11,15 +11,15 @@
 
           <div class="mb-3">
             <label for="username" class="form-label">Email-cím/felhasználónév</label>
-            <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Írd ide a felhasználóneved vagy jelszavad!">
+            <input type="text" required class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Add meg a felhasználóneved/email-címed!">
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Jelszó</label>
-            <input type="password" class="form-control" name="password" id="password">
+            <label for="password" required class="form-label">Jelszó</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Add meg a jelszavad!">
           </div>
-
-          <button type="submit" class="btn btn-primary">Bejelentkezés</button>
-
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn  btn-primary">Bejelentkezés</button>
+          </div>
           <% if (typeof errorMessage !== 'undefined') { %>
           <p class="userError">
             <%= errorMessage %>
@@ -29,7 +29,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>
       </div>
     </div>
   </div>

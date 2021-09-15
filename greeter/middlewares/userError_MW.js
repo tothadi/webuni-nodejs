@@ -4,6 +4,7 @@ module.exports = () => {
 			return next();
 		}
 		let context = { errorMessage: req.session.signInError };
+		delete req.session.signInError;
 		return res.render('index', context);
 	};
 };
