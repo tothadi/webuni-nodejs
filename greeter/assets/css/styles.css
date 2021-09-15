@@ -114,6 +114,7 @@ nav .show form {
 	margin: 0;
 }
 
+
 /*
  * Main Styles
  */
@@ -126,6 +127,11 @@ main {
 .greets {
 	flex-direction: column;
 	align-items: center;
+}
+
+.new-greet {
+	width: 90%;
+	max-width: 800px;
 }
 
 .greet {
