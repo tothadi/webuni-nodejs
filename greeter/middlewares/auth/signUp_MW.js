@@ -22,7 +22,7 @@ module.exports = (objRep) => {
 		try {
 			res.locals.user = userModel.insert({
 				uid: uuid.v4(),
-				role: !req.body.username || !req.body.fullname ? 'visitor' : 'user',
+				role: !req.body.username || !req.body.firstname || !req.body.lastname ? 'visitor' : 'user',
 				email: req.body.email,
 				password: genPassHash(req.body.password, req.session.secret),
 				...(req.body.username && { username: req.body.username }),

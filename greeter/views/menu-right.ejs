@@ -9,7 +9,7 @@
 </ul>
 <% } else { %>
 
-<% if (typeof user.role === 'user') { %>
+<% if (user.role === 'user') { %>
 <p class="nav-link" id="greeting">
   Üdv újra itt, <strong> <%= user.firstname %></strong>!
 </p>
