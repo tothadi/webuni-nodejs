@@ -1,39 +1,37 @@
 <div class="card greet">
-    <% greet.pics.forEach(pic=> { %>
-        <img src="<%= pic %> " class="card-img-top" alt="greetkép">
-        <% }) %>
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <img src="<%= typeof greet.authorAvatar !== 'undefined' ? `/profile/avatar/${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle" height="36" loading="lazy">
-                    <a href="/profile/<%= greet.author %>">
-                        <%= greet.authorName %>
-                    </a>
-                    </div>
-                    <p>
-                        <%= new Date(greet.date).toLocaleString() %>
-                    </p>
-                </div>
+  <% greet.pics.forEach(pic=> { %>
+  <img src="<%= pic %> " class="card-img-top" alt="greetkép">
+  <% }) %>
+  <div class="card-body">
+    <div class="greet-header d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <img src="<%= typeof greet.authorAvatar !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
+        <a class="author-name" href="/profile/<%= greet.author %>">
+          <%= greet.authorName %>
+        </a>
+      </div>
+      <p>
+        <%= new Date(greet.date).toLocaleString() %>
+      </p>
+    </div>
 
-                <p class="card-text">
-                    <%= greet.text %>
-                </p>
-                <div class="d-flex justify-content-start likes">
-                    <form method="GET" action="/greet/like/<%= greet.gid %>">
-                        <button class="btn btn-link" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                            </svg>
-                        </button>
-                        
-                    </form>
-                    <% if (greet.likerCount) { %>
-                        <p>
-                            <%= greet.likerCount %>
-                        </p>
-                        <% } %>
-                </div>
-                <!-- Kommentek, like, stb. -->
-            </div>
+    <p class="card-text">
+      <%= greet.text %>
+    </p>
+    <div class="d-flex justify-content-start likes">
+      <form method="GET" action="/greet/like/<%= greet.gid %>">
+        <button class="btn btn-link" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+          </svg>
+        </button>
+
+      </form>
+      <% if (greet.likerCount) { %>
+      <p>
+        <%= greet.likerCount %>
+      </p>
+      <% } %>
+    </div>
+    <!-- Kommentek, like, stb. -->
+  </div>
 </div>

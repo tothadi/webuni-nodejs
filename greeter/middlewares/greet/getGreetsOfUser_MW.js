@@ -15,7 +15,6 @@ module.exports = (objRep) => {
 				.find({ author: res.locals.user.uid })
 				.map((greet) => {
 					const author = userModel.findOne({ uid: greet.author });
-					console.log(author);
 					greet.authorName = author.username;
 					greet.authorAvatar = author.avatar;
 					return greet;

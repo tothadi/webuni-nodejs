@@ -19,7 +19,7 @@
 <div class="nav-link" id="notifications">
   <button type="submit" class="btn btn-primary btn-floating mx-1" id="navbarDropdownMenuLink" data-mdb-toggle="dropdown">
     <i class="fas fa-bell"></i>
-    
+
   </button>
   <span class="badge rounded-pill badge-notification bg-danger">1</span>
   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -30,7 +30,7 @@
 </div>
 
 <a class="nav-link" href="/profile/<%= user.uid %> ">
-  <img src="<%= typeof user.avatar !== 'undefined' ? `/profile/avatar/${'myphoto.jpg'}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle" height="36" loading="lazy">
+  <img src="<%= typeof user.avatar !== 'undefined' ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
 </a>
 
 

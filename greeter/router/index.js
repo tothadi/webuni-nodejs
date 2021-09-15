@@ -11,6 +11,7 @@ const auth_MW = require('../middlewares/auth/auth_MW');
 const lostPW_MW = require('../middlewares/auth/lostPW_MW');
 
 const getUserByID_MW = require('../middlewares/user/getUserByID_MW');
+const sendAvatar_MW = require('../middlewares/user/sendAvatar_MW');
 
 const setGreet_MW = require('../middlewares/greet/setGreet_MW');
 const getGreets_MW = require('../middlewares/greet/getGreets_MW');
@@ -20,7 +21,7 @@ const likeGreet_MW = require('../middlewares/greet/likeGreet_MW');
 
 module.exports = function (
 	app,
-	{ userModel, greetModel, commentModel, saveToDB }
+	{ userModel, greetModel, commentModel, saveToDB, join }
 ) {
 	const objRep = {
 		userModel,
@@ -28,6 +29,7 @@ module.exports = function (
 		commentModel,
 		saveToDB,
 		uuid,
+		join,
 		genPassHash,
 		checkPassHash,
 	};
@@ -90,6 +92,13 @@ module.exports = function (
 		getGreetsOfUser_MW(objRep),
 		//getComments_MW(objRep),
 		render_MW('profile')
+	);
+
+	app.get(
+		'/profile/avatar/:uid',
+		auth_MW(objRep),
+		getUserByID_MW(objRep),
+		sendAvatar_MW(join)
 	);
 
 	// Greets

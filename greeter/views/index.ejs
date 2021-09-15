@@ -12,11 +12,10 @@
 
     <div class="greets d-flex">
 
-      <% greets.forEach(greet=> { %>
-      <%- include('greets/greet', {greet}) %>
-      <% }) %>
+      <%- include('greets/greet-list') %>
 
     </div>
+    
   </main>
 
   <%- include('footer') %>

@@ -8,8 +8,8 @@ module.exports = (objRep) => {
 	const { userModel } = objRep;
 	return (req, res, next) => {
 		if (typeof req.session.uid === 'undefined') {
-			//req.session.uid = '867324c6-320a-4af0-864c-79a17fe265d7';
-			return res.redirect('/');
+			req.session.uid = '30ce4884-0583-4806-8547-d303e1a287df';
+			//return res.redirect('/');
 		}
 
 		try {

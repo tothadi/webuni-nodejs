@@ -98,20 +98,20 @@ nav .show form {
  */
 
 .form-outline .form-control {
-  border-radius: 0;
+	border-radius: 0;
 	border-bottom: 1px solid;
 }
 
 .text-center p {
-  cursor: unset;
+	cursor: unset;
 }
 
 .text-center p a {
-  pointer-events: all;
+	pointer-events: all;
 }
 
 .alert p {
-  margin: 0;
+	margin: 0;
 }
 
 /*
@@ -134,6 +134,28 @@ main {
 	max-width: 800px;
 	border-radius: 6px;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.greet-header {
+	height: 48px;
+}
+
+.author-name {
+	margin-left: 18px;
+}
+
+.avatar {
+	object-fit: cover; /* Do not scale the image */
+	object-position: center; /* Center the image within the element */
+	width: 36px;
+	max-height: 36px;
+	pointer-events: all;
+	cursor: pointer;
+	transition: all 500ms ease-in-out;
+}
+
+.avatar:hover {
+	transform: scale(1.2);
 }
 
 .card-text {

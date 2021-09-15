@@ -30,6 +30,7 @@ module.exports = (objRep) => {
 				...(req.body.lastname && { lastname: req.body.lastname }),
 				following: [],
 				followCount: 0,
+				avatar: 'myphoto.jpg',
 				greetCount: 0,
 				regDate: new Date(),
 				lost: false,

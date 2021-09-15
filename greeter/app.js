@@ -27,9 +27,9 @@ initDB((err, { userModel, greetModel, commentModel, saveToDB }) => {
 		return console.log("Application can't start, beacuse: /n", err.message);
 	}
 
-	//console.table(greetModel.find())
+	console.table(greetModel.find())
 
-    require('./router/index')(app, { userModel, greetModel, commentModel, saveToDB });
+    require('./router/index')(app, { userModel, greetModel, commentModel, saveToDB, join });
 	app.listen(port, '0.0.0.0', () => {
 		console.log(`Server listening on port: ${port}`);
 	});
