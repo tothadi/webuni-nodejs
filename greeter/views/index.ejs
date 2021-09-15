@@ -1,6 +1,6 @@
 <%- include('header') %>
 
-<body cz-shortcut-listen="true" <% if (typeof errorMessage !== 'undefined') { %> onload="showSignIn()" <% } %>>
+<body cz-shortcut-listen="true" <% if (typeof signInError !== 'undefined') { %> onload="showSignIn()" <% } %> <% if (typeof signUpError !== 'undefined') { %> onload="showSignUp()" <% } %>>
 
   <%- include('popups/signin') %>
   <%- include('popups/signup') %>

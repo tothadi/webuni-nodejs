@@ -9,24 +9,41 @@
         <form action="/sign-in" method="POST">
 
 
-          <div class="mb-3">
+          <div class="form-outline mb-4">
+            <input type="text" required autocomplete="off" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Add meg a felhasználóneved/email-címed!">
             <label for="username" class="form-label">Email-cím/felhasználónév</label>
-            <input type="text" required class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Add meg a felhasználóneved/email-címed!">
           </div>
-          <div class="mb-3">
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" class="form-control" autocomplete="off" name="password" id="password" placeholder="Add meg a jelszavad!">
             <label for="password" required class="form-label">Jelszó</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Add meg a jelszavad!">
           </div>
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn  btn-primary">Bejelentkezés</button>
+
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="text-center">
+              <!-- Simple link -->
+              <a href="#!">Elfelejtetted a jelszavad?</a>
+            </div>
           </div>
-          <% if (typeof errorMessage !== 'undefined') { %>
-          <p class="userError">
-            <%= errorMessage %>
-          </p>
-          <% } %>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">Bejelentkezés</button>
+
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Még nem vagy a felhasználónk? <a data-mdb-dismiss="modal" data-mdb-toggle="modal" data-mdb-target="#signupModal">Regisztrálj!</a></p>
+          </div>
 
         </form>
+        <% if (typeof signInError !== 'undefined') { %>
+        <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
+          <p>
+            <%= signInError %>
+          </p>
+        </div>
+        <% } %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>

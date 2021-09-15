@@ -13,14 +13,12 @@ module.exports = (objRep) => {
 		try {
 			res.locals.greets = greetModel
 				.find({ visibility: 'public' })
-				.map(
-					(greet) => {
-						const author = userModel.findOne({ uid: greet.author })
-						greet.authorName = author.username;
-						greet.authorAvatar = author.avatar;
-						return greet;
-					}
-				);
+				.map((greet) => {
+					const author = userModel.findOne({ uid: greet.author });
+					greet.authorName = author.username;
+					greet.authorAvatar = author.avatar;
+					return greet;
+				});
 		} catch (err) {
 			if (err) return next(err);
 		}

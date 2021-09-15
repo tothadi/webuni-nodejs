@@ -4,9 +4,12 @@
         <% }) %>
             <div class="card-body">
                 <div class="d-flex justify-content-between">
+                    <div class="d-flex">
+                        <img src="<%= typeof greet.authorAvatar !== 'undefined' ? `/profile/avatar/${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle" height="36" loading="lazy">
                     <a href="/profile/<%= greet.author %>">
                         <%= greet.authorName %>
                     </a>
+                    </div>
                     <p>
                         <%= new Date(greet.date).toLocaleString() %>
                     </p>

@@ -1,131 +1,155 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-size: 100%;
+	user-select: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+img {
+	pointer-events: none;
+	cursor: not-allowed;
 }
 
 a {
-  text-decoration: none;
-  cursor: pointer;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	width: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  height: 100%;
-  width: 100%;
-  max-width: 1360px;
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+	height: 100%;
+	width: 100%;
+	max-width: 1360px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	line-height: 60px; /* Vertically center the text there */
+	padding-right: 15px;
+	padding-left: 15px;
 }
-
-/* Custom page CSS
-  -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-code {
-  font-size: 80%;
-}
-
 
 /*
  * Navbar styles
  */
-.navbar-brand {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.header-logo {
-  height: 2rem;
-  filter: invert();
-}
 
 .navbar-collapse {
-  justify-content: space-between;
+	justify-content: space-between;
 }
 
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+nav i {
+	font-size: 20px;
 }
 
-.nav-item p {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+nav .show form {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#greeting {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0;
+	color: whitesmoke;
+}
+
+#greeting strong {
+	margin-left: 5px;
+	color: white;
+}
+
+#notifications {
+	position: relative;
+}
+
+#notifications .badge {
+	z-index: 10;
+}
+
+.dropdown-menu[data-mdb-popper] {
+	position: absolute;
+	right: 0;
+	left: unset;
+}
+
+/*
+ * Form styles
+ */
+
+.form-outline .form-control {
+  border-radius: 0;
+	border-bottom: 1px solid;
+}
+
+.text-center p {
+  cursor: unset;
+}
+
+.text-center p a {
+  pointer-events: all;
+}
+
+.alert p {
   margin: 0;
 }
-
-.nav-item strong {
-  margin-left: 5px;
-}
-
-.nav-item img {
-  height: 2rem;
-}
-
-
 
 /*
  * Main Styles
  */
 main {
-  height: 100%;
-  width: 100%;
-  padding-top: 15px;
+	height: 100%;
+	width: 100%;
+	padding-top: 15px;
 }
 
 .greets {
-  flex-direction: column;
-  align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
- 
+
 .greet {
-  width: 90%;
-  margin-bottom: 30px;
-  max-width: 800px;
-  border-radius: 6px;
-  box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+	width: 90%;
+	margin-bottom: 30px;
+	max-width: 800px;
+	border-radius: 6px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card-text {
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #363636;
-  box-shadow: 3px 3px 7px rgba(0,0,0,.1);
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #363636;
+	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
 .likes p {
-  line-height: 1.5rem;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
+	line-height: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0;
 }
 
 /*
@@ -133,6 +157,6 @@ main {
  */
 
 footer img {
-  height: 2rem;
-  margin-right: 1rem;
+	height: 2rem;
+	margin-right: 1rem;
 }

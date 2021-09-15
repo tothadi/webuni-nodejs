@@ -27,6 +27,13 @@
   <g
      transform="translate(-47.959687,-68.26985)"
      id="layer1">
+     <style>
+     @media (prefers-color-scheme: dark) {
+      path {
+        filter: invert();
+      }
+    }
+     </style>
     <path
        transform="matrix(0.26458333,0,0,0.26458333,47.959687,68.26985)"
        id="text25"

@@ -8,57 +8,69 @@
       <div class="modal-body">
         <form action="/sign-up" method="POST">
 
-          <div class="mb-3">
-            <label for="role"></label>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input autocomplete="off" type="email" id="email" required name="email" class="form-control" />
+            <label class="form-label" for="email">Email-cím</label>
           </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email-cím</label>
-            <input type="text" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Írd ide az email-címedet!">
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="password" required name="password" class="form-control" />
+            <label class="form-label" for="password">Jelszó</label>
           </div>
 
-          <div class="mb-3">
-            <label for="password" required class="form-label">Jelszó</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Add meg a jelszavad!">
+          <div class="form-check form-switch d-flex justify-content-center mb-4">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-mdb-toggle="collapse" data-mdb-target="#additional" aria-expanded="false" aria-controls="additional" />
+            <label class="form-check-label" for="flexSwitchCheckDefault">Szeretnék greetelni is!</label>
           </div>
 
-          <div class="row my-5">
-            <div class="col-md-4">
-              <div class="md-form">
-                <i class="fas fa-lock prefix"></i>
-                <input type="password" id="password" name="password" class="form-control validate" placeholder="Add meg a kívánt jelszót!">
-                <label for="password" data-error="wrong" data-success="right" style="width:200px;">Kívánt jelszó</label>
+          <div class="collapse" id="additional">
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input autocomplete="off" type="text" id="firstname" name="firstname" class="form-control" />
+                  <label class="form-label" for="firstname">Keresztnév</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input autocomplete="off" type="text" id="lastname" name="lastname" class="form-control" />
+                  <label class="form-label" for="lastname">Vezetéknév</label>
+                </div>
               </div>
             </div>
-            <div class="col-md-5">
-      
-              <div class="alert alert-warning password-alert" role="alert">
-                <ul>
-                  <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
-                  <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
-                  <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
-                  <li class="requirements special-char"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 special char.</li>
-                </ul>
-              </div>
-      
+
+            <div class="form-outline mb-4">
+              <input autocomplete="off" type="username" id="username" name="username" class="form-control" />
+              <label class="form-label" for="username">Felhasználónév</label>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label for="passwordcheck" required class="form-label">Jelszó mégegyszer</label>
-            <input type="password" class="form-control" name="passwordcheck" id="passwordcheck" placeholder="Add meg a jelszavad mégegyszer!">
+          <!-- Checkbox -->
+          <div class="form-check d-flex justify-content-center mb-4">
+            <input class="form-check-input me-2" type="checkbox" value="" id="conditions" required />
+            <label class="form-check-label" for="conditions">
+              Elfogadom a <a href="#">felhasználási feltételeket</a>.
+            </label>
           </div>
 
-          <div class="mb-3 form-check">
-            <input type="checkbox" required class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Greetelni is szeretnék!</label>
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">Regisztráció</button>
+
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Már regisztráltál? <a data-mdb-dismiss="modal" data-mdb-toggle="modal" data-mdb-target="#signinModal">Lépj be!</a></p>
           </div>
 
-
-          <div class="d-grid gap-2">
-            <button type="submit" disabled="#password !== #passwordcheck" class="btn btn-primary">Regisztráció</button>
-          </div>
         </form>
+        <% if (typeof signUpError !== 'undefined') { %>
+          <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
+            <p>
+              <%= signUpError %>
+            </p>
+          </div>
+          <% } %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>

@@ -16,3 +16,7 @@ function showSignIn() {
     setPos();
 }
 
+function showSignUp() {
+    document.getElementById('toggleSignUp').click();
+    setPos();
+}

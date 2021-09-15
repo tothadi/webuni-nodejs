@@ -15,8 +15,8 @@ module.exports = (objRep) => {
 			typeof req.body.email === 'undefined' ||
 			typeof req.body.password === 'undefined'
 		) {
-			res.locals.errors = ['Az email-cím és a jelszó megadása kötelező!'];
-			return next();
+			req.session.signUpError = 'Az email-cím és a jelszó megadása kötelező!';
+			return res.redirect('/');
 		}
 
 		try {
@@ -26,7 +26,8 @@ module.exports = (objRep) => {
 				email: req.body.email,
 				password: genPassHash(req.body.password, req.session.secret),
 				...(req.body.username && { username: req.body.username }),
-				...(req.body.fullname && { fullname: req.body.fullname }),
+				...(req.body.firstname && { firstname: req.body.firstname }),
+				...(req.body.lastname && { lastname: req.body.lastname }),
 				following: [],
 				followCount: 0,
 				greetCount: 0,
@@ -34,10 +35,12 @@ module.exports = (objRep) => {
 				lost: false,
 			});
 			req.session.uid = res.locals.user.uid;
-			res.redirect(`profile/${req.session.uid}`);
 		} catch (err) {
-			res.locals.errors = [err.message];
-			return saveToDB(next);
+			console.log(err.message)
+			req.session.signUpError = 'Az email-cím vagy felhasználónév foglalt!';
+			return res.redirect('/');
 		}
+		saveToDB();
+		return res.redirect(`profile/${req.session.uid}`);
 	};
 };
