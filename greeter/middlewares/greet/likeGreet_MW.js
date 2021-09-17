@@ -26,10 +26,6 @@ module.exports = (objRep) => {
 			if (err) return next(err);
 		}
 		saveToDB();
-		// return res.json({
-		// 	likerCount: res.locals.greet.likerCount,
-		// 	likes: res.locals.greet.likerIDs.includes(req.session.uid)
-		// })
 		return res.redirect(req.body.redirectTo);
 	};
 };

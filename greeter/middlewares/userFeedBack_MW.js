@@ -17,6 +17,12 @@ module.exports = () => {
 				};
 				res.locals.toRender = 'index';
 				break;
+			case 'setAvatar':
+				res.locals.context = {
+					userError: { signUpError: req.session.feedBack.message },
+				};
+				res.locals.toRender = 'profile/profile';
+				break;
 			case 'setGreet':
 				res.locals.context =
 					req.session.feedBack.fbType === 'fbError'

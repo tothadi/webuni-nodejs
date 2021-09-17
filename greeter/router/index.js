@@ -1,6 +1,3 @@
-const uuid = require('uuid');
-const { genPassHash, checkPassHash } = require('../services/password');
-
 const render_MW = require('../middlewares/render_MW');
 const userFeedBack_MW = require('../middlewares/userFeedBack_MW');
 const isValidRoute_MW = require('../middlewares/isValidRoute_MW');
@@ -14,6 +11,9 @@ const redirectToFeed_MW = require('../middlewares/auth/redirectToFeed_MW');
 
 const getUserByID_MW = require('../middlewares/user/getUserByID_MW');
 const sendAvatar_MW = require('../middlewares/user/sendAvatar_MW');
+const setUserAvatar_MW = require('../middlewares/user/setUserAvatar_MW');
+const delUserAvatar_MW = require('../middlewares/user/delUserAvatar_MW');
+const followUser_MW = require('../middlewares/user/followUser_MW');
 
 const setGreet_MW = require('../middlewares/greet/setGreet_MW');
 const getGreets_MW = require('../middlewares/greet/getGreets_MW');
@@ -23,17 +23,31 @@ const likeGreet_MW = require('../middlewares/greet/likeGreet_MW');
 
 module.exports = function (
 	app,
-	{ userModel, greetModel, commentModel, saveToDB, join }
+	{
+		userModel,
+		greetModel,
+		commentModel,
+		fileExts,
+		saveToDB,
+		genPassHash,
+		checkPassHash,
+		uploadAvatar,
+		v4,
+		join,
+		unlinkSync,
+	}
 ) {
 	const objRep = {
 		userModel,
 		greetModel,
 		commentModel,
+		fileExts,
 		saveToDB,
-		uuid,
-		join,
 		genPassHash,
 		checkPassHash,
+		v4,
+		join,
+		unlinkSync,
 	};
 
 	app.post(
@@ -66,9 +80,6 @@ module.exports = function (
 	// 	render_MW('ejs')
 	// );
 
-
-
-
 	// Feed
 
 	app.get(
@@ -82,9 +93,6 @@ module.exports = function (
 		render_MW('feed', 'feed')
 	);
 
-
-
-
 	// Profiles
 
 	app.get(
@@ -95,16 +103,37 @@ module.exports = function (
 		getGreetsOfUser_MW(objRep),
 
 		//getComments_MW(objRep),
-		
+
 		userFeedBack_MW(),
-		render_MW('profile')
+		render_MW('profile/profile')
 	);
 
 	app.get(
 		'/profile/avatar/:uid',
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
-		sendAvatar_MW(join)
+		sendAvatar_MW(objRep)
+	);
+
+	app.post(
+		'/profile/set-avatar',
+		auth_MW(objRep),
+		uploadAvatar.single('avatar'),
+		setUserAvatar_MW(objRep)
+	);
+
+	app.post(
+		'/profile/del-avatar',
+		auth_MW(objRep),
+		getUserByID_MW(objRep),
+		delUserAvatar_MW(objRep)
+	);
+
+	app.get(
+		'/profile/follow/:uid',
+		auth_MW(objRep),
+		getUserByID_MW(objRep),
+		followUser_MW(objRep)
 	);
 
 	// Greets

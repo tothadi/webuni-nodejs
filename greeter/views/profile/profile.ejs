@@ -1,11 +1,15 @@
-<%- include('header') %>
+<%- include('../header') %>
 
 <body cz-shortcut-listen="true">
+  <%- include('../popups/delete-confirm') %> 
+  <%- include('../popups/modify-modal') %> 
   <header>
-    <%- include('navbar') %>
+    <%- include('../nav/navbar') %>
   </header>
   <main>
     <div class="greets d-flex">
+
+      <%- include('profile-data', { user, lastGreet: greets[0], userIn, redirectTo: `/profile/${user.uid}` }) %>
 
       <% if (typeof greetFeedBack !== 'undefined') { %>
       <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert" data-mdb-color="danger">
@@ -16,17 +20,17 @@
       <% } %>
 
       <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-      <%- include('greets/new-greet', {redirectTo: `/profile/${userIn.uid}`}) %>
+      <%- include('../greets/new-greet', {redirectTo: `/profile/${userIn.uid}`}) %>
       <% } %>
 
       <% greets.forEach(greet=> { %>
-      <%- include('greets/greet', {greet, redirectTo: `/profile/${userIn.uid}`}) %>
+      <%- include('../greets/greet', {greet, redirectTo: `/profile/${userIn.uid}`}) %>
       <% }) %>
 
     </div>
   </main>
 
-  <%- include('footer') %>
+  <%- include('../footer') %>
 
 </body>
 

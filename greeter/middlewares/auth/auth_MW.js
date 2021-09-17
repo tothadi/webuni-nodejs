@@ -19,7 +19,6 @@ module.exports = (objRep) => {
 				return res.redirect('/');
 			}
 		}
-
 		return next();
 	};
 };

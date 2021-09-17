@@ -24,7 +24,6 @@ module.exports = (objRep) => {
 			req.params.uid = req.params.uid.split('.')[0];
 		}
 		const id = req.params.uid || req.session.uid;
-
 		try {
 			res.locals.user = userModel.findOne({ uid: id });
 		} catch (err) {

@@ -16,7 +16,7 @@
 <% } %>
 
 <a class="nav-link" href="/profile/<%= userIn.uid %> ">
-  <img src="<%= typeof userIn.avatar !== 'undefined' ? `/profile/avatar/${userIn.uid}.${userIn.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
+  <img src="<%= userIn.avatar.length ? `/profile/avatar/${userIn.uid}.${userIn.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
 </a>
 
 <!-- Notifications -->
