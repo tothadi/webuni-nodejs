@@ -1,6 +1,5 @@
 <%- include('header') %>
 
-
 <body cz-shortcut-listen="true">
   <header>
     <%- include('navbar') %>
@@ -17,12 +16,13 @@
       <% } %>
 
       <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-      <%- include('greets/new-greet', {redirectTo}) %>
+      <%- include('greets/new-greet', {redirectTo: `/profile/${userIn.uid}`}) %>
       <% } %>
 
       <% greets.forEach(greet=> { %>
-      <%- include('greets/greet', {greet, redirectTo}) %>
+      <%- include('greets/greet', {greet, redirectTo: `/profile/${userIn.uid}`}) %>
       <% }) %>
+
     </div>
   </main>
 

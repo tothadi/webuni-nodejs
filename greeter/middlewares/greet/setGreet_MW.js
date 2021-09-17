@@ -17,35 +17,52 @@
 module.exports = (objRep) => {
 	const { greetModel, saveToDB, uuid } = objRep;
 	return (req, res, next) => {
+		const redirectTo = req.body.redirectTo || '/';
 		if (typeof req.body.text === 'undefined') {
-			res.locals.errors = ['Üres greet!'];
-			return next();
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'setGreet',
+				message: 'Üres greet!',
+			};
+			return res.redirect(redirectTo);
 		}
 
 		try {
-			if (typeof res.locals.greet === 'undefined') {
-				greetModel.insert({
-					gid: uuid.v4(),
-					author: req.session.uid,
-					likerIDs: [],
-					likerCount: 0,
-					text: req.body.text,
-					pics: [],
-					visibility: req.body.visibility,
-					commentCount: 0,
-					date: new Date(),
-					...(req.body.regreetID && { regreetOf: req.body.regreetID }),
-				});
-				res.locals.user.greetCount++;
-				res.locals.success = 'A greet mentésre került.';
-			} else {
+			if (res.locals.greet !== null) {
 				res.locals.greet.text = req.body.text;
-				res.locals.success = 'A greet sikeresen módosítva.';
+				return (req.session.feedBack = {
+					fbType: 'fbSuccess',
+					initiator: 'setGreet',
+					message: 'A greet sikeresen módosítva.',
+				});
 			}
-			
+			greetModel.insert({
+				gid: uuid.v4(),
+				author: req.session.uid,
+				likerIDs: [],
+				likerCount: 0,
+				text: req.body.text,
+				pics: [],
+				visibility: req.body.visibility ? 'public' : 'restricted',
+				commentCount: 0,
+				date: new Date().getTime(),
+				...(req.body.regreetID && { regreetOf: req.body.regreetID }),
+			});
+			res.locals.user.greetCount++;
+			req.session.feedBack = {
+				fbType: 'fbSuccess',
+				initiator: 'setGreet',
+				message: 'A greet mentésre került.',
+			};
 		} catch (err) {
-			if (err) return next(err);
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'setGreet',
+				message: err.message,
+			};
+			return res.redirect(redirectTo);
 		}
-		return saveToDB(next);
+		saveToDB();
+		return res.redirect(redirectTo);
 	};
 };

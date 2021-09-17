@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav id="top-nav" class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav id="top-nav" class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <a class="navbar-brand mt-2 mt-lg-0" href="/">
@@ -21,6 +21,16 @@
         </span>
       </form>
 
+      <% if (typeof userIn !== 'undefined') { %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/feed/followed" id="followed" ><i class="fas fa-lock"></i> Követett felhasználók</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/feed/public" id="public"><i class="fas fa-lock-open"></i> Összes greet</a>
+          </li>
+        </ul>
+      <%}%>
       <div id="menu-right" class="d-flex align-items-center justify-content-center">
         <%- include('menu-right') %>
       </div>

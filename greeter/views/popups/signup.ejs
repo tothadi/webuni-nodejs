@@ -10,14 +10,14 @@
 
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input autocomplete="off" type="email" id="email" required name="email" class="form-control" />
-            <label class="form-label" for="email">Email-cím</label>
+            <input autocomplete="off" type="email" id="regEmail" required name="regEmail" class="form-control" />
+            <label class="form-label" for="regEmail">Email-cím</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="password" required name="password" class="form-control" />
-            <label class="form-label" for="password">Jelszó</label>
+            <input type="password" id="regPassword" required name="regPassword" class="form-control" />
+            <label class="form-label" for="regPassword">Jelszó</label>
           </div>
 
           <div class="form-check form-switch d-flex justify-content-center mb-4">
@@ -29,21 +29,21 @@
             <div class="row mb-4">
               <div class="col">
                 <div class="form-outline">
-                  <input autocomplete="off" type="text" id="firstname" name="firstname" class="form-control" />
-                  <label class="form-label" for="firstname">Keresztnév</label>
+                  <input autocomplete="off" type="text" id="regFirstname" name="regFirstname" class="form-control" />
+                  <label class="form-label" for="regFirstname">Keresztnév</label>
                 </div>
               </div>
               <div class="col">
                 <div class="form-outline">
-                  <input autocomplete="off" type="text" id="lastname" name="lastname" class="form-control" />
-                  <label class="form-label" for="lastname">Vezetéknév</label>
+                  <input autocomplete="off" type="text" id="regLastname" name="regLastname" class="form-control" />
+                  <label class="form-label" for="regLastname">Vezetéknév</label>
                 </div>
               </div>
             </div>
 
             <div class="form-outline mb-4">
-              <input autocomplete="off" type="username" id="username" name="username" class="form-control" />
-              <label class="form-label" for="username">Felhasználónév</label>
+              <input autocomplete="off" type="text" id="regUsername" name="regUsername" class="form-control" />
+              <label class="form-label" for="regUsername">Felhasználónév</label>
             </div>
           </div>
 
@@ -64,10 +64,10 @@
           </div>
 
         </form>
-        <% if (typeof signUpError !== 'undefined') { %>
+        <% if (typeof userError !== 'undefined' && typeof userError.signUpError !== 'undefined') { %>
           <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
             <p>
-              <%= signUpError %>
+              <%= userError.signUpError %>
             </p>
           </div>
           <% } %>

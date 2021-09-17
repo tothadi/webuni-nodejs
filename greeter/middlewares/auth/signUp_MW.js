@@ -12,33 +12,45 @@ module.exports = (objRep) => {
 	const { userModel, saveToDB, genPassHash, uuid } = objRep;
 	return (req, res, next) => {
 		if (
-			typeof req.body.email === 'undefined' ||
-			typeof req.body.password === 'undefined'
+			typeof req.body.regEmail === 'undefined' ||
+			typeof req.body.regPassword === 'undefined'
 		) {
-			req.session.signUpError = 'Az email-cím és a jelszó megadása kötelező!';
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'signUp',
+				message: 'Az email-cím és a jelszó megadása kötelező!',
+			};
 			return res.redirect('/');
 		}
 
 		try {
 			res.locals.user = userModel.insert({
 				uid: uuid.v4(),
-				role: !req.body.username || !req.body.firstname || !req.body.lastname ? 'visitor' : 'user',
-				email: req.body.email,
-				password: genPassHash(req.body.password, req.session.secret),
-				...(req.body.username && { username: req.body.username }),
-				...(req.body.firstname && { firstname: req.body.firstname }),
-				...(req.body.lastname && { lastname: req.body.lastname }),
+				role:
+					!req.body.regUsername ||
+					!req.body.regFirstname ||
+					!req.body.regLastname
+						? 'visitor'
+						: 'user',
+				email: req.body.regEmail,
+				password: genPassHash(req.body.regPassword, req.session.secret),
+				...(req.body.regUsername && { username: req.body.regUsername }),
+				...(req.body.regFirstname && { firstname: req.body.regFirstname }),
+				...(req.body.regLastname && { lastname: req.body.regLastname }),
 				following: [],
 				followCount: 0,
-				avatar: 'myphoto.jpg',
 				greetCount: 0,
 				regDate: new Date(),
 				lost: false,
 			});
 			req.session.uid = res.locals.user.uid;
 		} catch (err) {
-			console.log(err.message)
-			req.session.signUpError = 'Az email-cím vagy felhasználónév foglalt!';
+			console.log(err.message);
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'signUp',
+				message: 'Az email-cím vagy felhasználónév foglalt!',
+			};
 			return res.redirect('/');
 		}
 		saveToDB();

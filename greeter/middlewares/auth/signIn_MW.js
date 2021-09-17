@@ -9,15 +9,17 @@
 module.exports = (objRep) => {
 	const { userModel, checkPassHash } = objRep;
 	return (req, res, next) => {
-		
 		if (
 			typeof req.body.username === 'undefined' ||
 			typeof req.body.password === 'undefined'
 		) {
-			req.session.signInError = 'A felhasználónév/email cím vagy jelszó nem megfelelő!';
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'signIn',
+				message: 'A felhasználónév/email cím vagy jelszó nem megfelelő!',
+			};
 			return res.redirect('/');
 		}
-
 
 		try {
 			res.locals.user = req.body.username.includes('@')
@@ -28,14 +30,18 @@ module.exports = (objRep) => {
 					'A felhasználónév/email cím vagy jelszó nem megfelelő!'
 				);
 			}
-			if (!checkPassHash) {
+			if (!checkPassHash(req.body.password, res.locals.user.password)) {
 				throw new Error(
 					'A felhasználónév/email cím vagy jelszó nem megfelelő!'
 				);
 			}
 			req.session.uid = res.locals.user.uid;
 		} catch (err) {
-			req.session.signInError = err.message;
+			req.session.feedBack = {
+				fbType: 'fbError',
+				initiator: 'signIn',
+				message: err.message,
+			};
 			return res.redirect('/');
 		}
 		return res.redirect('/feed/followed');

@@ -11,9 +11,12 @@
 module.exports = (objRep) => {
 	const { saveToDB } = objRep;
 	return (req, res, next) => {
+		
+		req.session.scroll = parseInt(req.body.scroll, 10);
+
 		try {
 			if (res.locals.greet.likerIDs.includes(req.session.uid)) {
-                let index = res.locals.greet.likerIDs.indexOf(req.session.uid);
+				let index = res.locals.greet.likerIDs.indexOf(req.session.uid);
 				res.locals.greet.likerIDs.splice(index, 1);
 			} else {
 				res.locals.greet.likerIDs.push(req.session.uid);
@@ -22,6 +25,11 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
-		return saveToDB();
+		saveToDB();
+		// return res.json({
+		// 	likerCount: res.locals.greet.likerCount,
+		// 	likes: res.locals.greet.likerIDs.includes(req.session.uid)
+		// })
+		return res.redirect(req.body.redirectTo);
 	};
 };

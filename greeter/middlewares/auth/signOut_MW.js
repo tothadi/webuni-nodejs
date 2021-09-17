@@ -9,7 +9,6 @@ module.exports = () => {
 		req.session.destroy((err) => {
 			if (err) console.error('Session destroy:', err.message);
 		});
-		console.log(req.session)
 		return res.redirect('/');
 	};
 };

@@ -12,7 +12,10 @@ module.exports = (objRep) => {
 	return (req, res, next) => {
 		try {
 			res.locals.greets = greetModel
+				.chain()
 				.find({ author: res.locals.user.uid })
+				.compoundsort([['date', true]])
+				.data()
 				.map((greet) => {
 					const author = userModel.findOne({ uid: greet.author });
 					greet.authorName = author.username;

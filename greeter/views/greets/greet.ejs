@@ -4,32 +4,46 @@
   <% }) %>
   <div class="card-body">
     <div class="greet-header d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <img src="<%= typeof greet.authorAvatar !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
-        <a class="author-name" href="/profile/<%= greet.author %>">
-          <%= greet.authorName %>
-        </a>
+      <a class="author-name d-flex align-items-center" href="/profile/<%= greet.author %>">
+        <img src="<%= typeof greet.authorAvatar !== 'undefined' && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
+        <p> <%= greet.authorName %></p>
+      </a>
+      <div class="greet-params d-flex align-items-center">
+        <i class="fas<%= greet.visibility === 'public' ? ' fa-lock-open' : ' fa-lock' %>"></i>
+        <p class="greet-date">
+          <%= new Date(greet.date).toLocaleString() %>
+        </p>
       </div>
-      <p class="greet-date">
-        <%= new Date(greet.date).toLocaleString() %>
-      </p>
     </div>
 
+    <a onclick="test()">test</a>
     <p class="card-text">
       <%= greet.text %>
     </p>
     <div class="d-flex justify-content-start likes">
-      <form method="GET" action="/greet/like/<%= greet.gid %>">
-        <button type="submit" class="btn btn-primary btn-floating mx-1">
+      <% if (typeof userIn !== 'undefined') { %>
+      <form method="POST" action="/greet/like/<%= greet.gid %>">
+
+        <input type="hidden" name="scroll" class="scroll" value="0">
+        <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+
+        <button type="submit" class="btn btn-<%= typeof userIn !== 'undefined' && greet.likerIDs.includes(userIn.uid) ? 'primary' : 'light' %> btn-floating mx-1">
           <i class="fas fa-heart"></i>
         </button>
+        <% } else { %>
+        <form>
+          <button type="submit" class="btn btn-light btn-floating mx-1">
+            <i class="fas fa-heart"></i>
+          </button>
+          <%}%>
 
       </form>
+
       <% if (greet.likerCount) { %>
-      <p>
-        <%= greet.likerCount %>
-      </p>
-      <% } %>
+          <p>
+            <%= greet.likerCount %>
+          </p>
+          <% } %>
     </div>
     <!-- Kommentek, like, stb. -->
   </div>

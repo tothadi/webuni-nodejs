@@ -4,8 +4,16 @@
  * @param {*} view  – the ejs file to render
  * @returns next()
  */
-module.exports = (view) => {
+module.exports = (view, redirectTo) => {
 	return (req, res, next) => {
-		res.render('index');
+		if (typeof redirectTo !== 'undefined') {
+			res.locals.redirectTo = redirectTo === 'feed' ? `/feed/${req.params.whichfeed}` : redirectTo;
+		}
+		res.locals.context = {
+			...res.locals.context,
+			scrollpx: req.session.scroll || 0
+		}
+		req.session.scroll = 0;
+		res.render(res.locals.toRender || view, res.locals.context);
 	};
 };

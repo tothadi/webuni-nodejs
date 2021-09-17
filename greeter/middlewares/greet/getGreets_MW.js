@@ -11,8 +11,22 @@ module.exports = (objRep) => {
 	const { greetModel, userModel } = objRep;
 	return (req, res, next) => {
 		try {
+			const filter =
+				typeof req.params.whichfeed === 'undefined'
+					? { visibility: 'public' }
+					: req.params.whichfeed === 'public'
+					? {}
+					: {
+							author: {
+								$in: [res.locals.user.uid, ...res.locals.user.following],
+							},
+					  };
+
 			res.locals.greets = greetModel
-				.find({ visibility: 'public' })
+				.chain()
+				.find(filter)
+				.compoundsort([['date', true]])
+				.data()
 				.map((greet) => {
 					const author = userModel.findOne({ uid: greet.author });
 					greet.authorName = author.username;

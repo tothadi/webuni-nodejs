@@ -2,13 +2,15 @@ const uuid = require('uuid');
 const { genPassHash, checkPassHash } = require('../services/password');
 
 const render_MW = require('../middlewares/render_MW');
-const userError_MW = require('../middlewares/userError_MW');
+const userFeedBack_MW = require('../middlewares/userFeedBack_MW');
+const isValidRoute_MW = require('../middlewares/isValidRoute_MW');
 
 const signUp_MW = require('../middlewares/auth/signUp_MW');
 const signIn_MW = require('../middlewares/auth/signIn_MW');
 const signOut_MW = require('../middlewares/auth/signOut_MW');
 const auth_MW = require('../middlewares/auth/auth_MW');
 const lostPW_MW = require('../middlewares/auth/lostPW_MW');
+const redirectToFeed_MW = require('../middlewares/auth/redirectToFeed_MW');
 
 const getUserByID_MW = require('../middlewares/user/getUserByID_MW');
 const sendAvatar_MW = require('../middlewares/user/sendAvatar_MW');
@@ -64,23 +66,24 @@ module.exports = function (
 	// 	render_MW('ejs')
 	// );
 
+
+
+
+	// Feed
+
 	app.get(
-		'/feed/followed',
+		'/feed/:whichfeed',
+		isValidRoute_MW(),
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
 		getGreets_MW(objRep), // later getGreetsOfFollowed_MW
 		//getComments_MW,
-		render_MW('feed')
+		userFeedBack_MW(),
+		render_MW('feed', 'feed')
 	);
 
-	app.get(
-		'/feed/public',
-		auth_MW(objRep)
-		//getUserByID_MW,
-		//getGreets_MW,
-		//getComments_MW,
-		//render_MW
-	);
+
+
 
 	// Profiles
 
@@ -90,7 +93,10 @@ module.exports = function (
 		getUserByID_MW(objRep),
 		//getUserAvatar_MW(objRep),
 		getGreetsOfUser_MW(objRep),
+
 		//getComments_MW(objRep),
+		
+		userFeedBack_MW(),
 		render_MW('profile')
 	);
 
@@ -105,25 +111,24 @@ module.exports = function (
 	app.post(
 		'/greet/:gid',
 		auth_MW(objRep),
-		//getGreetByID_MW,
-		//getUserByID_MW,
+		getGreetByID_MW(objRep),
+		getUserByID_MW(objRep),
 		setGreet_MW(objRep)
-		//render_MW('index')
 	);
 
-	app.get(
+	app.post(
 		'/greet/like/:gid',
 		auth_MW(objRep),
 		getGreetByID_MW(objRep),
 		likeGreet_MW(objRep)
-		//render_MW('index')
 	);
 
 	app.get(
 		'/',
 		getUserByID_MW(objRep),
+		redirectToFeed_MW(),
 		getGreets_MW(objRep),
-		userError_MW(),
+		userFeedBack_MW(),
 		render_MW('index')
 	);
 };

@@ -1,21 +1,30 @@
 <%- include('header') %>
 
-<body cz-shortcut-listen="true" <% if (typeof signInError !== 'undefined') { %> onload="showSignIn()" <% } %> <% if (typeof signUpError !== 'undefined') { %> onload="showSignUp()" <% } %>>
+<body cz-shortcut-listen="true" <% if (typeof userError !== 'undefined') { %> <% if (typeof userError.signUpError !== 'undefined') { %> onload="showSignUp()" <% } else { %> onload="showSignIn()" <% } %> <% } %>>
 
-  <%- include('popups/signin') %>
-  <%- include('popups/signup') %>
+
   <header>
     <%- include('navbar') %>
   </header>
   <main>
 
+    <% if (typeof userIn === 'undefined') { %>
+    <div class="container d-flex align-items-center">
+      <img id="main-logo" src="/greeter_logo_full.svg" alt="greeter" loading="lazy">
+      <p class="intro">Ha szeretnél csatlakozni a greetelők közösségéhez, <a data-mdb-toggle="modal" id="toggleSignUp" data-mdb-target="#signupModal">regisztálj</a>!</p>
+    </div>
+    <%- include('popups/signin') %>
+    <%- include('popups/signup') %>
+    <% } %>
 
     <div class="greets d-flex">
 
-      <%- include('greets/greet-list') %>
+      <% greets.forEach(greet=> { %>
+      <%- include('greets/greet', {greet}) %>
+      <% }) %>
 
     </div>
-    
+
   </main>
 
   <%- include('footer') %>

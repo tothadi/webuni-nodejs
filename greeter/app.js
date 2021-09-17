@@ -16,7 +16,7 @@ app.use(
 		secret:
 			'&No$s&nJ@cT7E_5g1zl$dMq5f&Dm_L!0kZ2&',
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: true
 	})
 );
 app.set('view engine', 'ejs');

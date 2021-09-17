@@ -15,8 +15,8 @@ module.exports.genPassHash = genPassHash;
 /**
  * Checks if password equals with hash stored in db
  */
-function checkPassHash(password, secret) {
-	return true;
+function checkPassHash(reqPassword, dbPassword) {
+	return reqPassword === dbPassword;
 }
 
 module.exports.checkPassHash = checkPassHash;

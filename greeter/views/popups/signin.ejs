@@ -37,10 +37,10 @@
           </div>
 
         </form>
-        <% if (typeof signInError !== 'undefined') { %>
+        <% if (typeof userError !== 'undefined' && typeof userError.signInError !== 'undefined') { %>
         <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
           <p>
-            <%= signInError %>
+            <%= userError.signInError %>
           </p>
         </div>
         <% } %>

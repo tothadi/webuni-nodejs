@@ -1,4 +1,4 @@
-<% if (typeof user === 'undefined') { %>
+<% if (typeof userIn === 'undefined') { %>
 <ul class="navbar-nav">
   <li class="nav-item">
     <a class="nav-link" data-mdb-toggle="modal" id="toggleSignIn" data-mdb-target="#signinModal">Bejelentkezés</a>
@@ -9,11 +9,15 @@
 </ul>
 <% } else { %>
 
-<% if (user.role === 'user') { %>
+<% if (userIn.role === 'user') { %>
 <p class="nav-link" id="greeting">
-  Üdv újra itt, <strong> <%= user.firstname %></strong>!
+  Üdv újra itt, <strong> <%= userIn.firstname %></strong>!
 </p>
 <% } %>
+
+<a class="nav-link" href="/profile/<%= userIn.uid %> ">
+  <img src="<%= typeof userIn.avatar !== 'undefined' ? `/profile/avatar/${userIn.uid}.${userIn.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
+</a>
 
 <!-- Notifications -->
 <div class="nav-link" id="notifications">
@@ -28,11 +32,6 @@
     </li>
   </ul>
 </div>
-
-<a class="nav-link" href="/profile/<%= user.uid %> ">
-  <img src="<%= typeof user.avatar !== 'undefined' ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
-</a>
-
 
 <form class="nav-link" action="/sign-out" method="GET">
   <button type="submit" class="btn btn-primary btn-floating mx-1">
