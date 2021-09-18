@@ -13,24 +13,6 @@
   }
 
   window.onload = function() {
-    document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
-    if (window.location.pathname === '/feed/followed') {
-      document.getElementById('followed').className = 'nav-link active';
-      document.getElementById('public').className = 'nav-link';
-    } else if (window.location.pathname === '/feed/public') {
-      document.getElementById('followed').className = 'nav-link';
-      document.getElementById('public').className = 'nav-link active';
-    } else if (window.location.pathname !== '/') {
-      document.getElementById('followed').className = 'nav-link';
-      document.getElementById('public').className = 'nav-link';
-    }
-
-    document.getElementsByTagName('main')[0].onscroll = () => {
-      document.getElementsByClassName('scroll').forEach((s) => {
-        s.value = document.getElementsByTagName('main')[0].scrollTop;
-      });
-    };
-
     removeAlert();
     setPos();
   };

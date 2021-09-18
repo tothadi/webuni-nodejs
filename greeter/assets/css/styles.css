@@ -47,7 +47,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(200, 200, 200, 0.2);
+	background: rgba(200, 200, 200, 0.1);
 	border-radius: 5px;
 }
 
@@ -66,6 +66,10 @@ body {
  * Navbar styles
  */
 
+.container-xxl {
+	flex-grow: 1;
+} 
+
 .navbar-collapse {
 	justify-content: space-between;
 }
@@ -81,10 +85,15 @@ nav .show form {
 
 .navbar-nav {
 	padding: 16px;
+	flex-flow: row nowrap;
 }
 
-.nav-link {
+.navbar-nav .nav-link {
 	padding: 8px;
+}
+
+#centerNav ul {
+	flex-grow: 1;
 }
 
 .nav-link.active {
@@ -93,11 +102,9 @@ nav .show form {
 	border-radius: 5px;
 }
 
-#greeting {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+#greetingText {
 	margin: 0;
+	text-align: center;
 	color: whitesmoke;
 }
 
@@ -195,11 +202,8 @@ main {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-
 .greet-header {
 	height: 48px;
-	margin-bottom: 18px;
 }
 
 .greet-params i {
@@ -237,36 +241,55 @@ main {
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
+.greet .card-footer {
+	flex-direction: row;
+}
+
+.likes {
+	position: relative;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
 .likes p {
-	line-height: 1.5rem;
+	position: absolute;
+	left: 48px;
+	height: 100%;
 	font-weight: bold;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	margin: 0;
-	margin-left: 12px;
 }
 
 .likes button {
 	font-size: 20px;
 }
 
-
+#toggleDeleteGreet {
+	align-self: flex-end;
+}
 
 /*
  * Profile Styles
  */
 
-.profile-card  {
+.profile-card {
+	width: 90%;
+	margin-bottom: 30px;
 	max-width: 800px;
 	border-radius: 6px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card-title {
 	margin: 0;
 }
 
-.card-body, .card-footer {
+.card-body,
+.card-footer {
 	flex-direction: column;
 }
 
@@ -274,24 +297,70 @@ main {
 	width: 90%;
 }
 
+.card-subtitle {
+	margin-top: 16px;
+}
+
+.col-sm-4 {
+	position: relative;
+	flex-direction: column;
+}
+
+#img-wrapper {
+	position: relative;
+	width: 90%;
+	height: 75%;
+}
+
 .profile-avatar {
 	border-radius: 6px;
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 100%;
 	object-fit: cover; /* Do not scale the image */
 	object-position: center;
 }
 
-.col-md-4 {
-	position: relative;
+#profile-buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 15%;
 }
 
 .pic-control {
 	position: absolute;
-	bottom: 7.5%;
-	right: 7.5%;
+	bottom: 16px;
+	right: 16px;
 }
 
+.list-group {
+	width: 100%;
+}
+
+.list-group-item {
+	color: whitesmoke;
+}
+
+.user-list {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.user-avatar-name {
+	margin: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	align-content: center;
+}
+
+.user-name {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 8px;
+}
 
 /*
  * Footer styles

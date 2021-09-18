@@ -1,8 +1,9 @@
 <%- include('../header') %>
 
 <body cz-shortcut-listen="true">
-  <%- include('../popups/delete-confirm') %> 
-  <%- include('../popups/modify-modal') %> 
+  <%- include('../popups/delete-avatar') %>
+  <%- include('../popups/modify-modal') %>
+  <%- include('../popups/following-modal', {users, userIn}) %>
   <header>
     <%- include('../nav/navbar') %>
   </header>

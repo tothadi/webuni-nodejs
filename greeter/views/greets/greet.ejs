@@ -1,11 +1,14 @@
 <div class="card greet">
+  <% if (typeof userIn !== 'undefined') { %>
+  <%- include('../popups/delete-greet', {redirectTo}) %>
+  <% } %>
   <% greet.pics.forEach(pic=> { %>
   <img src="<%= pic %> " class="card-img-top" alt="greetkép">
   <% }) %>
-  <div class="card-body">
+  <div class="card-header">
     <div class="greet-header d-flex justify-content-between align-items-center">
       <a class="author-name d-flex align-items-center" href="/profile/<%= greet.author %>">
-        <img src="<%= typeof user !== 'undefined' && user.avatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
+        <img src="<%= typeof user !== 'undefined' && greet.authorAvatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
         <p> <%= greet.authorName %></p>
       </a>
       <div class="greet-params d-flex align-items-center">
@@ -15,36 +18,53 @@
         </p>
       </div>
     </div>
+  </div>
+  <div class="card-body">
 
-    <a onclick="test()">test</a>
     <p class="card-text">
       <%= greet.text %>
     </p>
-    <div class="d-flex justify-content-start likes">
-      <% if (typeof userIn !== 'undefined') { %>
-      <form method="POST" action="/greet/like/<%= greet.gid %>">
 
-        <input type="hidden" name="scroll" class="scroll" value="0">
-        <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
 
-        <button type="submit" class="btn btn-<%= typeof userIn !== 'undefined' && greet.likerIDs.includes(userIn.uid) ? 'primary' : 'light' %> btn-floating mx-1">
+  </div>
+  <div class="card-footer justify-content-between">
+    <% if (typeof userIn !== 'undefined') { %>
+    <form class="likes" method="POST" action="/greet/like/<%= greet.gid %>">
+
+      <input type="hidden" name="scroll" class="scroll" value="0">
+      <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+
+      <button type="submit" class="btn btn-<%= typeof userIn !== 'undefined' && greet.likerIDs.includes(userIn.uid) ? 'primary' : 'light' %> btn-floating mx-1">
+        <i class="fas fa-heart"></i>
+      </button>
+      <% } else { %>
+      <form class="likes">
+        <button type="submit" class="btn btn-light btn-floating mx-1">
           <i class="fas fa-heart"></i>
         </button>
-        <% } else { %>
-        <form>
-          <button type="submit" class="btn btn-light btn-floating mx-1">
-            <i class="fas fa-heart"></i>
-          </button>
-          <%}%>
+        <%}%>
+          <% if (greet.likerCount) { %>
+        <p>
+          <%= greet.likerCount %>
+        </p>
+        <% } %>
+      
+        <% if (typeof userIn !== 'undefined' && userIn.uid === greet.author) { %>
+          <div class="greet-control">
+            <a data-mdb-toggle="modal" id="toggleModifyGreet" data-mdb-target="#modifyGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
+              <button type="button" class="btn btn-warning btn-floating mx-1">
+                <i class="fas fa-edit"></i>
+              </button>
+            </a>
 
+          <a data-mdb-toggle="modal" id="toggleDeleteGreet" data-mdb-target="#deleteGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
+            <button type="button" class="btn btn-danger btn-floating mx-1">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </a>
+        </div>
+          <% } %>
       </form>
 
-      <% if (greet.likerCount) { %>
-          <p>
-            <%= greet.likerCount %>
-          </p>
-          <% } %>
-    </div>
-    <!-- Kommentek, like, stb. -->
   </div>
 </div>

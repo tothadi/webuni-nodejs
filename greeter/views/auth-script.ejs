@@ -1,0 +1,66 @@
+<script>
+  function setPos() {
+    const headerHeight = document.getElementById('top-nav').offsetHeight;
+    const footerHeight = document.getElementById('bottom-nav').offsetHeight;
+    document
+      .getElementsByTagName('main')[0]
+      .setAttribute(
+        'style',
+        `top: ${headerHeight}; height: calc(100% - ${
+				headerHeight + footerHeight
+			}px)`
+      );
+  }
+
+  window.onload = function() {
+    document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
+    if (window.location.pathname === '/feed/followed') {
+      document.getElementById('followed').className = 'nav-link active';
+      document.getElementById('public').className = 'nav-link';
+      document.getElementById('profileLink').className = 'nav-link';
+    } else if (window.location.pathname === '/feed/public') {
+      document.getElementById('followed').className = 'nav-link';
+      document.getElementById('public').className = 'nav-link active';
+      document.getElementById('profileLink').className = 'nav-link';
+    } else if (window.location.pathname !== '/' && window.location.pathname.includes('<%= userIn.uid %>')) {
+      document.getElementById('followed').className = 'nav-link';
+      document.getElementById('public').className = 'nav-link';
+      document.getElementById('profileLink').className = 'nav-link active';
+    }
+
+    document.getElementsByTagName('main')[0].onscroll = () => {
+      document.getElementsByClassName('scroll').forEach((s) => {
+        s.value = document.getElementsByTagName('main')[0].scrollTop;
+      });
+    };
+    removeAlert();
+    setPos();
+  };
+
+  window.onresize = function() {
+    setPos();
+  };
+
+  function showSignIn() {
+    document.getElementById('toggleSignIn').click();
+    setPos();
+  }
+
+  function showSignUp() {
+    document.getElementById('toggleSignUp').click();
+    setPos();
+  }
+
+  function removeAlert() {
+    setTimeout(() => {
+      document.getElementsByClassName('alert').forEach((alert) => {
+        alert.setAttribute('style', 'display: none');
+      });
+    }, 3000);
+  }
+
+  function passData(url, title) {
+    document.getElementById('deleteForm').setAttribute('action', url)
+  }
+
+</script>

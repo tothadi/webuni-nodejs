@@ -15,7 +15,7 @@
  * @returns next()
  */
 module.exports = (objRep) => {
-	const { greetModel, saveToDB, uuid } = objRep;
+	const { greetModel, saveToDB, v4 } = objRep;
 	return (req, res, next) => {
 		const redirectTo = req.body.redirectTo || '/';
 		if (typeof req.body.text === 'undefined') {
@@ -37,7 +37,7 @@ module.exports = (objRep) => {
 				});
 			}
 			greetModel.insert({
-				gid: uuid.v4(),
+				gid: v4(),
 				author: req.session.uid,
 				likerIDs: [],
 				likerCount: 0,

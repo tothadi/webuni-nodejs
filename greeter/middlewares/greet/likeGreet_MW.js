@@ -4,7 +4,7 @@
  * 1. If res.locals.greet.likerIDs includes session.uid, remove and decrease res.locals.greet.likerCount by 1
  * 2. Else push session.uid to res.locals.greet.likerIDs and increse res.locals.greet.likerCount by 1
  * 4. res.locals.success
- * 5. Save to DB and next
+ * 5. Save to DB and redirect back
  * @param {*} objRepo – common models, functions
  * @returns
  */

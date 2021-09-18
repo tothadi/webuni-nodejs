@@ -9,7 +9,7 @@
  * @returns next()
  */
 module.exports = (objRep) => {
-	const { userModel, saveToDB, genPassHash, uuid } = objRep;
+	const { userModel, saveToDB, genPassHash, v4 } = objRep;
 	return (req, res, next) => {
 		if (
 			typeof req.body.regEmail === 'undefined' ||
@@ -25,7 +25,7 @@ module.exports = (objRep) => {
 
 		try {
 			res.locals.user = userModel.insert({
-				uid: uuid.v4(),
+				uid: v4(),
 				role:
 					!req.body.regUsername ||
 					!req.body.regFirstname ||
@@ -39,7 +39,9 @@ module.exports = (objRep) => {
 				...(req.body.regLastname && { lastname: req.body.regLastname }),
 				following: [],
 				followCount: 0,
+				avatar: '',
 				greetCount: 0,
+				commentCount: 0,
 				regDate: new Date(),
 				lost: false,
 			});

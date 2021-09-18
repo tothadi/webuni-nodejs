@@ -1,43 +1,46 @@
 <!-- Navbar -->
-<nav id="top-nav" class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+<nav id="top-nav" class="navbar navbar-expand-xl fixed-top navbar-dark bg-dark">
   <!-- Container wrapper -->
-  <div class="container-fluid">
-    <a class="navbar-brand mt-2 mt-lg-0" href="/">
-      <img src="/greeter_logo_full.svg" height="32" alt="" loading="lazy" />
-    </a>
-    <!-- Toggle button -->
-    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
+  <div class="d-flex container-xxl container-fluid align-items-center">
+    <div class="navbar-nav">
+      <a class="navbar-brand " href="/">
+        <img src="/greeter_logo_full.svg" height="32" alt="" loading="lazy" />
+      </a>
 
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Navbar brand -->
-
-      <form class="d-flex input-group w-auto">
+      <form class="d-flex input-group w-auto align-content-center">
         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
           <i class="fas fa-search"></i>
         </span>
       </form>
-
-      <% if (typeof userIn !== 'undefined') { %>
-        <ul class="navbar-nav align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" href="/feed/followed" id="followed" ><i class="fas fa-lock"></i> Követett felhasználók</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/feed/public" id="public"><i class="fas fa-lock-open"></i> Összes greet</a>
-          </li>
-        </ul>
-      <%}%>
-      <div id="menu-right" class="d-flex align-items-center justify-content-center">
-        <%- include('menu-right') %>
-      </div>
     </div>
-    <!-- Collapsible wrapper -->
 
+    <% if (typeof userIn !== 'undefined') { %>
+    <div class="collapse navbar-collapse" id="centerNav">
+    <ul class="justify-content-center align-items-center navbar-nav" id="selectFeed">
+      <li class="nav-item">
+        <a class="nav-link" href="/feed/followed" id="followed"><i class="fas fa-lock"></i> Követett felhasználók</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/feed/public" id="public"><i class="fas fa-lock-open"></i> Összes greet</a>
+      </li>
+    </ul>
+    <% if (userIn.role === 'user') { %>
+      <p class="nav-link" style="justify-self: flex-end;" id="greetingText">
+        Üdv újra itt, <strong> <%= userIn.firstname %></strong>!
+      </p>
+      <% } %>
+    </div>
+    <%}%>
+
+
+
+    <div id="menu-right" class="d-flex align-items-center justify-content-center">
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#centerNav" aria-controls="centerNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <%- include('menu-right') %>
+    </div>
   </div>
-  <!-- Container wrapper -->
+
 </nav>
-<!-- Navbar -->

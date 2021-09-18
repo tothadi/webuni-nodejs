@@ -9,6 +9,7 @@ const auth_MW = require('../middlewares/auth/auth_MW');
 const lostPW_MW = require('../middlewares/auth/lostPW_MW');
 const redirectToFeed_MW = require('../middlewares/auth/redirectToFeed_MW');
 
+const getUsers_MW = require('../middlewares/user/getUsers_MW');
 const getUserByID_MW = require('../middlewares/user/getUserByID_MW');
 const sendAvatar_MW = require('../middlewares/user/sendAvatar_MW');
 const setUserAvatar_MW = require('../middlewares/user/setUserAvatar_MW');
@@ -20,6 +21,7 @@ const getGreets_MW = require('../middlewares/greet/getGreets_MW');
 const getGreetByID_MW = require('../middlewares/greet/getGreetByID_MW');
 const getGreetsOfUser_MW = require('../middlewares/greet/getGreetsOfUser_MW');
 const likeGreet_MW = require('../middlewares/greet/likeGreet_MW');
+const delGreet_MW = require('../middlewares/greet/delGreet_MW');
 
 module.exports = function (
 	app,
@@ -99,6 +101,7 @@ module.exports = function (
 		'/profile/:uid',
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
+		getUsers_MW(objRep),
 		//getUserAvatar_MW(objRep),
 		getGreetsOfUser_MW(objRep),
 
@@ -150,6 +153,12 @@ module.exports = function (
 		auth_MW(objRep),
 		getGreetByID_MW(objRep),
 		likeGreet_MW(objRep)
+	);
+
+	app.post(
+		'/greet/del/:gid',
+		auth_MW(objRep),
+		delGreet_MW(objRep)
 	);
 
 	app.get(

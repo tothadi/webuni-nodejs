@@ -1,39 +1,59 @@
-<div class="d-flex">
   <% if (user.role === 'user') { %>
   <div class="card mb-3 profile-card">
 
     <div class="row g-0">
-      <div class="col-md-4 d-flex justify-content-center align-items-center">
-        <img src="<%= user.avatar.length ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="img-fluid ripple profile-avatar" loading="lazy" />
-        <div class="pic-control">
-          <a data-mdb-toggle="modal" id="toggleDelete" data-mdb-target="#modifyModal">
-            <button type="button" class="btn btn-warning btn-floating mx-1">
-              <i class="fas fa-edit"></i>
-            </button>
-        </a>
-        <a data-mdb-toggle="modal" id="toggleDelete" data-mdb-target="#deleteModal">
-            <button type="button" class="btn btn-danger btn-floating mx-1">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </a>
+      <div class="col-sm-4 d-flex justify-content-center align-items-center">
+        <div id="img-wrapper">
+          <img src="<%= user.avatar.length ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="img-fluid ripple profile-avatar" loading="lazy" />
+          <% if (userIn.uid === user.uid) { %>
+          <div class="pic-control">
+            <a data-mdb-toggle="modal" id="toggleModify" data-mdb-target="#modifyModal">
+              <button type="button" class="btn btn-warning btn-floating mx-1">
+                <i class="fas fa-edit"></i>
+              </button>
+            </a>
+            <a data-mdb-toggle="modal" id="toggleDeleteAvatar" data-mdb-target="#deleteAvatarModal">
+              <button type="button" class="btn btn-danger btn-floating mx-1">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </a>
+          </div>
+          <% } %>
+        </div>
+        <div id="profile-buttons">
+          <% if (userIn.uid !== user.uid) { %>
+          <form method="GET" action="/profile/follow/<%= user.uid %>">
+            <button type="submit" class="btn btn-primary"><%= userIn.following.includes(user.uid) ? 'Követés leállítása' : 'Követem' %> </button>
+          </form>
+          <% } else { %>
+          <button type="button" class="btn btn-primary" data-mdb-toggle="modal" id="toggleFollowing" data-mdb-target="#followingModal">Követett felhasználók</button>
+          <% } %>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-sm-8">
         <div class="card-header d-flex justify-content-center">
           <h5 class="card-title">
             <%= user.username %>
           </h5>
         </div>
         <div class="card-body d-flex align-items-center">
+          <h6 class="card-subtitle mb-2 text-muted">Utolsó greet:</h6>
           <p class="card-text text-truncate">
             <%= lastGreet.text %>
           </p>
-        </div>
-        <div class="card-footer d-flex align-items-center">
-          <% if (userIn.uid !== user.uid) { %>
-          <form method="GET" action="/profile/follow/<%= user.uid %>">
-            <button type="submit" class="btn btn-primary"><%= userIn.following.includes(user.uid) ? 'Nem követem' : 'Követem' %> </button>
-          </form>
+          <ul class="list-group list-group-flush ">
+            <li class="list-group-item">Csatlakozás datuma: <%= new Date(user.regDate).toLocaleDateString() %></li>
+            <li class="list-group-item">Követők száma: <%= user.followCount %></li>
+            <li class="list-group-item">Greetek száma: <%= user.greetCount %></li>
+            <li class="list-group-item">Kommentek száma: <%= user.commentCount %></li>
+          </ul>
+          <% if (userIn.uid === user.uid) { %>
+          <h6 class="card-subtitle mb-2 text-muted">Személyes adatok:</h6>
+          <ul class="list-group list-group-flush ">
+            <li class="list-group-item">Név: <%= `${user.lastname} ${user.firstname}` %></li>
+            <li class="list-group-item">Email-cím: <%= user.email %></li>
+            <li class="list-group-item">Felhasználói ID: <%= user.uid %></li>
+          </ul>
           <% } %>
         </div>
       </div>
@@ -41,4 +61,3 @@
 
   </div>
   <% } %>
-</div>

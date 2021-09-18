@@ -9,13 +9,7 @@
 </ul>
 <% } else { %>
 
-<% if (userIn.role === 'user') { %>
-<p class="nav-link" id="greeting">
-  Üdv újra itt, <strong> <%= userIn.firstname %></strong>!
-</p>
-<% } %>
-
-<a class="nav-link" href="/profile/<%= userIn.uid %> ">
+<a class="nav-link" href="/profile/<%= userIn.uid %>" onclick="profileActive()" id="profileLink">
   <img src="<%= userIn.avatar.length ? `/profile/avatar/${userIn.uid}.${userIn.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple img-responsive avatar" height="36" loading="lazy">
 </a>
 
