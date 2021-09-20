@@ -9,7 +9,7 @@
 module.exports = (objRep) => {
 	const { saveToDB, join, unlinkSync } = objRep;
 	return (req, res, next) => {
-		const filePath = `../../profile/avatar/${res.locals.userIn.uid}.${res.locals.userIn.avatar}`;
+		const filePath = `../../storage/avatar/${res.locals.userIn.uid}.${res.locals.userIn.avatar}`;
 
 		try {
 			unlinkSync(join(__dirname, filePath));
@@ -18,7 +18,6 @@ module.exports = (objRep) => {
 			if (err) return next(err);
 		}
 		saveToDB();
-		console.log('removed: ', res.locals.userIn.uid);
 		return res.redirect(`/profile/${res.locals.userIn.uid}`);
 	};
 };

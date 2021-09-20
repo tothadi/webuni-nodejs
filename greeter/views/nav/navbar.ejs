@@ -2,8 +2,30 @@
 <nav id="top-nav" class="navbar navbar-expand-xl fixed-top navbar-dark bg-dark">
   <!-- Container wrapper -->
   <div class="d-flex container-xxl container-fluid align-items-center">
-    <div class="navbar-nav">
-      <a class="navbar-brand " href="/">
+    
+
+    <% if (typeof userIn !== 'undefined') { %>
+      <div class="collapse navbar-collapse" id="menu-center">
+      <ul class="justify-content-center align-items-center navbar-nav" id="selectFeed">
+        <li class="nav-item">
+          <a class="nav-link" href="/feed/followed" id="followed"><i class="fas fa-lock"></i> Követett felhasználók</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/feed/public" id="public"><i class="fas fa-lock-open"></i> Összes greet</a>
+        </li>
+      </ul>
+      <% if (userIn.role === 'user') { %>
+        <p class="nav-link" style="justify-self: flex-end;" id="greetingText">
+          Üdv újra itt, <strong> <%= userIn.firstname %></strong>!
+        </p>
+        <% } %>
+      </div>
+      <%}%>
+    
+    
+
+    <div id="menu-left">
+      <a class="navbar-brand" href="/">
         <img src="/greeter_logo_full.svg" height="32" alt="" loading="lazy" />
       </a>
 
@@ -15,28 +37,11 @@
       </form>
     </div>
 
-    <% if (typeof userIn !== 'undefined') { %>
-    <div class="collapse navbar-collapse" id="centerNav">
-    <ul class="justify-content-center align-items-center navbar-nav" id="selectFeed">
-      <li class="nav-item">
-        <a class="nav-link" href="/feed/followed" id="followed"><i class="fas fa-lock"></i> Követett felhasználók</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/feed/public" id="public"><i class="fas fa-lock-open"></i> Összes greet</a>
-      </li>
-    </ul>
-    <% if (userIn.role === 'user') { %>
-      <p class="nav-link" style="justify-self: flex-end;" id="greetingText">
-        Üdv újra itt, <strong> <%= userIn.firstname %></strong>!
-      </p>
-      <% } %>
-    </div>
-    <%}%>
 
 
 
-    <div id="menu-right" class="d-flex align-items-center justify-content-center">
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#centerNav" aria-controls="centerNav" aria-expanded="false" aria-label="Toggle navigation">
+    <div id="menu-right" class="d-flex align-items-center">
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#menu-center" aria-controls="menu-center" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
       <%- include('menu-right') %>

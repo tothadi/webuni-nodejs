@@ -1,0 +1,232 @@
+/****************/
+/* Greet styles */
+/****************/
+
+.greets {
+	flex-direction: column;
+	align-items: center;
+}
+
+/*** New greet ***/
+/*               */
+.new-greet {
+	width: 90%;
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#greet-text {
+	order: 1;
+	width: 100%;
+}
+
+#new-greet-controls {
+	order: 2;
+	width: 100%;
+	flex-direction: column;
+	align-content: center;
+}
+
+.new-greet .form-check {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#add-pics {
+	justify-content: center;
+	display: flex;
+}
+
+#add-pics label,
+#save-greet {
+	width: 200px;
+}
+
+#thumbs {
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	overflow: overlay;
+}
+
+#thumbs.mb-4 {
+	border-bottom: thin solid rgba(200, 200, 200, 0.4);
+}
+
+.thumb {
+	object-fit: cover; /* Do not scale the image */
+	object-position: center; /* Center the image within the element */
+	width: 80px;
+	justify-content: center;
+	max-height: 80px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 3px;
+	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+#thumbs:last-child {
+	margin-right: 0;
+}
+
+.thumb-wrap {
+	position: relative;
+}
+
+.badge {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white !important;
+	right: 5px;
+	bottom: 5px;
+	font-size: 15px;
+	width: 25px;
+	height: 25px;
+}
+
+/*** Greets in list ***/
+/*                    */
+.greet {
+	width: 90%;
+	margin-bottom: 30px;
+	max-width: 800px;
+	border-radius: 6px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.greet-header {
+	height: 48px;
+}
+
+.greet-params i {
+	line-height: 1.6;
+	margin-right: 12px;
+}
+
+.greet-date {
+	margin: 0;
+}
+
+.author-name p {
+	margin: 0;
+	margin-left: 12px;
+}
+
+.avatar {
+	object-fit: cover; /* Do not scale the image */
+	object-position: center; /* Center the image within the element */
+	width: 36px;
+	max-height: 36px;
+	pointer-events: all;
+	cursor: pointer;
+	transition: all 500ms ease-in-out;
+}
+
+.avatar:hover {
+	transform: scale(1.2);
+}
+
+.card-text {
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #363636;
+	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item {
+    cursor: zoom-in;
+}
+
+.carousel-item img {
+    object-fit: contain; /* Do not scale the image */
+	object-position: center;
+    height: 400px;
+    max-width: 100%;
+}
+
+#carousel {
+    transition: all 400ms ease-in-out;
+}
+
+.carousel-full {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+}
+
+.carousel-full .carousel-inner {
+    height: 100%;
+}
+
+.carousel-full .carousel-item {
+    height: 100%;
+    width: 100%;
+    cursor:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-full .carousel-item img {
+    object-fit: contain; /* Do not scale the image */
+	object-position: center;
+    height: unset;
+    width: unset;
+    max-height: 90%;
+    max-width: 90%;
+}
+
+#close-fullscreen {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.7rem;
+    color: rgba(130, 130, 130);
+    z-index: 10001;
+}
+
+#close-fullscreen:hover {
+    color: whitesmoke;
+}
+
+.greet .card-footer {
+	flex-direction: row;
+}
+
+.likes {
+	position: relative;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.likes p {
+	position: absolute;
+	left: 48px;
+	height: 100%;
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0;
+}
+
+.likes button {
+	font-size: 20px;
+}
+
+#toggleDeleteGreet {
+	align-self: flex-end;
+}

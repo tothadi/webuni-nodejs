@@ -22,6 +22,8 @@ const getGreetByID_MW = require('../middlewares/greet/getGreetByID_MW');
 const getGreetsOfUser_MW = require('../middlewares/greet/getGreetsOfUser_MW');
 const likeGreet_MW = require('../middlewares/greet/likeGreet_MW');
 const delGreet_MW = require('../middlewares/greet/delGreet_MW');
+const setGreetPics = require('../middlewares/greet/setGreetPics');
+const sendGreetPic_MW = require('../middlewares/greet/sendGreetPic_MW');
 
 module.exports = function (
 	app,
@@ -34,8 +36,10 @@ module.exports = function (
 		genPassHash,
 		checkPassHash,
 		uploadAvatar,
+		uploadGreet,
 		v4,
 		join,
+		readdirSync,
 		unlinkSync,
 	}
 ) {
@@ -49,6 +53,7 @@ module.exports = function (
 		checkPassHash,
 		v4,
 		join,
+		readdirSync,
 		unlinkSync,
 	};
 
@@ -144,8 +149,16 @@ module.exports = function (
 		'/greet/:gid',
 		auth_MW(objRep),
 		getGreetByID_MW(objRep),
+		uploadGreet.array('greetPic', 10),
+		setGreetPics(objRep),
 		getUserByID_MW(objRep),
 		setGreet_MW(objRep)
+	);
+
+	app.get(
+		'/greets/:filename',
+		auth_MW(objRep),
+		sendGreetPic_MW(objRep)
 	);
 
 	app.post(

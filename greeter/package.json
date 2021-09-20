@@ -21,6 +21,7 @@
     "express-session": "^1.17.2",
     "lokijs": "^1.5.12",
     "multer": "^1.4.3",
+    "unique-random-at-depth": "^1.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

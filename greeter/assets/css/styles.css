@@ -62,70 +62,7 @@ body {
 	padding-left: 15px;
 }
 
-/*
- * Navbar styles
- */
 
-.container-xxl {
-	flex-grow: 1;
-} 
-
-.navbar-collapse {
-	justify-content: space-between;
-}
-
-nav i {
-	font-size: 20px;
-}
-
-nav .show form {
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
-.navbar-nav {
-	padding: 16px;
-	flex-flow: row nowrap;
-}
-
-.navbar-nav .nav-link {
-	padding: 8px;
-}
-
-#centerNav ul {
-	flex-grow: 1;
-}
-
-.nav-link.active {
-	background-color: #363636;
-	padding: 8px;
-	border-radius: 5px;
-}
-
-#greetingText {
-	margin: 0;
-	text-align: center;
-	color: whitesmoke;
-}
-
-#greeting strong {
-	margin-left: 5px;
-	color: white;
-}
-
-#notifications {
-	position: relative;
-}
-
-#notifications .badge {
-	z-index: 10;
-}
-
-.dropdown-menu[data-mdb-popper] {
-	position: absolute;
-	right: 0;
-	left: unset;
-}
 
 /*
  * Form styles
@@ -184,93 +121,7 @@ main {
 	cursor: pointer;
 }
 
-.greets {
-	flex-direction: column;
-	align-items: center;
-}
 
-.new-greet {
-	width: 90%;
-	max-width: 800px;
-}
-
-.greet {
-	width: 90%;
-	margin-bottom: 30px;
-	max-width: 800px;
-	border-radius: 6px;
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-}
-
-.greet-header {
-	height: 48px;
-}
-
-.greet-params i {
-	line-height: 1.6;
-	margin-right: 12px;
-}
-
-.greet-date {
-	margin: 0;
-}
-
-.author-name p {
-	margin: 0;
-	margin-left: 12px;
-}
-
-.avatar {
-	object-fit: cover; /* Do not scale the image */
-	object-position: center; /* Center the image within the element */
-	width: 36px;
-	max-height: 36px;
-	pointer-events: all;
-	cursor: pointer;
-	transition: all 500ms ease-in-out;
-}
-
-.avatar:hover {
-	transform: scale(1.2);
-}
-
-.card-text {
-	padding: 10px;
-	border-radius: 5px;
-	background-color: #363636;
-	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
-}
-
-.greet .card-footer {
-	flex-direction: row;
-}
-
-.likes {
-	position: relative;
-	display: flex;
-	flex-flow: row;
-	justify-content: space-between;
-	width: 100%;
-}
-
-.likes p {
-	position: absolute;
-	left: 48px;
-	height: 100%;
-	font-weight: bold;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0;
-}
-
-.likes button {
-	font-size: 20px;
-}
-
-#toggleDeleteGreet {
-	align-self: flex-end;
-}
 
 /*
  * Profile Styles
@@ -321,6 +172,7 @@ main {
 }
 
 #profile-buttons {
+	width: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

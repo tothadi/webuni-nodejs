@@ -9,6 +9,7 @@ module.exports = (view, redirectTo) => {
 		if (typeof redirectTo !== 'undefined') {
 			res.locals.redirectTo = redirectTo === 'feed' ? `/feed/${req.params.whichfeed}` : redirectTo;
 		}
+		res.locals.redirectTo = req.body.redirectTo;
 		res.locals.context = {
 			...res.locals.context,
 			scrollpx: req.session.scroll || 0

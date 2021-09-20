@@ -35,11 +35,34 @@
     };
     removeAlert();
     setPos();
+
+
   };
 
   window.onresize = function() {
     setPos();
   };
+
+  const dt = new DataTransfer();
+
+  function addPics(event) {
+    const thumbs = document.getElementById('thumbs');
+    const picInput = document.getElementById('picture-input');
+    thumbs.className = 'mb-4'
+    let htmlData = '';
+    picInput.files.forEach((file, i) => {
+      dt.items.add(file);
+      thumbs.innerHTML += `<div id="thumb-${i}" class="thumb-wrap"><img class="thumb ripple img-responsive" height="80" src="${URL.createObjectURL(file)}" alt="thumb" loading="lazy"><a onclick="removePic(${i})" class="badge rounded-pill bg-danger"><i class="fas fa-trash-alt"></i></a></div>`;
+    });
+  }
+
+  function removePic(i) {
+        const thumbs = document.getElementById('thumbs');
+    const picInput = document.getElementById('picture-input');
+    const removed = document.getElementById(`thumb-${i}`).remove();
+    dt.items.remove(i);
+    picInput.files = dt.files;
+  }
 
   function showSignIn() {
     document.getElementById('toggleSignIn').click();
@@ -60,7 +83,22 @@
   }
 
   function passData(url, title) {
-    document.getElementById('deleteForm').setAttribute('action', url)
+    document.getElementById('deleteForm').setAttribute('action', url);
   }
 
+  function openFullCarousel() {
+    const carousel = document.getElementById('carousel');
+    const close = document.getElementById('close-fullscreen');
+    close.setAttribute('style','display: flex')
+    carousel.classList.remove('carousel-dark');
+    carousel.classList.add('carousel-full');
+  }
+
+  function closeFullCarousel() {
+    const carousel = document.getElementById('carousel');
+    const close = document.getElementById('close-fullscreen');
+    close.setAttribute('style','display: flex')
+    carousel.classList.add('carousel-dark');
+    carousel.classList.remove('carousel-full');
+  }
 </script>

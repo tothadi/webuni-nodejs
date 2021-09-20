@@ -1,0 +1,88 @@
+/*
+ * Navbar styles
+ */
+
+.container-xxl {
+	flex-grow: 1;
+}
+
+#menu-left {
+    order: 1;
+    display: flex;
+	flex-flow: row nowrap;
+}
+
+#menu-center {
+    order: 2;
+	justify-content: space-between;
+}
+
+#menu-right {
+    order: 3;
+}
+
+#menu-center.show {
+    margin-bottom: 16px;
+}
+
+#menu-center.show ~ #menu-right, #menu-center.show ~ #menu-left {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+#menu-center.show ~ #menu-left {
+    margin-bottom: 16px;
+}
+
+nav i {
+	font-size: 20px;
+}
+
+nav .show form {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+
+
+.navbar-nav {
+}
+
+.navbar-nav .nav-link {
+	padding: 8px;
+}
+
+#menu-center ul {
+	flex-grow: 1;
+}
+
+.nav-link.active {
+	background-color: #363636;
+	padding: 8px;
+	border-radius: 5px;
+}
+
+#greetingText {
+	margin: 0;
+	text-align: center;
+	color: whitesmoke;
+}
+
+#greeting strong {
+	margin-left: 5px;
+	color: white;
+}
+
+#notifications {
+	position: relative;
+}
+
+#notifications .badge {
+	z-index: 10;
+}
+
+.dropdown-menu[data-mdb-popper] {
+	position: absolute;
+	right: 0;
+	left: unset;
+}

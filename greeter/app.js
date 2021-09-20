@@ -4,18 +4,31 @@ const multer = require('multer');
 const fileExts = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
 const avatarStorage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'profile/avatar');
+		cb(null, 'storage/avatar');
 	},
 	filename: function (req, file, cb) {
 		const ext = file.originalname
 			.substring(file.originalname.lastIndexOf('.') + 1)
 			.toLowerCase();
 		cb(null, req.session.uid + '.' + ext);
-	}
+	},
+});
+const greetPicStorage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'storage/greets');
+	},
+	filename: function (req, file, cb) {
+		const ext = file.originalname
+			.substring(file.originalname.lastIndexOf('.') + 1)
+			.toLowerCase();
+		const fileName = `${req.session.gid}_${Date.now()}.${ext}`;
+		cb(null, fileName);
+	},
 });
 const uploadAvatar = multer({ storage: avatarStorage });
+const uploadGreet = multer({ storage: greetPicStorage });
 const port = process.env.PORT || 3000;
-const { unlinkSync } = require('fs');
+const { readdirSync, unlinkSync } = require('fs');
 const { join } = require('path');
 const { initDB } = require('./services/db');
 const { v4 } = require('uuid');
@@ -54,8 +67,10 @@ initDB((err, { userModel, greetModel, commentModel, saveToDB }) => {
 		genPassHash,
 		checkPassHash,
 		uploadAvatar,
+		uploadGreet,
 		v4,
 		join,
+		readdirSync,
 		unlinkSync,
 	});
 	app.listen(port, '0.0.0.0', () => {

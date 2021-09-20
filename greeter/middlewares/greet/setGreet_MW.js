@@ -15,7 +15,7 @@
  * @returns next()
  */
 module.exports = (objRep) => {
-	const { greetModel, saveToDB, v4 } = objRep;
+	const { greetModel, saveToDB } = objRep;
 	return (req, res, next) => {
 		const redirectTo = req.body.redirectTo || '/';
 		if (typeof req.body.text === 'undefined') {
@@ -27,27 +27,30 @@ module.exports = (objRep) => {
 			return res.redirect(redirectTo);
 		}
 
+		if (typeof req.session.gid === 'undefined') {
+			res.locals.greet.text = req.body.text;
+			return (req.session.feedBack = {
+				fbType: 'fbSuccess',
+				initiator: 'setGreet',
+				message: 'A greet sikeresen módosítva.',
+			});
+		}
+
 		try {
-			if (res.locals.greet !== null) {
-				res.locals.greet.text = req.body.text;
-				return (req.session.feedBack = {
-					fbType: 'fbSuccess',
-					initiator: 'setGreet',
-					message: 'A greet sikeresen módosítva.',
-				});
-			}
-			greetModel.insert({
-				gid: v4(),
+			res.locals.greet = greetModel.insert({
+				gid: req.session.gid,
 				author: req.session.uid,
 				likerIDs: [],
 				likerCount: 0,
 				text: req.body.text,
-				pics: [],
+				pics: typeof req.files !== undefined ? res.locals.greetPics : [],
 				visibility: req.body.visibility ? 'public' : 'restricted',
+				comments: [],
 				commentCount: 0,
 				date: new Date().getTime(),
 				...(req.body.regreetID && { regreetOf: req.body.regreetID }),
 			});
+			delete req.session.gid;
 			res.locals.user.greetCount++;
 			req.session.feedBack = {
 				fbType: 'fbSuccess',
@@ -62,6 +65,7 @@ module.exports = (objRep) => {
 			};
 			return res.redirect(redirectTo);
 		}
+
 		saveToDB();
 		return res.redirect(redirectTo);
 	};

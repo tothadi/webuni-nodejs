@@ -3,7 +3,7 @@ module.exports = (objRep) => {
 	return (req, res, next) => {
 		const filePath = join(
 			__dirname,
-			`../../profile/avatar/${res.locals.user.uid}.${res.locals.user.avatar}`
+			`../../storage/avatar/${res.locals.user.uid}.${res.locals.user.avatar}`
 		);
 		res.sendFile(filePath);
 	};

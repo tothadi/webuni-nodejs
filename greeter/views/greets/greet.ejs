@@ -2,69 +2,69 @@
   <% if (typeof userIn !== 'undefined') { %>
   <%- include('../popups/delete-greet', {redirectTo}) %>
   <% } %>
-  <% greet.pics.forEach(pic=> { %>
-  <img src="<%= pic %> " class="card-img-top" alt="greetkép">
-  <% }) %>
+
   <div class="card-header">
     <div class="greet-header d-flex justify-content-between align-items-center">
       <a class="author-name d-flex align-items-center" href="/profile/<%= greet.author %>">
-        <img src="<%= typeof user !== 'undefined' && greet.authorAvatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
-        <p> <%= greet.authorName %></p>
-      </a>
-      <div class="greet-params d-flex align-items-center">
-        <i class="fas<%= greet.visibility === 'public' ? ' fa-lock-open' : ' fa-lock' %>"></i>
-        <p class="greet-date">
-          <%= new Date(greet.date).toLocaleString() %>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="card-body">
-
-    <p class="card-text">
-      <%= greet.text %>
+  <img src="<%= typeof user !== 'undefined' && greet.authorAvatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
+  <p> <%= greet.authorName %></p>
+  </a>
+  <div class="greet-params d-flex align-items-center">
+    <i class="fas<%= greet.visibility === 'public' ? ' fa-lock-open' : ' fa-lock' %>"></i>
+    <p class="greet-date">
+      <%= new Date(greet.date).toLocaleString() %>
     </p>
-
-
   </div>
-  <div class="card-footer justify-content-between">
-    <% if (typeof userIn !== 'undefined') { %>
-    <form class="likes" method="POST" action="/greet/like/<%= greet.gid %>">
+</div>
+</div>
+<div class="card-body">
 
-      <input type="hidden" name="scroll" class="scroll" value="0">
-      <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+  <p class="card-text">
+    <%= greet.text %>
+  </p>
 
-      <button type="submit" class="btn btn-<%= typeof userIn !== 'undefined' && greet.likerIDs.includes(userIn.uid) ? 'primary' : 'light' %> btn-floating mx-1">
+  <% if (typeof greet.pics !== 'undefined' && greet.pics.length) { %>
+    <%- include('carousel', {pics: greet.pics}) %> 
+    <%}%>
+</div>
+<div class="card-footer justify-content-between">
+  <% if (typeof userIn !== 'undefined') { %>
+  <form class="likes" method="POST" action="/greet/like/<%= greet.gid %>">
+
+    <input type="hidden" name="scroll" class="scroll" value="0">
+    <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+
+    <button type="submit" class="btn btn-<%= typeof userIn !== 'undefined' && greet.likerIDs.includes(userIn.uid) ? 'primary' : 'light' %> btn-floating mx-1">
+      <i class="fas fa-heart"></i>
+    </button>
+    <% } else { %>
+    <form class="likes">
+      <button type="submit" class="btn btn-light btn-floating mx-1">
         <i class="fas fa-heart"></i>
       </button>
-      <% } else { %>
-      <form class="likes">
-        <button type="submit" class="btn btn-light btn-floating mx-1">
-          <i class="fas fa-heart"></i>
-        </button>
-        <%}%>
+      <%}%>
           <% if (greet.likerCount) { %>
-        <p>
-          <%= greet.likerCount %>
-        </p>
-        <% } %>
-      
-        <% if (typeof userIn !== 'undefined' && userIn.uid === greet.author) { %>
-          <div class="greet-control">
-            <a data-mdb-toggle="modal" id="toggleModifyGreet" data-mdb-target="#modifyGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
-              <button type="button" class="btn btn-warning btn-floating mx-1">
-                <i class="fas fa-edit"></i>
-              </button>
-            </a>
+      <p>
+        <%= greet.likerCount %>
+      </p>
+      <% } %>
 
-          <a data-mdb-toggle="modal" id="toggleDeleteGreet" data-mdb-target="#deleteGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
-            <button type="button" class="btn btn-danger btn-floating mx-1">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </a>
-        </div>
-          <% } %>
-      </form>
+      <% if (typeof userIn !== 'undefined' && userIn.uid === greet.author) { %>
+      <div class="greet-control">
+        <a data-mdb-toggle="modal" id="toggleModifyGreet" data-mdb-target="#modifyGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
+          <button type="button" class="btn btn-warning btn-floating mx-1">
+            <i class="fas fa-edit"></i>
+          </button>
+        </a>
 
-  </div>
+        <a data-mdb-toggle="modal" id="toggleDeleteGreet" data-mdb-target="#deleteGreetModal" onclick="passData('<%= `/greet/del/${greet.gid}` %>')">
+          <button type="button" class="btn btn-danger btn-floating mx-1">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </a>
+      </div>
+      <% } %>
+    </form>
+
+</div>
 </div>

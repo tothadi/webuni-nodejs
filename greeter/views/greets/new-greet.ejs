@@ -1,20 +1,27 @@
-<form action="/greet/new" method="POST" class="new-greet">
-    <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
-    <div class="form-outline mb-4">
-      <i class="fas fa-edit trailing"></i>
-      <textarea type="text" required autocomplete="off" class="form-control" name="text" id="text" aria-describedby="emailHelp" placeholder="Írd ide a greet szövegét!" data-mdb-toggle="collapse" data-mdb-target="#new-greet" aria-expanded="false" aria-controls="new-greet"></textarea>
-      <label for="text" class="form-label">Új greet...</label>
-    </div>
-    <div class="collapse" id="new-greet">
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="visibility" name="visibility"/>
-            <label class="form-check-label" for="visibility"
-              >Szeretném, ha publikus lenne</label
-            >
-          </div>
-      <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary btn-lg mb-4">Greet</button>
-      </div>
-    </div>
+<form action="/greet/new" method="POST" enctype="multipart/form-data" class="new-greet">
+  <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
   
+  <div class="collapse" id="new-greet-controls">
+    <div class="form-check form-switch mb-4">
+      <input class="form-check-input" type="checkbox" id="visibility" name="visibility" />
+      <label class="form-check-label" for="visibility">Szeretném, ha publikus lenne</label>
+    </div>
+    <div id="add-pics" class="form-outline mb-2">
+      <label class="form-label btn btn-secondary" for="picture-input">Képek hozzáadása</label>
+      <input type="file" name="greetPic" id="picture-input" multiple hidden onchange="addPics(event)">
+    </div>
+
+    <div id="thumbs"></div>
+
+    <div class="d-flex justify-content-center">
+      <button id="save-greet" type="submit" class="btn btn-primary mb-4">Greet</button>
+    </div>
+  </div>
+
+  <div id="greet-text" class="form-outline mb-4">
+    <i class="fas fa-edit trailing"></i>
+    <textarea type="text" required autocomplete="off" class="form-control" name="text" id="text" placeholder="Írd ide a greet szövegét!" data-mdb-toggle="collapse" data-mdb-target="#new-greet-controls" aria-expanded="false" aria-controls="new-greet-controls"></textarea>
+    <label for="text" class="form-label">Új greet...</label>
+  </div>
+
 </form>

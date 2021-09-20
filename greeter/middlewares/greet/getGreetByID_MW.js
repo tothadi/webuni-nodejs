@@ -8,8 +8,13 @@
  * @returns next()
  */
 module.exports = (objRep) => {
-	const { greetModel } = objRep;
+	const { greetModel, v4 } = objRep;
 	return (req, res, next) => {
+		if (req.params.gid === 'new') {
+			req.session.gid = v4();
+			return next();
+		}
+
 		try {
 			res.locals.greet = greetModel.findOne({
 				gid: req.params.gid,
@@ -17,6 +22,7 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
+
 		return next();
 	};
 };
