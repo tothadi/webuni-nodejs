@@ -16,7 +16,7 @@
       <% } %>
 
       <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-      <%- include('greets/new-greet', {redirectTo}) %>
+      <%- include('greets/new-greet-form', {redirectTo}) %>
       <% } %>
 
       <% greets.forEach(greet=> { %>

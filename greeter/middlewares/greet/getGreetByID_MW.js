@@ -12,9 +12,12 @@ module.exports = (objRep) => {
 	return (req, res, next) => {
 		if (req.params.gid === 'new') {
 			req.session.gid = v4();
+			res.locals.isNew = true;
+			res.locals.greetPics = [];
 			return next();
 		}
 
+		// Modifying existing greet
 		try {
 			res.locals.greet = greetModel.findOne({
 				gid: req.params.gid,
@@ -23,6 +26,8 @@ module.exports = (objRep) => {
 			if (err) return next(err);
 		}
 
+		console.log('greet.pics in getgreet: ', res.locals.greet.pics)
+		req.session.gid = res.locals.greet.gid;
 		return next();
 	};
 };

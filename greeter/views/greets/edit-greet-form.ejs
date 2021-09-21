@@ -1,0 +1,38 @@
+<form action="/greet/<%= greet.gid %> " method="POST" enctype="multipart/form-data" class="new-greet">
+  <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+  <input type="hidden" name="removed" id="<%= greet.gid %>-removed" value="">
+  <div class="edit-greet-text form-outline mb-4">
+    <i class="fas fa-edit trailing"></i>
+    <textarea type="text" required autocomplete="on" class="form-control" name="text" id="<%= greet.gid %>-text"><%= greet.text %></textarea>
+    <label for="<%= greet.gid %>-text" class="form-label">Greet szövege</label>
+  </div>
+
+  <div class="edit-greet-controls">
+    <div class="form-check form-switch mb-4">
+      <input class="form-check-input" type="checkbox" id="<%= greet.gid %>-visibility" name="visibility" <% if (greet.visibility === 'public') { %> checked <% } %> />
+      <label class="form-check-label" for="<%= greet.gid %>-visibility">Szeretném, ha publikus lenne</label>
+    </div>
+    <div class="edit-add-pics form-outline mb-2">
+      <label class="form-label btn btn-secondary" for="<%= greet.gid %>-picture-input">Képek hozzáadása</label>
+      <input type="file" name="greet" id="<%= greet.gid %>-picture-input" multiple hidden onchange="addPics(event, '<%= greet.gid %>')">
+    </div>
+
+    
+    <div id="<%= greet.gid %>-thumbs" class="<%= greet.pics.length ? 'edit-thumbs mb-4' : 'edit-thumbs' %>">
+      <% greet.pics.forEach((pic, i) => { %>
+      <div id="<%= greet.gid %>-thumb-<%= i %>" class="thumb-wrap">
+        <img class="thumb mb-4 ripple img-responsive" height="80" src="/greets/<%= pic %>" alt="thumb" loading="lazy">
+        <a 
+        onclick="removePic('<%= i %>', '<%= greet.gid %>')" class="badge rounded-pill bg-danger">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+      <% }) %>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary mb-4 edit-save-greet">Módosítások mentése</button>
+    </div>
+  </div>
+
+</form>

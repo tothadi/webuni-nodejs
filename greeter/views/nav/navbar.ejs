@@ -41,9 +41,11 @@
 
 
     <div id="menu-right" class="d-flex align-items-center">
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#menu-center" aria-controls="menu-center" aria-expanded="false" aria-label="Toggle navigation">
+      <% if (typeof userIn !== 'undefined') { %>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#menu-center" aria-controls="menu-center" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
+      <% } %>
       <%- include('menu-right') %>
     </div>
   </div>

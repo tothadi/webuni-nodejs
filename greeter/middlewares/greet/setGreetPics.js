@@ -1,21 +1,18 @@
-module.exports = (objRep) => {
-	const { fileExts } = objRep;
+module.exports = () => {
 	return (req, res, next) => {
-        res.locals.greetPics = [];
-		req.files.forEach((file) => {
-			const ext = file.originalname
-				.substring(file.originalname.lastIndexOf('.') + 1)
-				.toLowerCase();
-			if (!fileExts.includes(ext)) {
-				req.session.feedBack = {
-					fbType: 'fbError',
-					initiator: 'setAvatar',
-					message: 'A kép formátuma nem megfelelő feltöltése nem sikerült!',
-				};
-				return res.redirect(req.body.redirectTo);
-			}
-            res.locals.greetPics.push(file.filename);
-		});
+		if (!res.locals.isNew) {
+			res.locals.greetPics = res.locals.greet.pics.filter(
+				(pic) => !req.body.removed.includes(pic)
+			);
+		}
+		
+		console.log('setgreetpics: ', res.locals.greetPics)
+		
+		if (typeof req.files !== 'undefined') {
+			req.files.forEach((file) => {
+				res.locals.greetPics.push(file.filename);
+			});
+		}
 		return next();
 	};
 };

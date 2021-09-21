@@ -17,13 +17,15 @@
 	align-items: center;
 }
 
-#greet-text {
-	order: 1;
+.modal-body .new-greet {
 	width: 100%;
 }
 
-#new-greet-controls {
-	order: 2;
+#new-greet-text, .edit-greet-text {
+	width: 100%;
+}
+
+#new-greet-controls, .edit-greet-controls {
 	width: 100%;
 	flex-direction: column;
 	align-content: center;
@@ -35,17 +37,19 @@
 	justify-content: center;
 }
 
-#add-pics {
+#new-add-pics, .edit-add-pics {
 	justify-content: center;
 	display: flex;
 }
 
-#add-pics label,
-#save-greet {
+#new-add-pics label,
+#new-save-greet,
+.edit-add-pics label,
+.edit-save-greet {
 	width: 200px;
 }
 
-#thumbs {
+#new-thumbs, .edit-thumbs {
 	width: 100%;
 	display: flex;
 	flex-flow: row wrap;
@@ -53,23 +57,23 @@
 	overflow: overlay;
 }
 
-#thumbs.mb-4 {
+#new-thumbs.mb-4, .edit-thumbs.mb-4 {
 	border-bottom: thin solid rgba(200, 200, 200, 0.4);
 }
 
 .thumb {
 	object-fit: cover; /* Do not scale the image */
 	object-position: center; /* Center the image within the element */
-	width: 80px;
+	width: 100px;
 	justify-content: center;
-	max-height: 80px;
+	height: 100px;
 	margin-right: 5px;
 	margin-bottom: 5px;
 	border-radius: 3px;
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
-#thumbs:last-child {
+#new-thumbs:last-child, .edit-thumbs:last-child {
 	margin-right: 0;
 }
 
@@ -140,6 +144,11 @@
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
+.carousel-inner p {
+    text-align: center;
+    margin: 0;
+}
+
 .carousel-item {
     cursor: zoom-in;
 }
@@ -187,7 +196,7 @@
     max-width: 90%;
 }
 
-#close-fullscreen {
+.close-fullscreen {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -196,7 +205,7 @@
     z-index: 10001;
 }
 
-#close-fullscreen:hover {
+.close-fullscreen:hover {
     color: whitesmoke;
 }
 
@@ -227,6 +236,6 @@
 	font-size: 20px;
 }
 
-#toggleDeleteGreet {
+.delete-greet {
 	align-self: flex-end;
 }

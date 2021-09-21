@@ -1,9 +1,9 @@
 <%- include('../header') %>
 
 <body cz-shortcut-listen="true">
-  <%- include('../popups/delete-avatar') %>
-  <%- include('../popups/modify-avatar') %>
-  <%- include('../popups/following-modal', {users, userIn}) %>
+  <%- include('delete-avatar') %>
+  <%- include('modify-avatar') %>
+  <%- include('following-modal', {users, userIn}) %>
   <header>
     <%- include('../nav/navbar') %>
   </header>
@@ -21,7 +21,7 @@
       <% } %>
 
       <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-      <%- include('../greets/new-greet', {redirectTo: `/profile/${userIn.uid}`}) %>
+      <%- include('../greets/new-greet-form', {redirectTo: `/profile/${userIn.uid}`}) %>
       <% } %>
 
       <% greets.forEach(greet=> { %>

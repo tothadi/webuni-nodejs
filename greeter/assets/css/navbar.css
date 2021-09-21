@@ -43,9 +43,8 @@ nav .show form {
 	margin-bottom: 15px;
 }
 
-
-
 .navbar-nav {
+	flex-flow: row wrap;
 }
 
 .navbar-nav .nav-link {

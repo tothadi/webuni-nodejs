@@ -27,13 +27,21 @@ module.exports = (objRep) => {
 			return res.redirect(redirectTo);
 		}
 
-		if (typeof req.session.gid === 'undefined') {
+		if (!res.locals.isNew) {
 			res.locals.greet.text = req.body.text;
-			return (req.session.feedBack = {
-				fbType: 'fbSuccess',
-				initiator: 'setGreet',
-				message: 'A greet sikeresen módosítva.',
-			});
+			res.locals.greet.pics = res.locals.greetPics;
+			res.locals.greet.visibility = req.body.visibility
+				? 'public'
+				: 'restricted';
+			if (typeof req.session.feedBack === 'undefined') {
+				req.session.feedBack = {
+					fbType: 'fbSuccess',
+					initiator: 'setGreet',
+					message: 'A greet sikeresen módosítva.',
+				};
+			}
+			saveToDB();
+			return res.redirect(redirectTo);
 		}
 
 		try {
@@ -43,14 +51,13 @@ module.exports = (objRep) => {
 				likerIDs: [],
 				likerCount: 0,
 				text: req.body.text,
-				pics: typeof req.files !== undefined ? res.locals.greetPics : [],
+				pics: res.locals.greetPics,
 				visibility: req.body.visibility ? 'public' : 'restricted',
 				comments: [],
 				commentCount: 0,
 				date: new Date().getTime(),
 				...(req.body.regreetID && { regreetOf: req.body.regreetID }),
 			});
-			delete req.session.gid;
 			res.locals.user.greetCount++;
 			req.session.feedBack = {
 				fbType: 'fbSuccess',

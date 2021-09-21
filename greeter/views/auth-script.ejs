@@ -1,104 +1,107 @@
 <script>
-  function setPos() {
-    const headerHeight = document.getElementById('top-nav').offsetHeight;
-    const footerHeight = document.getElementById('bottom-nav').offsetHeight;
-    document
-      .getElementsByTagName('main')[0]
-      .setAttribute(
-        'style',
-        `top: ${headerHeight}; height: calc(100% - ${
-				headerHeight + footerHeight
-			}px)`
-      );
-  }
+	function setPos() {
+	  const headerHeight = document.getElementById('top-nav').offsetHeight;
+	  const footerHeight = document.getElementById('bottom-nav').offsetHeight;
+	  document
+	    .getElementsByTagName('main')[0]
+	    .setAttribute(
+	      'style',
+	      `top: ${headerHeight}; height: calc(100% - ${
+			headerHeight + footerHeight
+		}px)`
+	    );
+	}
 
-  window.onload = function() {
-    document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
-    if (window.location.pathname === '/feed/followed') {
-      document.getElementById('followed').className = 'nav-link active';
-      document.getElementById('public').className = 'nav-link';
-      document.getElementById('profileLink').className = 'nav-link';
-    } else if (window.location.pathname === '/feed/public') {
-      document.getElementById('followed').className = 'nav-link';
-      document.getElementById('public').className = 'nav-link active';
-      document.getElementById('profileLink').className = 'nav-link';
-    } else if (window.location.pathname !== '/' && window.location.pathname.includes('<%= userIn.uid %>')) {
-      document.getElementById('followed').className = 'nav-link';
-      document.getElementById('public').className = 'nav-link';
-      document.getElementById('profileLink').className = 'nav-link active';
-    }
+	let dts = [];
 
-    document.getElementsByTagName('main')[0].onscroll = () => {
-      document.getElementsByClassName('scroll').forEach((s) => {
-        s.value = document.getElementsByTagName('main')[0].scrollTop;
-      });
-    };
-    removeAlert();
-    setPos();
+	window.onload = function() {
+	  document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
+	  if (window.location.pathname === '/feed/followed') {
+	    document.getElementById('followed').className = 'nav-link active';
+	    document.getElementById('public').className = 'nav-link';
+	    document.getElementById('profileLink').className = 'nav-link';
+	  } else if (window.location.pathname === '/feed/public') {
+	    document.getElementById('followed').className = 'nav-link';
+	    document.getElementById('public').className = 'nav-link active';
+	    document.getElementById('profileLink').className = 'nav-link';
+	  } else if (window.location.pathname !== '/' && window.location.pathname.includes('<%= userIn.uid %>')) {
+	    document.getElementById('followed').className = 'nav-link';
+	    document.getElementById('public').className = 'nav-link';
+	    document.getElementById('profileLink').className = 'nav-link active';
+	  }
 
+	  document.getElementsByTagName('main')[0].onscroll = () => {
+	    document.getElementsByClassName('scroll').forEach((s) => {
+	      s.value = document.getElementsByTagName('main')[0].scrollTop;
+	    });
+	  };
+	  removeAlert();
+	  setPos();
 
-  };
+	};
 
-  window.onresize = function() {
-    setPos();
-  };
+	window.onresize = function() {
+	  setPos();
+	};
 
   const dt = new DataTransfer();
 
-  function addPics(event) {
-    const thumbs = document.getElementById('thumbs');
-    const picInput = document.getElementById('picture-input');
-    thumbs.className = 'mb-4'
-    let htmlData = '';
-    picInput.files.forEach((file, i) => {
-      dt.items.add(file);
-      thumbs.innerHTML += `<div id="thumb-${i}" class="thumb-wrap"><img class="thumb ripple img-responsive" height="80" src="${URL.createObjectURL(file)}" alt="thumb" loading="lazy"><a onclick="removePic(${i})" class="badge rounded-pill bg-danger"><i class="fas fa-trash-alt"></i></a></div>`;
-    });
-  }
+	function addPics(event, prefix) {
+	  const thumbs = document.getElementById(`${prefix}-thumbs`);
+	  const picInput = document.getElementById(`${prefix}-picture-input`);
+	  thumbs.classList.add('mb-4');
+	  picInput.files.forEach((file, i) => {
+	    dt.items.add(file);
+	    thumbs.innerHTML += `<div id="${prefix}-thumb-${thumbs.children.length + i}" class="thumb-wrap"><img class="thumb ripple img-responsive" height="80" src="${URL.createObjectURL(file)}" alt="thumb" loading="lazy"><a onclick="removePic(${i},'${prefix}')" class="badge rounded-pill bg-danger"><i class="fas fa-trash-alt"></i></a></div>`;
+	  });
+	}
 
-  function removePic(i) {
-        const thumbs = document.getElementById('thumbs');
-    const picInput = document.getElementById('picture-input');
-    const removed = document.getElementById(`thumb-${i}`).remove();
-    dt.items.remove(i);
-    picInput.files = dt.files;
-  }
+  const removedFiles = [];
 
-  function showSignIn() {
-    document.getElementById('toggleSignIn').click();
-    setPos();
-  }
+	function removePic(i, prefix) {
+	  const thumbs = document.getElementById(`${prefix}-thumbs`);
+	  const picInput = document.getElementById(`${prefix}-picture-input`);
+	  const removedPic = document.getElementById(`${prefix}-thumb-${i}`);
+    const removedList = document.getElementById(`${prefix}-removed`);
+    removedFiles.push(removedPic.children[0].getAttribute('src').split('/')[2]);
+    removedList.setAttribute('value', JSON.stringify(removedFiles));
+    console.log(removedList.getAttribute('value'))
+    removedPic.remove();
+	  dt.items.remove(i);
+	  picInput.files = dt.files;
+	}
 
-  function showSignUp() {
-    document.getElementById('toggleSignUp').click();
-    setPos();
-  }
+	function showSignIn() {
+	  document.getElementById('toggleSignIn').click();
+	  setPos();
+	}
 
-  function removeAlert() {
-    setTimeout(() => {
-      document.getElementsByClassName('alert').forEach((alert) => {
-        alert.setAttribute('style', 'display: none');
-      });
-    }, 3000);
-  }
+	function showSignUp() {
+	  document.getElementById('toggleSignUp').click();
+	  setPos();
+	}
 
-  function passData(url, title) {
-    document.getElementById('deleteForm').setAttribute('action', url);
-  }
+	function removeAlert() {
+	  setTimeout(() => {
+	    document.getElementsByClassName('alert').forEach((alert) => {
+	      alert.setAttribute('style', 'display: none');
+	    });
+	  }, 3000);
+	}
 
-  function openFullCarousel() {
-    const carousel = document.getElementById('carousel');
-    const close = document.getElementById('close-fullscreen');
-    close.setAttribute('style','display: flex')
-    carousel.classList.remove('carousel-dark');
-    carousel.classList.add('carousel-full');
-  }
+	function openFullCarousel() {
+	  const carousel = document.getElementById('carousel');
+	  const close = document.getElementById('close-fullscreen');
+	  close.setAttribute('style','display: flex')
+	  carousel.classList.remove('carousel-dark');
+	  carousel.classList.add('carousel-full');
+	}
 
-  function closeFullCarousel() {
-    const carousel = document.getElementById('carousel');
-    const close = document.getElementById('close-fullscreen');
-    close.setAttribute('style','display: flex')
-    carousel.classList.add('carousel-dark');
-    carousel.classList.remove('carousel-full');
-  }
+	function closeFullCarousel() {
+	  const carousel = document.getElementById('carousel');
+	  const close = document.getElementById('close-fullscreen');
+	  close.setAttribute('style','display: flex')
+	  carousel.classList.add('carousel-dark');
+	  carousel.classList.remove('carousel-full');
+	}
 </script>

@@ -1,0 +1,27 @@
+<div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="followingModalLabel">Követett felhasználók</h5>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <% users.forEach(user => { %>
+          <li class="list-group-item user-list">
+            <div class="user-avatar-name">
+              <img src="<%= user.avatar.length ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="rounded-circle ripple avatar" height="36" loading="lazy">
+              <a href="/profile/<%= user.uid %> " class="user-name"><%= user.username %></a>
+            </div>
+            <form method="GET" action="/profile/follow/<%= user.uid %>">
+              <button type="submit" class="btn btn-primary"><%= userIn.following.includes(user.uid) ? 'Követés leállítása' : 'Követem' %> </button>
+            </form>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Bezár</button>
+      </div>
+    </div>
+  </div>
+</div>

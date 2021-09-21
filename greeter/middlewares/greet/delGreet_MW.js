@@ -7,18 +7,11 @@
  * @returns
  */
 module.exports = (objRep) => {
-	const { greetModel, saveToDB, join, readdirSync, unlinkSync } = objRep;
+	const { greetModel, saveToDB } = objRep;
 	return (req, res, next) => {
 		req.session.scroll = parseInt(req.body.scroll, 10);
 
 		try {
-			const fileNames = readdirSync(
-				join(__dirname, '../../storage/greets')
-			).filter((f) => f.includes(req.params.gid));
-	
-			fileNames.forEach(file => {
-				unlinkSync(join(__dirname, '../../storage/greets', file));	
-			});
 			greetModel
 				.chain()
 				.find({

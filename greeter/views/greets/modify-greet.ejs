@@ -1,0 +1,15 @@
+<div class="modal fade" id="modify-<%= greet.gid %>" tabindex="-1" aria-labelledby="modify-<%= greet.gid %>-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modify-<%= greet.gid %>-label">Greet módosítása</h5>
+      </div>
+      <div class="modal-body">
+        <%- include('../greets/edit-greet-form', {redirectTo, greet}) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>
+      </div>
+    </div>
+  </div>
+</div>

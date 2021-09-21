@@ -1,0 +1,26 @@
+<div class="modal fade" id="delete-<%= gid %>" tabindex="-1" aria-labelledby="delete-<%= gid %>-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete-<%= gid %>-label">Greet törlése</h5>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/greet/del/<%= gid %> ">
+
+          <div class="text-center">
+            <p>Biztosan törölni szeretnéd?</p>
+          </div>
+
+          <input type="hidden" name="scroll" class="scroll" value="0">
+          <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+
+          <button type="submit" class="btn btn-danger btn-block mb-4">Törlöm</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>
+      </div>
+    </div>
+  </div>
+</div>
