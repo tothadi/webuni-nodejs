@@ -1,6 +1,7 @@
+const multer = require('multer');
 const { readdirSync, unlinkSync } = require('fs');
 const { genPassHash, checkPassHash } = require('../services/password');
-const multer = require('multer');
+const { sendUserMail } = require('../services/mail');
 
 const render_MW = require('../middlewares/render_MW');
 const userFeedBack_MW = require('../middlewares/userFeedBack_MW');
@@ -20,6 +21,7 @@ const redirectToFeed_MW = require('../middlewares/auth/redirectToFeed_MW');
 const getUsers_MW = require('../middlewares/user/getUsers_MW');
 const getUserByID_MW = require('../middlewares/user/getUserByID_MW');
 const sendAvatar_MW = require('../middlewares/user/sendAvatar_MW');
+const setUser_MW = require('../middlewares/user/setUser_MW');
 const setUserAvatar_MW = require('../middlewares/user/setUserAvatar_MW');
 const delUserAvatar_MW = require('../middlewares/user/delUserAvatar_MW');
 const followUser_MW = require('../middlewares/user/followUser_MW');
@@ -36,14 +38,7 @@ const delGreetPics_MW = require('../middlewares/greet/delGreetPics_MW');
 
 module.exports = function (
 	app,
-	{
-		userModel,
-		greetModel,
-		commentModel,
-		saveToDB,
-		join,
-		v4
-	}
+	{ userModel, greetModel, commentModel, saveToDB, join, v4 }
 ) {
 	const objRep = {
 		userModel,
@@ -52,62 +47,45 @@ module.exports = function (
 		saveToDB,
 		genPassHash,
 		checkPassHash,
+		sendUserMail,
 		v4,
 		join,
 		readdirSync,
 		unlinkSync,
 	};
 
-
 	const avatarStorage = multer.diskStorage({
 		destination: avatarStorage_MW.destination,
-		filename: avatarStorage_MW.fileName
+		filename: avatarStorage_MW.fileName,
 	});
 	const greetStorage = multer.diskStorage({
 		destination: greetStorage_MW.destination,
-		filename: greetStorage_MW.fileName
+		filename: greetStorage_MW.fileName,
 	});
-
 
 	/*               */
 	/* Authorization */
 	/*               */
 
 	// Register a user
-	app.post(
-		'/sign-up',
-		signUp_MW(objRep),
-		render_MW('index')
-	);
+	app.post('/sign-up', signUp_MW(objRep), render_MW('index'));
 
 	// Login a user
-	app.post(
-		'/sign-in',
-		signIn_MW(objRep),
-		render_MW('index')
-	);
+	app.post('/sign-in', signIn_MW(objRep), render_MW('index'));
 
 	// Logout a user
-	app.get(
-		'/sign-out',
-		signOut_MW()
-	);
+	app.get('/sign-out', signOut_MW());
 
-	// Send new password request
-	app.use(
-		'/lost-pw',
-		lostPW_MW(objRep),
-		render_MW('ejs')
-	);
+	// Send new password link to user
+	app.post('/lost-pw', lostPW_MW(objRep));
 
 	// Modify user's password
-	// app.use(
-	// 	'/new-pw/:uid/:secret', // jelszó módosítás
-	// 	getUserBySecret_MW,
-	// 	setUser_MW('password'),
-	// 	render_MW('ejs')
-	// );
-
+	app.use(
+		'/new-pw/:secret',
+		getUserByID_MW(objRep),
+		setUser_MW(objRep),
+		render_MW('profile/new-pw')
+	);
 
 	/*        */
 	/* Feed's */
@@ -119,12 +97,11 @@ module.exports = function (
 		isValidRoute_MW(),
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
-		getGreets_MW(objRep), // later getGreetsOfFollowed_MW
 		//getComments_MW,
+		getGreets_MW(objRep),
 		userFeedBack_MW(),
 		render_MW('feed', 'feed')
 	);
-
 
 	/*         */
 	/* Profile */
@@ -136,8 +113,8 @@ module.exports = function (
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
 		getUsers_MW(objRep),
-		getGreetsOfUser_MW(objRep),
 		//getComments_MW(objRep),
+		getGreetsOfUser_MW(objRep),
 		userFeedBack_MW(),
 		render_MW('profile/profile')
 	);
@@ -154,7 +131,9 @@ module.exports = function (
 	app.post(
 		'/profile/set-avatar',
 		auth_MW(objRep),
-		multer({ storage: avatarStorage, fileFilter: fileFilter_MW }).single('avatar'),
+		multer({ storage: avatarStorage, fileFilter: fileFilter_MW }).single(
+			'avatar'
+		),
 		setUserAvatar_MW(objRep)
 	);
 
@@ -174,7 +153,6 @@ module.exports = function (
 		followUser_MW(objRep)
 	);
 
-
 	/*         */
 	/* Greet's */
 	/*         */
@@ -184,7 +162,10 @@ module.exports = function (
 		'/greet/:gid',
 		auth_MW(objRep),
 		getGreetByID_MW(objRep),
-		multer({ fileFilter: fileFilter_MW, storage: greetStorage }).array('greet', 10),
+		multer({ fileFilter: fileFilter_MW, storage: greetStorage }).array(
+			'greet',
+			10
+		),
 		setGreetPics(),
 		delGreetPics_MW(objRep),
 		getUserByID_MW(objRep),
@@ -192,11 +173,7 @@ module.exports = function (
 	);
 
 	// Get the pics of a greet
-	app.get(
-		'/greets/:filename',
-		auth_MW(objRep),
-		sendGreetPic_MW(objRep)
-	);
+	app.get('/greets/:filename', auth_MW(objRep), sendGreetPic_MW(objRep));
 
 	// Like/unline a greet
 	app.post(
@@ -214,7 +191,6 @@ module.exports = function (
 		delGreet_MW(objRep)
 	);
 
-	
 	/*          */
 	/* Homepage */
 	/*          */

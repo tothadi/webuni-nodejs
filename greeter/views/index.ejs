@@ -7,6 +7,13 @@
     <%- include('nav/navbar') %>
   </header>
   <main>
+    <% if (typeof emailFeedBack !== 'undefined') { %>
+      <div class="text-center alert <%= ` alert-${emailFeedBack.status}` %>" role="alert" data-mdb-color="<%= emailFeedBack.status %>">
+        <p>
+          <%= emailFeedBack.message %>
+        </p>
+      </div>
+      <% } %>
 
     <% if (typeof userIn === 'undefined') { %>
     <div class="container d-flex align-items-center">
@@ -15,6 +22,7 @@
     </div>
     <%- include('popups/signin') %>
     <%- include('popups/signup') %>
+    <%- include('popups/lost-pw') %>
     <% } %>
 
     <div class="greets d-flex">

@@ -11,7 +11,7 @@
 module.exports = (objRep) => {
 	const { userModel, checkPassHash } = objRep;
 	return (req, res, next) => {
-		// Checks if minimum data arrived
+		// Checks if minimum request data arrived
 		if (
 			typeof req.body.username === 'undefined' ||
 			typeof req.body.password === 'undefined'

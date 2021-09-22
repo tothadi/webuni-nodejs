@@ -13,7 +13,7 @@
       <%- include('profile-data', { user, lastGreet: greets[0], userIn, redirectTo: `/profile/${user.uid}` }) %>
 
       <% if (typeof greetFeedBack !== 'undefined') { %>
-      <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert" data-mdb-color="danger">
+      <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert" data-mdb-color="<%= greetFeedBack.status %>">
         <p>
           <%= greetFeedBack.message %>
         </p>

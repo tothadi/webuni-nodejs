@@ -1,0 +1,28 @@
+<%- include('../header') %>
+
+<body cz-shortcut-listen="true">
+
+  <main>
+
+    <div class="container d-flex align-items-center">
+      <img id="main-logo" class="mb-4" src="/greeter_logo_full.svg" alt="greeter" loading="lazy">
+      <h2 class="mb-4">Elfelejtett jelszó cseréje</h2>
+      <form action="/new-pw/<%= secret %> " method="POST">
+
+        <div class="form-outline mb-4">
+          <input type="password" class="form-control" autocomplete="off" name="newpassword" id="password" placeholder="Add meg az új jelszavad!">
+          <label for="password" required class="form-label">Új jelszó</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mb-4">Új jelszó mentése</button>
+
+      </form>
+    </div>
+
+  </main>
+
+  <%- include('../footer') %>
+
+</body>
+
+</html>

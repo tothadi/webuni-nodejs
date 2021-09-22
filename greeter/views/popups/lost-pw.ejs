@@ -1,0 +1,27 @@
+<div class="modal fade" id="lostpwModal" tabindex="-1" aria-labelledby="lostpwModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lostpwModalLabel">Új jelszó kérése</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Új jelszó beállításához kérlek, add meg a felhasználóneved vagy az email-címed!</p>
+        <form action="/lost-pw" method="POST">
+
+          <div class="form-outline mb-4">
+            <input type="text" required autocomplete="off" class="form-control" name="lostusername" id="lostusername" placeholder="Add meg a felhasználóneved/email-címed!">
+            <label for="username" class="form-label">Email-cím/felhasználónév</label>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">Küldd a linket!</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>
+      </div>
+    </div>
+  </div>
+</div>

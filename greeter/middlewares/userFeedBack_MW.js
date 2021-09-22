@@ -47,6 +47,23 @@ module.exports = () => {
 						  };
 				res.locals.toRender = 'feed';
 				break;
+			case 'emailService':
+				res.locals.context =
+					req.session.feedBack.fbType === 'fbError'
+						? {
+								emailFeedBack: {
+									status: 'danger',
+									message: req.session.feedBack.message,
+								},
+						  }
+						: {
+								emailFeedBack: {
+									status: 'success',
+									message: req.session.feedBack.message,
+								},
+						  };
+				res.locals.toRender = 'index';
+				break;
 			default:
 				res.locals.context = {};
 				res.locals.toRender = 'index';

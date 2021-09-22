@@ -31,7 +31,7 @@ function initDB(cb) {
 		let userModel = db.getCollection('user');
 		if (userModel === null) {
 			userModel = db.addCollection('user', {
-				indices: ['uid', 'email', 'username'],
+				indices: ['uid', 'email', 'username', 'lost'],
 				unique: ['uid', 'email', 'username'],
 			});
 		}

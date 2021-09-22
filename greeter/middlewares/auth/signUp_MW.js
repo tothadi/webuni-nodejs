@@ -38,7 +38,7 @@ module.exports = (objRep) => {
 						? 'visitor'
 						: 'user',
 				email: req.body.regEmail,
-				password: genPassHash(req.body.regPassword, req.session.secret),
+				password: genPassHash(req.body.regPassword),
 				...(req.body.regUsername && { username: req.body.regUsername }),
 				...(req.body.regFirstname && { firstname: req.body.regFirstname }),
 				...(req.body.regLastname && { lastname: req.body.regLastname }),
