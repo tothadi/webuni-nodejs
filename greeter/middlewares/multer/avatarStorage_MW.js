@@ -11,8 +11,8 @@ module.exports.destination = (req, file, cb) => {
  * @returns file
  */
 module.exports.fileName = (req, file, cb) => {
-	const ext = file.originalname
+	req.session.ext = file.originalname
 		.substring(file.originalname.lastIndexOf('.') + 1)
 		.toLowerCase();
-	return cb(null, req.session.uid + '.' + ext);
+	return cb(null, req.session.uid + '.' + req.session.ext);
 };
