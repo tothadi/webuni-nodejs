@@ -90,17 +90,17 @@
 	  }, 3000);
 	}
 
-	function openFullCarousel() {
-	  const carousel = document.getElementById('carousel');
-	  const close = document.getElementById('close-fullscreen');
+	function openFullCarousel(gid) {
+	  const carousel = document.getElementById(`${gid}-carousel`);
+	  const close = document.getElementById(`${gid}-close-full`);
 	  close.setAttribute('style','display: flex')
 	  carousel.classList.remove('carousel-dark');
 	  carousel.classList.add('carousel-full');
 	}
 
-	function closeFullCarousel() {
-	  const carousel = document.getElementById('carousel');
-	  const close = document.getElementById('close-fullscreen');
+	function closeFullCarousel(gid) {
+	  const carousel = document.getElementById(`${gid}-carousel`);
+	  const close = document.getElementById(`${gid}-close-full`);
 	  close.setAttribute('style','display: flex')
 	  carousel.classList.add('carousel-dark');
 	  carousel.classList.remove('carousel-full');

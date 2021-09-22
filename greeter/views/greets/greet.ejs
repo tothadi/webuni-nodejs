@@ -28,9 +28,8 @@
 
 	<div class="card-body">
 		<p class="card-text"><%= greet.text %></p>
-
 		<% if (typeof greet.pics !=='undefined' && greet.pics.length) { %> <%-
-		include('carousel', {pics: greet.pics}) %> <% } %>
+		include('carousel') %> <% } %>
 	</div>
 
 	<div class="card-footer justify-content-between">

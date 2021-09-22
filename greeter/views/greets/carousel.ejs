@@ -1,11 +1,11 @@
-<div id="carousel" class="carousel slide carousel-fade carousel-dark" data-interval="false" data-mdb-ride="carousel">
+<div id="<%= greet.gid %>-carousel" class="carousel slide carousel-fade carousel-dark" data-interval="false" data-mdb-ride="<%= greet.gid %>-carousel">
   <% if (typeof userIn !== 'undefined') { %>
 
-  <button style="display: none;" class="btn btn-floating btn-link close-fullscreen" onclick="closeFullCarousel()"><i class="fas fa-times"></i></button>
+  <button style="display: none;" id="<%= greet.gid %>-close-full" class="btn btn-floating btn-link close-fullscreen" onclick="closeFullCarousel('<%= greet.gid %>')"><i class="fas fa-times"></i></button>
   <div class="carousel-indicators">
 
     <% greet.pics.forEach((pic, p)=> { %>
-    <button data-mdb-target="#carousel" data-mdb-slide-to="<%= p %>" <% if (p === 0) { %> class="active" aria-current="true" <% } %> aria-label="Slide <%= p+1 %>"></button>
+    <button data-mdb-target="#<%= greet.gid %>-carousel" data-mdb-slide-to="<%= p %>" <% if (p === 0) { %> class="active" aria-current="true" <% } %> aria-label="Slide <%= p+1 %>"></button>
     <% }) %>
 
   </div>
@@ -17,12 +17,12 @@
     <% if (typeof userIn === 'undefined') { %>
 
     <img src="/placeholder-img.jpg" class="d-block w-100" alt="greetkép">
-    <p>A képek megtekintéséhez, regisztrálj, vagy jelentkezz be!</p>
+    <p>A képek megtekintéséhez, kedveléshez, hozzászóláshoz regisztrálj, vagy jelentkezz be!</p>
 
     <% } else { %>
 
     <% greet.pics.forEach((pic, p)=> { %>
-    <div class="<%= p === 0 ? 'carousel-item active' : 'carousel-item' %>" onclick="openFullCarousel()">
+    <div class="<%= p === 0 ? 'carousel-item active' : 'carousel-item' %>" onclick="openFullCarousel('<%= greet.gid %>')">
       <img src="/greets/<%= pic %>" class="d-block w-100" alt="greetkép">
     </div>
 
@@ -33,11 +33,11 @@
   </div>
 
   <% if (typeof userIn !== 'undefined') { %>
-  <button class="carousel-control-prev" type="button" data-mdb-target="#carousel" data-mdb-slide="prev">
+  <button class="carousel-control-prev" type="button" data-mdb-target="#<%= greet.gid %>-carousel" data-mdb-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-mdb-target="#carousel" data-mdb-slide="next">
+  <button class="carousel-control-next" type="button" data-mdb-target="#<%= greet.gid %>-carousel" data-mdb-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>

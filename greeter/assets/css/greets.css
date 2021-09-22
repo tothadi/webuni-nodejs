@@ -124,8 +124,8 @@
 }
 
 .avatar {
-	object-fit: cover; /* Do not scale the image */
-	object-position: center; /* Center the image within the element */
+	object-fit: cover;
+	object-position: center;
 	width: 36px;
 	max-height: 36px;
 	pointer-events: all;
@@ -144,6 +144,12 @@
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
 }
 
+/*** Greet images ***/
+/*                  */
+.carousel {
+    transition: all 400ms ease-in-out;
+}
+
 .carousel-inner p {
     text-align: center;
     margin: 0;
@@ -154,14 +160,10 @@
 }
 
 .carousel-item img {
-    object-fit: contain; /* Do not scale the image */
+    object-fit: contain;
 	object-position: center;
     height: 400px;
     max-width: 100%;
-}
-
-#carousel {
-    transition: all 400ms ease-in-out;
 }
 
 .carousel-full {
@@ -188,18 +190,27 @@
 }
 
 .carousel-full .carousel-item img {
-    object-fit: contain; /* Do not scale the image */
+    object-fit: contain;
 	object-position: center;
     height: unset;
     width: unset;
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 80%;
+    max-width: 80%;
+}
+
+.carousel-full .carousel-control-prev {
+	width: unset;
+	left: 5px;
+}
+.carousel-full .carousel-control-next {
+	width: unset;
+	right: 5px;
 }
 
 .close-fullscreen {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     font-size: 1.7rem;
     color: rgba(130, 130, 130);
     z-index: 10001;
@@ -209,6 +220,9 @@
     color: whitesmoke;
 }
 
+
+/*** Greet footer ***/
+/*                  */
 .greet .card-footer {
 	flex-direction: row;
 }

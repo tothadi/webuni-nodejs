@@ -6,6 +6,13 @@
 	flex-grow: 1;
 }
 
+@media screen and (max-width: 640px){
+	#menu-left, #menu-right {
+		flex-grow: 1;
+		justify-content: center;
+	}
+}
+
 #menu-left {
     order: 1;
     display: flex;
