@@ -154,7 +154,7 @@ module.exports = function (
 	app.post(
 		'/profile/set-avatar',
 		auth_MW(objRep),
-		multer({ storage: avatarStorage }).single('avatar'),
+		multer({ storage: avatarStorage, fileFilter: fileFilter_MW }).single('avatar'),
 		setUserAvatar_MW(objRep)
 	);
 

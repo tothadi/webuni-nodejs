@@ -1,10 +1,11 @@
 /**
- * Gets multiple users by following of userIn
+ * Gets multiple users by following array of userIn
  *
- * 1. res.locals.users
- * 2. return next
- * @param objRepo – common models, functions
- * @returns next()
+ * 1. Retreives users from DB by array of uids
+ * 2. Defines res.locals.users
+ * 2. Returns next()
+ * @param objRepo – userModel
+ * @returns next
  */
 module.exports = (objRep) => {
 	const { userModel } = objRep;
