@@ -14,6 +14,7 @@ function initDB(cb) {
 
 		/**
          * User
+		 * 
          * uid: genarated
          * role: [user, visitor]
          * email: email address of user

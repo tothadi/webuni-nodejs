@@ -39,7 +39,7 @@
         <div class="card-body d-flex align-items-center">
           <h6 class="card-subtitle mb-2 text-muted">Utolsó greet:</h6>
           <p class="card-text text-truncate">
-            <%= lastGreet.text %>
+            <%= lastGreet?.text || 'Még nem greetelt' %>
           </p>
           <ul class="list-group list-group-flush ">
             <li class="list-group-item">Csatlakozás datuma: <%= new Date(user.regDate).toLocaleDateString() %></li>
