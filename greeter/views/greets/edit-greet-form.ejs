@@ -3,7 +3,7 @@
   <input type="hidden" name="removed" id="<%= greet.gid %>-removed" value="">
   <div class="edit-greet-text form-outline mb-4">
     <i class="fas fa-edit trailing"></i>
-    <textarea type="text" required autocomplete="on" class="form-control" name="text" id="<%= greet.gid %>-text"><%= greet.text %></textarea>
+    <textarea type="text" required autocomplete="on" class="form-control active" name="text" id="<%= greet.gid %>-text"><%= greet.text %></textarea>
     <label for="<%= greet.gid %>-text" class="form-label">Greet szövege</label>
   </div>
 
@@ -24,7 +24,7 @@
         <img class="thumb mb-4 ripple img-responsive" height="80" src="/greets/<%= pic %>" alt="thumb" loading="lazy">
         <a 
         onclick="removePic('<%= i %>', '<%= greet.gid %>')" class="badge rounded-pill bg-danger">
-          <i class="fas fa-trash-alt"></i>
+          <i class="fas fa-trash"></i>
         </a>
       </div>
       <% }) %>

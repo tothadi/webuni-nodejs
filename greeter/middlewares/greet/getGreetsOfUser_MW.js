@@ -1,11 +1,11 @@
 /**
- * Gets all greets from user
+ * Gets all greets of a user
  *
  * 1. Find greets in DB by res.locals.user.uid
- * 2. res.locals.greets
- * 3. return next
- * @param {*} objRep – common models, functions
- * @returns next()
+ * 2. Defines res.locals.greets and adds author
+ * 3. Returns next
+ * @param {*} objRep – greetModel, userModel
+ * @returns next
  */
 module.exports = (objRep) => {
 	const { greetModel, userModel } = objRep;
@@ -22,6 +22,7 @@ module.exports = (objRep) => {
 					greet.authorAvatar = author.avatar;
 					return greet;
 				});
+				// TODO - comments
 		} catch (err) {
 			if (err) return next(err);
 		}

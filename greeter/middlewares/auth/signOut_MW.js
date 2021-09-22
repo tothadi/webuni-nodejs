@@ -2,7 +2,7 @@
  * Destroys session and redirects the user to '/'
  *
  * @param {*}
- * @returns next()
+ * @returns Redirect
  */
 module.exports = () => {
 	return (req, res, next) => {

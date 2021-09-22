@@ -1,15 +1,18 @@
 /**
  * Finds Greet based on req.params.gid
  *
- * 1. Finds greet by gid in DB, if no greet return next
- * 2. res.locals.greet
- * 3. return next
- * @param {*} objRep – common models, functions
- * @returns next()
+ * 1. If req params gid is new, generates gid and initializes array for picture filenames, then calls next
+ * 2. If req params gid is a valid gid, tries to retrieve the greet from db
+ *    creates res.locals.greet
+ * 3. Adds req.session.gid for multer filenaming
+ * 4. Returns next
+ * @param {*} objRep – greetModel, uuid
+ * @returns next
  */
 module.exports = (objRep) => {
 	const { greetModel, v4 } = objRep;
 	return (req, res, next) => {
+		// Adding new greet
 		if (req.params.gid === 'new') {
 			req.session.gid = v4();
 			res.locals.isNew = true;
@@ -26,7 +29,6 @@ module.exports = (objRep) => {
 			if (err) return next(err);
 		}
 
-		console.log('greet.pics in getgreet: ', res.locals.greet.pics)
 		req.session.gid = res.locals.greet.gid;
 		return next();
 	};

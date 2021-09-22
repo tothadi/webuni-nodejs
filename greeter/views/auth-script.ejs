@@ -12,8 +12,6 @@
 	    );
 	}
 
-	let dts = [];
-
 	window.onload = function() {
 	  document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
 	  if (window.location.pathname === '/feed/followed') {
@@ -44,7 +42,7 @@
 	  setPos();
 	};
 
-  const dt = new DataTransfer();
+	 const dt = new DataTransfer();
 
 	function addPics(event, prefix) {
 	  const thumbs = document.getElementById(`${prefix}-thumbs`);
@@ -52,21 +50,24 @@
 	  thumbs.classList.add('mb-4');
 	  picInput.files.forEach((file, i) => {
 	    dt.items.add(file);
-	    thumbs.innerHTML += `<div id="${prefix}-thumb-${thumbs.children.length + i}" class="thumb-wrap"><img class="thumb ripple img-responsive" height="80" src="${URL.createObjectURL(file)}" alt="thumb" loading="lazy"><a onclick="removePic(${i},'${prefix}')" class="badge rounded-pill bg-danger"><i class="fas fa-trash-alt"></i></a></div>`;
+	    thumbs.innerHTML += `<div id="${prefix}-thumb-${thumbs.children.length + i}" class="thumb-wrap"><img class="thumb ripple img-responsive" height="80" src="${URL.createObjectURL(file)}" alt="thumb" loading="lazy"><a onclick="removePic(${i},'${prefix}')" class="badge rounded-pill bg-danger"><i class="fas fa-trash"></i></a></div>`;
 	  });
+	  picInput.files = dt.files;
 	}
 
-  const removedFiles = [];
+	 const removedFiles = [];
 
 	function removePic(i, prefix) {
 	  const thumbs = document.getElementById(`${prefix}-thumbs`);
 	  const picInput = document.getElementById(`${prefix}-picture-input`);
 	  const removedPic = document.getElementById(`${prefix}-thumb-${i}`);
-    const removedList = document.getElementById(`${prefix}-removed`);
-    removedFiles.push(removedPic.children[0].getAttribute('src').split('/')[2]);
-    removedList.setAttribute('value', JSON.stringify(removedFiles));
-    console.log(removedList.getAttribute('value'))
-    removedPic.remove();
+	  const removedList = document.getElementById(`${prefix}-removed`); // hidden post data
+
+
+	  removedFiles.push(removedPic.children[0].getAttribute('src').split('/')[2]);
+	  removedList.setAttribute('value', JSON.stringify(removedFiles));
+	  console.log(removedList.getAttribute('value'))
+	  removedPic.remove();
 	  dt.items.remove(i);
 	  picInput.files = dt.files;
 	}

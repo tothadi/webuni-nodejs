@@ -1,18 +1,23 @@
 /**
- * Checks if session.uid exists, and if yes finds user by id for res.locals.user. If not redirects to '/'
- *
- * @param {*}
- * @returns next()
+ * Checks if user is logged in
+ * 
+ * 1. If session.uid is not existing, redirects to '/'
+ * 2. If session.uid exists, finds user in db and defines logged in user as res.locals.userIn
+ * 3. If getting user data from db fails, redirects to '/'
+ * 4. Returns next
+ * @param {*} objRep - userModel
+ * @returns next
  */
 module.exports = (objRep) => {
 	const { userModel } = objRep;
 	return (req, res, next) => {
+		// Checks for available session user
 		if (typeof req.session.uid === 'undefined') {
-			//req.session.uid = '30ce4884-0583-4806-8547-d303e1a287df';
 			return res.redirect('/');
 		}
 
 		try {
+			// Defines logged in user
 			res.locals.userIn = userModel.findOne({ uid: req.session.uid });
 		} catch (err) {
 			if (err) {

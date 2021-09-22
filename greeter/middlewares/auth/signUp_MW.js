@@ -1,20 +1,24 @@
 /**
  * Creates a new user/visitor based on data from POST request.body
  *
- * 1. Checks if user/visitor (username, email) exists, if  exists res.locals.errors and return next
- * 2. If user doesn’t exist, then creates new user/visitor.
- * 3. Save to DB
- * 4. Create session and redirect to profile page
- * @param {*} objRep – models
- * @returns next()
+ * 1. Checks if necessary data available in req.body and if user/visitor username/password exists
+ * 2. If exists, adds feedback data to req.session so it's avaliable after redirect.
+ * 3. If username, firstname or lastname is missing from request, adds visitor role
+ * 4. Generates uid (adds it to session) and password hash
+ * 3. Saves to DB
+ * 4. Redirects to profile page
+ * @param {*} objRep – userModel, saveToDB, password hash service, uuid
+ * @returns Redirect
  */
 module.exports = (objRep) => {
 	const { userModel, saveToDB, genPassHash, v4 } = objRep;
 	return (req, res, next) => {
+		// Checks if minimum data arrived
 		if (
 			typeof req.body.regEmail === 'undefined' ||
 			typeof req.body.regPassword === 'undefined'
 		) {
+			// Creates error feedback - available after redirect
 			req.session.feedBack = {
 				fbType: 'fbError',
 				initiator: 'signUp',
@@ -24,7 +28,8 @@ module.exports = (objRep) => {
 		}
 
 		try {
-			res.locals.user = userModel.insert({
+			// Creates new user - Loki checks if exists
+			const user = userModel.insert({
 				uid: v4(),
 				role:
 					!req.body.regUsername ||
@@ -45,9 +50,9 @@ module.exports = (objRep) => {
 				regDate: new Date(),
 				lost: false,
 			});
-			req.session.uid = res.locals.user.uid;
+			req.session.uid = user.uid;
 		} catch (err) {
-			console.log(err.message);
+			// Creates error feedback of existing user - available after redirect
 			req.session.feedBack = {
 				fbType: 'fbError',
 				initiator: 'signUp',

@@ -2,15 +2,16 @@
  * Gets all public greets
  *
  * 1. Find public greets in DB
- * 2. res.locals.greets
- * 3. return next
- * @param {*} objRep – common models, functions
- * @returns next()
+ * 2. Defines res.locals.greets and adds author
+ * 3. Returns next
+ * @param {*} objRep – greetModel, userModel
+ * @returns next
  */
 module.exports = (objRep) => {
 	const { greetModel, userModel } = objRep;
 	return (req, res, next) => {
 		try {
+			// Defining filter for Loki
 			const filter =
 				typeof req.params.whichfeed === 'undefined'
 					? { visibility: 'public' }
@@ -22,6 +23,8 @@ module.exports = (objRep) => {
 							},
 					  };
 
+			// Filters public greets and adds author's username and avatar data to it
+			// TODO - comments
 			res.locals.greets = greetModel
 				.chain()
 				.find(filter)

@@ -1,18 +1,22 @@
 /**
  * Creates a logged in session for user/visitor based on data from POST request.body
  *
- * 1. Checks if user/visitor username exists or pw is OK, if not res.locals.errors and return next
- * 2. Create session and next()
- * @param {*} objRep – models
+ * 1. Checks if user/visitor username exists or pw is OK
+ * 2. If not, adds feedback data to req.session so it's avaliable after redirect.
+ * 3. Create session.uid
+ * 4. Returns next
+ * @param {*} objRep – userModel, password check service
  * @returns next()
  */
 module.exports = (objRep) => {
 	const { userModel, checkPassHash } = objRep;
 	return (req, res, next) => {
+		// Checks if minimum data arrived
 		if (
 			typeof req.body.username === 'undefined' ||
 			typeof req.body.password === 'undefined'
 		) {
+			// Creates error feedback - available after redirect
 			req.session.feedBack = {
 				fbType: 'fbError',
 				initiator: 'signIn',
@@ -22,21 +26,23 @@ module.exports = (objRep) => {
 		}
 
 		try {
-			res.locals.user = req.body.username.includes('@')
+			// Checks username and password, creates session
+			const user = req.body.username.includes('@')
 				? userModel.findOne({ email: req.body.username })
 				: userModel.findOne({ username: req.body.username });
-			if (res.locals.user === null) {
+			if (user === null) {
 				throw new Error(
 					'A felhasználónév/email cím vagy jelszó nem megfelelő!'
 				);
 			}
-			if (!checkPassHash(req.body.password, res.locals.user.password)) {
+			if (!checkPassHash(req.body.password, user.password)) {
 				throw new Error(
 					'A felhasználónév/email cím vagy jelszó nem megfelelő!'
 				);
 			}
-			req.session.uid = res.locals.user.uid;
+			req.session.uid = user.uid;
 		} catch (err) {
+			// Creates error feedback from error thrown in checks - available after redirect
 			req.session.feedBack = {
 				fbType: 'fbError',
 				initiator: 'signIn',

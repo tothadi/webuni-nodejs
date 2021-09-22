@@ -1,18 +1,18 @@
 /**
- * Add user to followed list
+ * Adds/removes a user to following list of logged-in user
  *
- * 1. follower = Find user in DB by session.uid
- * 2. followed = res.locals.user
- * 3. Push follower.following(followed.id)
- * 4. Increase followed.followCount by 1
- * 5. Save to DB and redirect back
+ * 1. If logged-in user's following list includes uid from req.params, removes user from following
+ * 2. Else pushes suid from req.params to logge-in user's following
+ * 3. Increase/decreases followed.followCount by 1
+ * 4. Saves to DB and redirects back
  * @param {*} objRep
- * @returns
+ * @returns Redirect
  */
 module.exports = (objRep) => {
 	const { saveToDB } = objRep;
 	return (req, res, next) => {
 		try {
+			// Checks if already followed
 			if (res.locals.userIn.following.includes(res.locals.user.uid)) {
 				let index = res.locals.userIn.following.indexOf(res.locals.user.uid);
 				res.locals.userIn.following.splice(index, 1);
