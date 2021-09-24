@@ -146,6 +146,10 @@ main {
 	width: 90%;
 }
 
+.card-body .card-text a {
+	pointer-events: all;
+}
+
 .card-subtitle {
 	margin-top: 16px;
 }

@@ -15,8 +15,12 @@
       </div>
       <% } %>
 
-      <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
+      <% if (typeof userIn !== 'undefined' && userIn.role === 'user') { %>
       <%- include('greets/new-greet-form', {redirectTo}) %>
+      <% } else if (typeof userIn !== 'undefined') { %>
+        <p class="text-center alert-info" role="alert" data-mdb-color="info">
+          Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
+        </p>
       <% } %>
 
       <% greets.forEach(greet=> { %>

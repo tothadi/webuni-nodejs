@@ -20,9 +20,14 @@
       </div>
       <% } %>
 
-      <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-      <%- include('../greets/new-greet-form', {redirectTo: `/profile/${userIn.uid}`}) %>
-      <% } %>
+      <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid && userIn.role === 'user') { %>
+        <%- include('../greets/new-greet-form', {redirectTo}) %>
+        <% } else if (typeof userIn !== 'undefined') { %>
+          <%- include('upgrade-modal')  %> 
+          <p class="text-center alert-info" role="alert" data-mdb-color="info">
+            Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
+          </p>
+        <% } %>
 
       <% greets.forEach(greet=> { %>
       <%- include('../greets/greet', {greet, redirectTo: `/profile/${userIn.uid}`}) %>

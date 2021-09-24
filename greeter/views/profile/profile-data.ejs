@@ -1,63 +1,104 @@
-  <% if (user.role === 'user') { %>
-  <div class="card mb-3 profile-card">
-
-    <div class="row g-0">
-      <div class="col-sm-4 d-flex justify-content-center align-items-center">
-        <div id="img-wrapper">
-          <img src="<%= user.avatar.length ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>" alt="profilkép" class="img-fluid ripple profile-avatar" loading="lazy" />
-          <% if (userIn.uid === user.uid) { %>
-          <div class="pic-control">
-            <a data-mdb-toggle="modal" id="toggleModify" data-mdb-target="#modifyModal">
-              <button type="button" class="btn btn-warning btn-floating mx-1">
-                <i class="fas fa-pencil-alt"></i>
-              </button>
-            </a>
-            <a data-mdb-toggle="modal" id="toggleDeleteAvatar" data-mdb-target="#deleteAvatarModal">
-              <button type="button" class="btn btn-danger btn-floating mx-1">
-                <i class="fas fa-trash"></i>
-              </button>
-            </a>
-          </div>
-          <% } %>
-        </div>
-        <div id="profile-buttons">
-          <% if (userIn.uid !== user.uid) { %>
-          <form method="GET" action="/profile/follow/<%= user.uid %>">
-            <button type="submit" class="btn btn-primary btn-block"><%= userIn.following.includes(user.uid) ? 'Követés leállítása' : 'Követem' %> </button>
-          </form>
-          <% } else { %>
-          <button type="button" class="btn btn-primary btn-block" data-mdb-toggle="modal" id="toggleFollowing" data-mdb-target="#followingModal">Követett felhasználók</button>
-          <% } %>
-        </div>
-      </div>
-      <div class="col-sm-8">
-        <div class="card-header d-flex justify-content-center">
-          <h5 class="card-title">
-            <%= user.username %>
-          </h5>
-        </div>
-        <div class="card-body d-flex align-items-center">
-          <h6 class="card-subtitle mb-2 text-muted">Utolsó greet:</h6>
-          <p class="card-text text-truncate">
-            <%= lastGreet?.text || 'Még nem greetelt' %>
-          </p>
-          <ul class="list-group list-group-flush ">
-            <li class="list-group-item">Csatlakozás datuma: <%= new Date(user.regDate).toLocaleDateString() %></li>
-            <li class="list-group-item">Követők száma: <%= user.followCount %></li>
-            <li class="list-group-item">Greetek száma: <%= user.greetCount %></li>
-            <li class="list-group-item">Kommentek száma: <%= user.commentCount %></li>
-          </ul>
-          <% if (userIn.uid === user.uid) { %>
-          <h6 class="card-subtitle mb-2 text-muted">Személyes adatok:</h6>
-          <ul class="list-group list-group-flush ">
-            <li class="list-group-item">Név: <%= `${user.lastname} ${user.firstname}` %></li>
-            <li class="list-group-item">Email-cím: <%= user.email %></li>
-            <li class="list-group-item">Felhasználói ID: <%= user.uid %></li>
-          </ul>
-          <% } %>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <% } %>
+<div class="card mb-3 profile-card">
+	<div class="row g-0">
+		<div class="col-sm-4 d-flex justify-content-center align-items-center">
+			<div id="img-wrapper">
+				<img
+					src="<%= user.avatar.length ? `/profile/avatar/${user.uid}.${user.avatar}` : '/placeholder.svg' %>"
+					alt="profilkép"
+					class="img-fluid ripple profile-avatar"
+					loading="lazy"
+				/>
+				<% if (userIn.uid === user.uid && userIn.role === 'user') { %>
+				<div class="pic-control">
+					<a
+						data-mdb-toggle="modal"
+						id="toggleModify"
+						data-mdb-target="#modifyModal"
+					>
+						<button type="button" class="btn btn-warning btn-floating mx-1">
+							<i class="fas fa-pencil-alt"></i>
+						</button>
+					</a>
+					<a
+						data-mdb-toggle="modal"
+						id="toggleDeleteAvatar"
+						data-mdb-target="#deleteAvatarModal"
+					>
+						<button type="button" class="btn btn-danger btn-floating mx-1">
+							<i class="fas fa-trash"></i>
+						</button>
+					</a>
+				</div>
+				<% } %>
+			</div>
+			<div id="profile-buttons">
+				<% if (userIn.uid !== user.uid) { %>
+				<form method="GET" action="/profile/follow/<%= user.uid %>">
+					<button type="submit" class="btn btn-primary btn-block">
+						<%= userIn.following.includes(user.uid) ? 'Követés leállítása' :
+						'Követem' %>
+					</button>
+				</form>
+				<% } else { %>
+				<button
+					type="button"
+					class="btn btn-primary btn-block"
+					data-mdb-toggle="modal"
+					id="toggleFollowing"
+					data-mdb-target="#followingModal"
+				>
+					Követett felhasználók
+				</button>
+				<% } %>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="card-header d-flex justify-content-center">
+				<h5 class="card-title"><%= user.username %></h5>
+			</div>
+			<div class="card-body d-flex align-items-center">
+				<h6 class="card-subtitle mb-2 text-muted">Utolsó greet:</h6>
+				<% if (userIn.role === 'user') { %>
+				<p class="card-text text-truncate">
+					<%= lastGreet?.text || 'Még nem greetelt' %>
+				</p>
+				<% } else { %>
+				<p class="card-text">
+					Még nem tudsz greetelni? <a
+						data-mdb-dismiss="modal"
+						data-mdb-toggle="modal"
+						data-mdb-target="#upgradeModal"
+						>Bővítsd</a
+					> profilodat felhasználónévvel és a teljes neveddel!
+				</p>
+				<% } %>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						Csatlakozás datuma: <%= new Date(user.regDate).toLocaleDateString()
+						%>
+					</li>
+					<li class="list-group-item">
+						Követők száma: <%= user.followCount %>
+					</li>
+					<li class="list-group-item">Greetek száma: <%= user.greetCount %></li>
+					<li class="list-group-item">
+						Kommentek száma: <%= user.commentCount %>
+					</li>
+				</ul>
+				<% if (userIn.uid === user.uid) { %>
+				<h6 class="card-subtitle mb-2 text-muted">Személyes adatok:</h6>
+				<ul class="list-group list-group-flush">
+					<% if (userIn.role === 'user') { %>
+					<li class="list-group-item">Felhasznáálónév: <%= user.username %></li>
+					<li class="list-group-item">
+						Név: <%= `${user.lastname} ${user.firstname}` %>
+					</li>
+					<% } %>
+					<li class="list-group-item">Email-cím: <%= user.email %></li>
+					<li class="list-group-item">Felhasználói ID: <%= user.uid %></li>
+				</ul>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>

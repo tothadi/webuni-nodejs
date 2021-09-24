@@ -1,0 +1,89 @@
+<div
+	class="modal fade"
+	id="upgradeModal"
+	tabindex="-1"
+	aria-labelledby="upgradeModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="upgradeModalLabel">Regisztráció</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-mdb-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				<form action="/profile/upgrade" method="POST">
+						<div class="row mb-4">
+							<div class="col">
+								<div class="form-outline">
+									<input
+										autocomplete="off"
+										type="text"
+										id="upgradeFirstname"
+										name="regFirstname"
+										class="form-control"
+									/>
+									<label class="form-label" for="regFirstname"
+										>Keresztnév</label
+									>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-outline">
+									<input
+										autocomplete="off"
+										type="text"
+										id="regLastname"
+										name="regLastname"
+										class="form-control"
+									/>
+									<label class="form-label" for="regLastname">Vezetéknév</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-outline mb-4">
+							<input
+								autocomplete="off"
+								type="text"
+								id="regUsername"
+								name="regUsername"
+								class="form-control"
+							/>
+							<label class="form-label" for="regUsername">Felhasználónév</label>
+						</div>
+
+
+					<!-- Submit button -->
+					<button type="submit" class="btn btn-primary btn-block mb-4">
+						Regisztráció
+					</button>
+				</form>
+				<% if (typeof userError !== 'undefined' && typeof userError.signUpError
+				!== 'undefined') { %>
+				<div
+					class="text-center alert alert-danger"
+					role="alert"
+					data-mdb-color="danger"
+				>
+					<p><%= userError.signUpError %></p>
+				</div>
+				<% } %>
+			</div>
+			<div class="modal-footer">
+				<button
+					type="button"
+					class="btn btn-secondary"
+					data-mdb-dismiss="modal"
+				>
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
