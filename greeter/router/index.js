@@ -25,6 +25,7 @@ const setUser_MW = require('../middlewares/user/setUser_MW');
 const setUserAvatar_MW = require('../middlewares/user/setUserAvatar_MW');
 const delUserAvatar_MW = require('../middlewares/user/delUserAvatar_MW');
 const followUser_MW = require('../middlewares/user/followUser_MW');
+const updateUser_MW = require('../middlewares/user/updateUser_MW');
 
 const setGreet_MW = require('../middlewares/greet/setGreet_MW');
 const getGreets_MW = require('../middlewares/greet/getGreets_MW');
@@ -152,6 +153,13 @@ module.exports = function (
 		getUserByID_MW(objRep),
 		followUser_MW(objRep)
 	);
+
+	app.post(
+		'/profile/upgrade',
+		auth_MW(objRep),
+		updateUser_MW(objRep)
+	);
+
 
 	/*         */
 	/* Greet's */

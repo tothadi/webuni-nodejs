@@ -1,7 +1,7 @@
 /**
  * Specifies context with error/success messages for renderer based on where the feedback was created
  * Specifies the ejs to be rendered based on where the feedback was created
- * 
+ *
  * @returns next
  */
 module.exports = () => {
@@ -58,6 +58,23 @@ module.exports = () => {
 						  }
 						: {
 								emailFeedBack: {
+									status: 'success',
+									message: req.session.feedBack.message,
+								},
+						  };
+				res.locals.toRender = 'index';
+				break;
+			case 'updateUser':
+				res.locals.context =
+					req.session.feedBack.fbType === 'fbError'
+						? {
+								profileFeedBack: {
+									status: 'danger',
+									message: req.session.feedBack.message,
+								},
+						  }
+						: {
+								profileFeedBack: {
 									status: 'success',
 									message: req.session.feedBack.message,
 								},
