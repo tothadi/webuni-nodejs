@@ -79,7 +79,7 @@ module.exports = () => {
 									message: req.session.feedBack.message,
 								},
 						  };
-				res.locals.toRender = 'index';
+				res.locals.toRender = 'profile/profile';
 				break;
 			default:
 				res.locals.context = {};
