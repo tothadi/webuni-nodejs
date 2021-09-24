@@ -13,7 +13,7 @@
 	}
 
 	window.onload = function() {
-	  document.getElementsByTagName('main')[0].scrollTo(0, <%= scrollpx %>)
+	  document.getElementsByTagName('main')[0].scrollTo(0, parseInt('<%= scrollpx %>', 10))
 	  if (window.location.pathname === '/feed/followed') {
 	    document.getElementById('followed').className = 'nav-link active';
 	    document.getElementById('public').className = 'nav-link';
