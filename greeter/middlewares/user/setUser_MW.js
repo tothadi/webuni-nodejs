@@ -22,12 +22,10 @@ module.exports = (objRep) => {
         res.locals.user.lost = false;
 
         req.session.feedBack = {
-            fbType: 'fbSuccess',
-            initiator: 'emailService',
+            status: 'success',
             message: `A jelszót sikeresen megváltoztattad!`
         }
 
-        saveToDB();
-		return res.redirect('/');
+		return saveToDB(res.redirect('/'));
 	};
 };

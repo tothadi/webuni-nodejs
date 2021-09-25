@@ -10,13 +10,13 @@
 
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input autocomplete="off" type="email" id="regEmail" required name="regEmail" class="form-control" />
+            <input autocomplete="off" type="email" id="regEmail" required name="regemail" class="form-control" />
             <label class="form-label" for="regEmail">Email-cím</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="regPassword" required name="regPassword" class="form-control" />
+            <input type="password" id="regPassword" required name="regpassword" class="form-control" />
             <label class="form-label" for="regPassword">Jelszó</label>
           </div>
 
@@ -29,20 +29,20 @@
             <div class="row mb-4">
               <div class="col">
                 <div class="form-outline">
-                  <input autocomplete="off" type="text" id="regFirstname" name="regFirstname" class="form-control" />
+                  <input autocomplete="off" type="text" id="regFirstname" name="regfirstname" class="form-control" />
                   <label class="form-label" for="regFirstname">Keresztnév</label>
                 </div>
               </div>
               <div class="col">
                 <div class="form-outline">
-                  <input autocomplete="off" type="text" id="regLastname" name="regLastname" class="form-control" />
+                  <input autocomplete="off" type="text" id="regLastname" name="reglastname" class="form-control" />
                   <label class="form-label" for="regLastname">Vezetéknév</label>
                 </div>
               </div>
             </div>
 
             <div class="form-outline mb-4">
-              <input autocomplete="off" type="text" id="regUsername" name="regUsername" class="form-control" />
+              <input autocomplete="off" type="text" id="regUsername" name="regusername" class="form-control" />
               <label class="form-label" for="regUsername">Felhasználónév</label>
             </div>
           </div>
@@ -64,13 +64,7 @@
           </div>
 
         </form>
-        <% if (typeof userError !== 'undefined' && typeof userError.signUpError !== 'undefined') { %>
-          <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
-            <p>
-              <%= userError.signUpError %>
-            </p>
-          </div>
-          <% } %>
+        <%- include('../feedback-box') %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>

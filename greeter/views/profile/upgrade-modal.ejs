@@ -7,6 +7,7 @@
 >
 	<div class="modal-dialog">
 		<div class="modal-content">
+			
 			<div class="modal-header">
 				<h5 class="modal-title" id="upgradeModalLabel">Regisztráció</h5>
 				<button
@@ -16,57 +17,60 @@
 					aria-label="Close"
 				></button>
 			</div>
+
+
 			<div class="modal-body">
 				<form action="/profile/upgrade" method="POST">
-						<div class="row mb-4">
-							<div class="col">
-								<div class="form-outline">
-									<input
+					<div class="row mb-4">
+						<div class="col">
+							<div class="form-outline">
+								<input
 										autocomplete="off"
 										type="text"
-										id="updateFirstname"
-										name="updatefirstname"
+										id="upgradeFirstname"
+										name="upgradefirstname"
 										class="form-control"
                                         required
 									/>
-									<label class="form-label" for="regFirstname"
+								<label class="form-label" for="upgradeFirstname"
 										>Keresztnév</label
 									>
-								</div>
 							</div>
-							<div class="col">
-								<div class="form-outline">
-									<input
+						</div>
+						<div class="col">
+							<div class="form-outline">
+								<input
 										autocomplete="off"
 										type="text"
-										id="updateLastname"
-										name="updatelastname"
+										id="upgradeLastname"
+										name="upgradelastname"
 										class="form-control"
                                         required
 									/>
-									<label class="form-label" for="regLastname">Vezetéknév</label>
-								</div>
+								<label class="form-label" for="upgradeLastname">Vezetéknév</label>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-outline mb-4">
-							<input
+					<div class="form-outline mb-4">
+						<input
 								autocomplete="off"
 								type="text"
-								id="updateUsername"
-								name="updateusername"
+								id="upgradeUsername"
+								name="upgradeusername"
 								class="form-control"
                                 required
 							/>
-							<label class="form-label" for="regUsername">Felhasználónév</label>
-						</div>
+						<label class="form-label" for="upgradeUsername">Felhasználónév</label>
+					</div>
 
 
 					<!-- Submit button -->
 					<button type="submit" class="btn btn-primary btn-block mb-4">
-						Regisztráció
+						Profil bővítése
 					</button>
 				</form>
+
 				<% if (typeof userError !== 'undefined' && typeof userError.signUpError
 				!== 'undefined') { %>
 				<div
@@ -77,7 +81,10 @@
 					<p><%= userError.signUpError %></p>
 				</div>
 				<% } %>
+
 			</div>
+
+
 			<div class="modal-footer">
 				<button
 					type="button"

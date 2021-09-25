@@ -13,7 +13,7 @@ module.exports = (objRep) => {
 		try {
 			res.locals.users = userModel.find({
 				uid: {
-					$in: [res.locals.userIn.following],
+					$in: res.locals.userIn.following,
 				},
 			});
 		} catch (err) {
@@ -21,7 +21,6 @@ module.exports = (objRep) => {
 				return next(err);
 			}
 		}
-
 		return next();
 	};
 };

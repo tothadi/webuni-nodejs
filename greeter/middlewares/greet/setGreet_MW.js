@@ -23,8 +23,7 @@ module.exports = (objRep) => {
 		if (typeof req.body.text === 'undefined') {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'setGreet',
+				status: 'danger',
 				message: 'Üres greet!',
 			};
 			return res.redirect(redirectTo);
@@ -41,13 +40,11 @@ module.exports = (objRep) => {
 				// Creates success feedback if fileupload haven't already created error feedback
 				// Available after redirect
 				req.session.feedBack = {
-					fbType: 'fbSuccess',
-					initiator: 'setGreet',
+					status: 'success',
 					message: 'A greet sikeresen módosítva.',
 				};
 			}
-			saveToDB();
-			return res.redirect(redirectTo);
+			return saveToDB(res.redirect(redirectTo));
 		}
 
 		try {
@@ -71,22 +68,19 @@ module.exports = (objRep) => {
 				// Creates success feedback if fileupload haven't already created error feedback
 				// Available after redirect
 				req.session.feedBack = {
-					fbType: 'fbSuccess',
-					initiator: 'setGreet',
+					status: 'success',
 					message: 'A greet mentésre került.',
 				};
 			}
 		} catch (err) {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'setGreet',
+				status: 'danger',
 				message: err.message,
 			};
 			return res.redirect(redirectTo);
 		}
 
-		saveToDB();
-		return res.redirect(redirectTo);
+		return saveToDB(res.redirect(redirectTo));
 	};
 };

@@ -18,10 +18,10 @@ module.exports = (objRep) => {
 		) {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'signIn',
+				status: 'danger',
 				message: 'A felhasználónév/email cím vagy jelszó nem megfelelő!',
 			};
+			req.session.modal = 'signin';
 			return res.redirect('/');
 		}
 
@@ -44,10 +44,10 @@ module.exports = (objRep) => {
 		} catch (err) {
 			// Creates error feedback from error thrown in checks - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'signIn',
+				status: 'danger',
 				message: err.message,
 			};
+			req.session.modal = 'signin';
 			return res.redirect('/');
 		}
 		return res.redirect('/feed/followed');

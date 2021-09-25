@@ -105,8 +105,10 @@
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.greet-header {
-	height: 48px;
+.greet-header-right {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
 }
 
 .greet-params i {
@@ -123,18 +125,17 @@
 	margin-left: 12px;
 }
 
-.avatar {
-	object-fit: cover;
-	object-position: center;
-	width: 36px;
-	max-height: 36px;
-	pointer-events: all;
-	cursor: pointer;
-	transition: all 500ms ease-in-out;
+.greet .avatar {
+	width: 48px;
+	height: 48px;
 }
 
 .avatar:hover {
 	transform: scale(1.2);
+}
+
+.greet-header-right button {
+	margin-left: 12px;
 }
 
 .card-text {

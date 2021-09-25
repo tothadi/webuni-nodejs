@@ -7,13 +7,7 @@
   <main>
     <div class="greets d-flex">
 
-      <% if (typeof greetFeedBack !== 'undefined') { %>
-      <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert" data-mdb-color="<%= greetFeedBack.status %>">
-        <p>
-          <%= greetFeedBack.message %>
-        </p>
-      </div>
-      <% } %>
+      <%- include('feedback-box') %>
 
       <% if (typeof userIn !== 'undefined' && userIn.role === 'user') { %>
       <%- include('greets/new-greet-form', {redirectTo}) %>

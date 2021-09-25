@@ -8,7 +8,6 @@ module.exports = (objRep) => {
 	const {saveToDB } = objRep;
 	return (req, res, next) => {
 		res.locals.userIn.avatar = req.session.ext;
-		saveToDB();
-		return res.redirect(`/profile/${res.locals.userIn.uid}`);
+		return saveToDB(res.redirect(`/profile/${res.locals.userIn.uid}`));
 	};
 };

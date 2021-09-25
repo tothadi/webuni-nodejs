@@ -1,20 +1,17 @@
 <%- include('header') %>
 
-<body cz-shortcut-listen="true" <% if (typeof userError !== 'undefined') { %> <% if (typeof userError.signUpError !== 'undefined') { %> onload="showSignUp()" <% } else { %> onload="showSignIn()" <% } %> <% } %>>
+<body cz-shortcut-listen="true" <% if (typeof modal !== 'undefined') { %>
+  <% if (modal === 'signup') { %> onload="showSignUp()" <% } else { %> onload="showSignIn()" <% } %>
+<% } %>>
 
 
   <header>
     <%- include('nav/navbar') %>
   </header>
   <main>
-    <% if (typeof emailFeedBack !== 'undefined') { %>
-      <div class="text-center alert <%= ` alert-${emailFeedBack.status}` %>" role="alert" data-mdb-color="<%= emailFeedBack.status %>">
-        <p>
-          <%= emailFeedBack.message %>
-        </p>
-      </div>
-      <% } %>
-
+    <% if (typeof modal === 'undefined') { %>
+    <%- include('feedback-box') %>
+    <% } %>
     <% if (typeof userIn === 'undefined') { %>
     <div class="container d-flex align-items-center">
       <img id="main-logo" src="/greeter_logo_full.svg" alt="greeter" loading="lazy">

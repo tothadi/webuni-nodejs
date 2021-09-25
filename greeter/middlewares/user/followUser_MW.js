@@ -11,6 +11,9 @@
 module.exports = (objRep) => {
 	const { saveToDB } = objRep;
 	return (req, res, next) => {
+		// Creates scroll data so browser knows where to scroll back
+		req.session.scroll = parseInt(req.body.scroll, 10);
+		
 		try {
 			// Checks if already followed
 			if (res.locals.userIn.following.includes(res.locals.user.uid)) {
@@ -29,7 +32,6 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
-		saveToDB();
-		return res.redirect(`/profile/${res.locals.user.uid}`);
+		return saveToDB(res.redirect(req.body.redirectTo));
 	};
 };

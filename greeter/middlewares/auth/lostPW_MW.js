@@ -42,13 +42,12 @@ module.exports = (objRep) => {
 
 			// Creates error feedback from error thrown in try - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'emailService',
+				status: 'danger',
 				message: err.message,
 			};
 			return res.redirect('/');
 		}
-		saveToDB();
-		return res.redirect('/');
+		
+		return saveToDB(res.redirect('/'));
 	}
 }

@@ -15,15 +15,15 @@ module.exports = (objRep) => {
 	return (req, res, next) => {
 		// Checks if minimum data arrived
 		if (
-			typeof req.body.regEmail === 'undefined' ||
-			typeof req.body.regPassword === 'undefined'
+			typeof req.body.regemail === 'undefined' ||
+			typeof req.body.regpassword === 'undefined'
 		) {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'signUp',
+				status: 'danger',
 				message: 'Az email-cím és a jelszó megadása kötelező!',
 			};
+			req.session.modal = 'signup';
 			return res.redirect('/');
 		}
 
@@ -32,16 +32,16 @@ module.exports = (objRep) => {
 			const user = userModel.insert({
 				uid: v4(),
 				role:
-					!req.body.regUsername ||
-					!req.body.regFirstname ||
-					!req.body.regLastname
+					!req.body.regusername ||
+					!req.body.regfirstname ||
+					!req.body.reglastname
 						? 'visitor'
 						: 'user',
-				email: req.body.regEmail,
-				password: genPassHash(req.body.regPassword),
-				...(req.body.regUsername && { username: req.body.regUsername }),
-				...(req.body.regFirstname && { firstname: req.body.regFirstname }),
-				...(req.body.regLastname && { lastname: req.body.regLastname }),
+				email: req.body.regemail,
+				password: genPassHash(req.body.regpassword),
+				username: req.body.regusername || req.body.regemail,
+				...(req.body.regfirstname && { firstname: req.body.regfirstname }),
+				...(req.body.reglastname && { lastname: req.body.reglastname }),
 				following: [],
 				followCount: 0,
 				avatar: '',
@@ -54,13 +54,12 @@ module.exports = (objRep) => {
 		} catch (err) {
 			// Creates error feedback of existing user - available after redirect
 			req.session.feedBack = {
-				fbType: 'fbError',
-				initiator: 'signUp',
+				status: 'danger',
 				message: 'Az email-cím vagy felhasználónév foglalt!',
 			};
+			req.session.modal = 'signup';
 			return res.redirect('/');
 		}
-		saveToDB();
-		return res.redirect(`profile/${req.session.uid}`);
+		return saveToDB(res.redirect(`profile/${req.session.uid}`));
 	};
 };

@@ -72,6 +72,10 @@ body {
 	border-bottom: 1px solid;
 }
 
+.text-center.alert {
+	max-width: 800px;
+}
+
 .text-center p {
 	cursor: unset;
 }
@@ -120,6 +124,15 @@ main {
 	cursor: pointer;
 }
 
+.avatar {
+	object-fit: cover;
+	object-position: center;
+	width: 36px;
+	height: 36px;
+	pointer-events: all;
+	cursor: pointer;
+	transition: all 500ms ease-in-out;
+}
 
 /*
  * Profile Styles

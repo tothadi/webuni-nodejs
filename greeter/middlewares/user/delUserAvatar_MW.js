@@ -20,7 +20,6 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
-		saveToDB();
-		return res.redirect(`/profile/${res.locals.userIn.uid}`);
+		return saveToDB(res.redirect(`/profile/${res.locals.userIn.uid}`));
 	};
 };

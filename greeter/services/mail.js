@@ -7,8 +7,7 @@ function sendUserMail (userAddress, secret) {
     const recoveryLink = `/new-pw/${secret}`
     console.log('sending email: ', recoveryLink);
     return {
-        fbType: 'fbSuccess',
-        initiator: 'emailService',
+        status: 'success',
         message: `A linket a(z) ${userAddress} címre kiküldtük!`
     }
 }

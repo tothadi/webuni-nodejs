@@ -19,15 +19,6 @@ module.exports = (view, redirectTo) => {
 		} else {
 			res.locals.redirectTo = req.body.redirectTo;
 		}
-
-		// Sets context for render
-		res.locals.context = {
-			...res.locals.context,
-			scrollpx: req.session.scroll || 0,
-		};
-
-		// Resets scroll
-		req.session.scroll = 0;
-		return res.render(res.locals.toRender || view, res.locals.context);
+		return res.render(view);
 	};
 };

@@ -4,7 +4,6 @@ const { genPassHash, checkPassHash } = require('../services/password');
 const { sendUserMail } = require('../services/mail');
 
 const render_MW = require('../middlewares/render_MW');
-const userFeedBack_MW = require('../middlewares/userFeedBack_MW');
 const isValidRoute_MW = require('../middlewares/isValidRoute_MW');
 
 const avatarStorage_MW = require('../middlewares/multer/avatarStorage_MW');
@@ -25,7 +24,7 @@ const setUser_MW = require('../middlewares/user/setUser_MW');
 const setUserAvatar_MW = require('../middlewares/user/setUserAvatar_MW');
 const delUserAvatar_MW = require('../middlewares/user/delUserAvatar_MW');
 const followUser_MW = require('../middlewares/user/followUser_MW');
-const updateUser_MW = require('../middlewares/user/updateUser_MW');
+const upgradeUser_MW = require('../middlewares/user/upgradeUser_MW');
 
 const setGreet_MW = require('../middlewares/greet/setGreet_MW');
 const getGreets_MW = require('../middlewares/greet/getGreets_MW');
@@ -64,6 +63,20 @@ module.exports = function (
 		filename: greetStorage_MW.fileName,
 	});
 
+	app.use('/', (req, res, next) => {
+		if (typeof req.session.feedBack !== 'undefined') {
+			res.locals.feedBack = req.session.feedBack;
+			delete req.session.feedBack;
+		}
+		if (typeof req.session.modal !== 'undefined') {
+			res.locals.modal = req.session.modal;
+			delete req.session.modal;
+		}
+		res.locals.scrollpx = req.session.scroll || 0;
+		req.session.scroll = 0;
+		return next();
+	});
+
 	/*               */
 	/* Authorization */
 	/*               */
@@ -100,7 +113,6 @@ module.exports = function (
 		getUserByID_MW(objRep),
 		//getComments_MW,
 		getGreets_MW(objRep),
-		userFeedBack_MW(),
 		render_MW('feed', 'feed')
 	);
 
@@ -116,7 +128,6 @@ module.exports = function (
 		getUsers_MW(objRep),
 		//getComments_MW(objRep),
 		getGreetsOfUser_MW(objRep),
-		userFeedBack_MW(),
 		render_MW('profile/profile')
 	);
 
@@ -147,19 +158,14 @@ module.exports = function (
 	);
 
 	// Follow or unfollow a user
-	app.get(
+	app.post(
 		'/profile/follow/:uid',
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
 		followUser_MW(objRep)
 	);
 
-	app.post(
-		'/profile/upgrade',
-		auth_MW(objRep),
-		updateUser_MW(objRep)
-	);
-
+	app.post('/profile/upgrade', auth_MW(objRep), upgradeUser_MW(objRep));
 
 	/*         */
 	/* Greet's */
@@ -208,7 +214,6 @@ module.exports = function (
 		getUserByID_MW(objRep),
 		redirectToFeed_MW(),
 		getGreets_MW(objRep),
-		userFeedBack_MW(),
 		render_MW('index')
 	);
 };

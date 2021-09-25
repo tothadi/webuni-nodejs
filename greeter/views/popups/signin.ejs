@@ -37,13 +37,7 @@
           </div>
 
         </form>
-        <% if (typeof userError !== 'undefined' && typeof userError.signInError !== 'undefined') { %>
-        <div class="text-center alert alert-danger" role="alert" data-mdb-color="danger">
-          <p>
-            <%= userError.signInError %>
-          </p>
-        </div>
-        <% } %>
+        <%- include('../feedback-box') %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>

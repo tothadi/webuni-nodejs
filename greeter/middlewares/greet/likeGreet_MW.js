@@ -25,7 +25,6 @@ module.exports = (objRep) => {
 		} catch (err) {
 			if (err) return next(err);
 		}
-		saveToDB();
-		return res.redirect(req.body.redirectTo);
+		return saveToDB(res.redirect(req.body.redirectTo));
 	};
 };

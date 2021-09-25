@@ -23,8 +23,7 @@ module.exports = (req, file, cb) => {
 
 	// Creates error feedback - available after redirect
 	req.session.feedBack = {
-		fbType: 'fbError',
-		initiator: 'setGreet',
+		status: 'warning',
 		message: `A ${file.originalname} nevű kép formátuma nem megfelelő, nem került feltöltésre!`,
 	};
 	cb(null, false);
