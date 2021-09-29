@@ -19,6 +19,8 @@ module.exports = (objRep) => {
 
         // Sets new password hash on user
         res.locals.user.password = genPassHash(req.body.newpassword);
+
+        // Resets secret
         res.locals.user.lost = false;
 
         req.session.feedBack = {

@@ -61,15 +61,19 @@ module.exports = function (
 		unlinkSync,
 	};
 
+	// Defines storage for profile avatars
 	const avatarStorage = multer.diskStorage({
 		destination: avatarStorage_MW.destination,
 		filename: avatarStorage_MW.fileName,
 	});
+
+	// Defines storage for greet images
 	const greetStorage = multer.diskStorage({
 		destination: greetStorage_MW.destination,
 		filename: greetStorage_MW.fileName,
 	});
 
+	// Set variables on all routes
 	app.use(setRenderVars_MW());
 
 

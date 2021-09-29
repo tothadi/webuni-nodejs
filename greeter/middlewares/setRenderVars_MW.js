@@ -1,4 +1,5 @@
 /**
+ * Sets variables needed in rendered views
  * 
  * @returns next
  */

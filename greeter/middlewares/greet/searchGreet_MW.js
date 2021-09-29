@@ -12,7 +12,8 @@ module.exports = (objRep) => {
 	const { greetModel, userModel, commentModel } = objRep;
 	return (req, res, next) => {
 
-        // After redirect
+        /* After redirect */
+
         if (req.method === 'GET') {
             // Checks if query came from an existing session
             if (typeof req.session.greets === 'undefined') {
@@ -23,9 +24,12 @@ module.exports = (objRep) => {
             return next();
         }
 
-        // After user search query
 
+        /* After user search query */
+
+		// Creates array from search keywords
 		const searchtext = req.body.searchtext.toLowerCase().split(' ');
+		
 		try {
 			// Defining filter for Loki
 			const filter =

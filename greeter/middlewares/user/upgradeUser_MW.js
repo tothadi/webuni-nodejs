@@ -19,12 +19,15 @@ module.exports = (objRep) => {
 			return res.redirect(`/profile/${res.locals.userIn.uid}`);
 		}
 
-		// Sets new password hash on user
+		// Adds missing properties
 		res.locals.userIn.firstname = req.body.upgradefirstname;
 		res.locals.userIn.lastname = req.body.upgradelastname;
 		res.locals.userIn.username = req.body.upgradeusername;
+
+		// Sets user role
 		res.locals.userIn.role = 'user';
 
+		// Creates success feedback - available after redirect
 		req.session.feedBack = {
 			status: 'success',
 			message: `Teljes értékű felhasználóként, most már tudsz greetelni!`,

@@ -3,11 +3,9 @@
  *
  * 1. If there's redirect route defined in parameter, sets res.locals.redirectTo to the provided
  * 2. Else defines res.locals.redirectTo coming from reqest body
- * 3. Passes data to the rendered ejs in res.locals.context (Feedback, where to scroll in browser)
- * 4. Resets req.session.scroll to 0
- * 5. Renders ejs defined in res.locals.toRender or if it's not available, then the one provided in parameter
+ * 5. Renders ejs provided in parameter
  * @param {*} view – the ejs file to render
- * @param {*} redirectTo – the route where to redirect
+ * @param {*} redirectTo – the route where to redirect from post request in view rendered
  * @returns Render
  */
 module.exports = (view, redirectTo) => {

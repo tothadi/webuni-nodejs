@@ -27,8 +27,6 @@ initDB((err, { userModel, greetModel, commentModel, saveToDB }) => {
 		return console.log("Application can't start, beacuse: /n", err.message);
 	}
 
-	//console.table(userModel.find());
-
 	require('./router/index')(app, {
 		userModel,
 		greetModel,

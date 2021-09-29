@@ -1,5 +1,7 @@
 /**
  * Filters routes starting with '/feed'
+ * 
+ * Only /feed/followed and /feed/public works
  * @returns next
  */
 module.exports = () => {
