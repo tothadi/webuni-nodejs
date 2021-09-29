@@ -1,0 +1,46 @@
+<div class="comment card-text" id="<%= comment.cid %>">
+    <div class="comment-header">
+
+        <div class="greet-row-right">
+            <a class="author-name d-flex align-items-center" href="/profile/<%= comment.author %>">
+                <img src="<%= typeof user !== 'undefined' && comment.authorAvatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${comment.author}.${comment.authorAvatar}` : '/placeholder.svg' %>"
+                    alt="profilkép" class="rounded-circle ripple avatar" loading="lazy" />
+                <p><%= comment.authorName %></p>
+            </a>
+        </div>
+
+        <div class="comment-params d-flex align-items-center">
+            <p class="comment-date"><%= new Date(comment.date).toLocaleString() %></p>
+            <% if (typeof userIn !=='undefined' && userIn.uid===comment.author) { %>
+            <div class="dropdown">
+                <button class="btn btn-link btn-floating mx-1" type="button" id="<%= comment.cid %>-drop-down-button"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="<%= comment.cid %>-drop-down-button">
+                    <li>
+                        <a type="button" class="btn btn-block btn-warning" data-mdb-toggle="modal"
+                            data-mdb-target="#modify-<%= comment.cid %>">
+                            <i class="fas fa-pencil-alt"></i>
+                            Szerkesztés
+                        </a>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-block btn-danger" data-mdb-toggle="modal"
+                            data-mdb-target="#delete-<%= comment.cid %>" onclick="setScroll('<%= comment.cid %>')">
+                            <i class="fas fa-trash"></i>
+                            Törlés
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <% } %>
+        </div>
+
+    </div>
+
+    <p><%= comment.text %></p>
+</div>
+<% if (typeof scrollToElem !== 'undefined' && scrollToElem == comment.cid) { %>
+<%- include('../feedback-box') %>
+<% } %>

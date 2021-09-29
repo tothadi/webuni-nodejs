@@ -8,7 +8,7 @@
  * @returns next
  */
 module.exports = (objRep) => {
-	const { greetModel, userModel } = objRep;
+	const { greetModel, userModel, commentModel } = objRep;
 	return (req, res, next) => {
 		try {
 			res.locals.greets = greetModel
@@ -18,11 +18,19 @@ module.exports = (objRep) => {
 				.data()
 				.map((greet) => {
 					const author = userModel.findOne({ uid: greet.author });
+					greet.comments = commentModel
+						.chain()
+						.find({ gid: greet.gid })
+						.compoundsort([['date', true]])
+						.data();
+					if (typeof greet.regreetOf !== 'undefined') {
+						greet.regreeted = greetModel.findOne({ gid: greet.regreetOf });
+					}
 					greet.authorName = author.username;
 					greet.authorAvatar = author.avatar;
 					return greet;
 				});
-				// TODO - comments
+			// TODO - comments
 		} catch (err) {
 			if (err) return next(err);
 		}

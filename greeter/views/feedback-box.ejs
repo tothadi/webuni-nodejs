@@ -1,6 +1,7 @@
 <% if (typeof feedBack !== 'undefined') { %>
 <div
-	class="text-center alert <%= ` alert-${feedBack.status}` %>"
+	id="feedback"
+	class="text-center feedback alert<%= ` alert-${feedBack.status}` %>"
 	role="alert"
 	data-mdb-color="<%= feedBack.status %>"
 >

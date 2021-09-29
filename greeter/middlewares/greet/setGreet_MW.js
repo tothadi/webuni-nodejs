@@ -8,18 +8,20 @@
  *	  Sets parameters of greet stored in res.locals to be updated by req.body data
  *    Creates success feedback available after redirect
  * 3. If new
- *	  Creates new greet by req.body.data
+ *	  Creates new greet from req.body.data
  *	  Increases loggid in user's greetCount by 1
- * 4. res.locals.success
- * 6. Saves to DB and redirects bakc
+ * 4. Creates success feedback available after redirect
+ * 5. Saves to DB and redirects back
  * @param {*} objRep – greetModel, saveToDB
  * @returns Redirect
  */
 module.exports = (objRep) => {
 	const { greetModel, saveToDB } = objRep;
 	return (req, res, next) => {
+
 		// If redirect url not available from request sets it to '/'
-		const redirectTo = req.body.redirectTo || '/';
+		const redirectTo = req.body.redirectTo;
+
 		if (typeof req.body.text === 'undefined') {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
@@ -44,11 +46,16 @@ module.exports = (objRep) => {
 					message: 'A greet sikeresen módosítva.',
 				};
 			}
+
+			// Creates scroll data so browser knows where to scroll back
+			// Can't be set in setRenderVars_MW because of enctype
+			req.session.scroll = req.body.scroll;
+
 			return saveToDB(res.redirect(redirectTo));
 		}
 
 		try {
-			// Creates new greet
+			// Case: new greet
 			res.locals.greet = greetModel.insert({
 				gid: req.session.gid,
 				author: req.session.uid,
@@ -60,10 +67,11 @@ module.exports = (objRep) => {
 				comments: [],
 				commentCount: 0,
 				date: new Date().getTime(),
-				...(req.body.regreetID && { regreetOf: req.body.regreetID }),
 			});
+
 			// Increase author's greetcount
-			res.locals.user.greetCount++;
+			res.locals.userIn.greetCount++;
+
 			if (typeof req.session.feedBack === 'undefined') {
 				// Creates success feedback if fileupload haven't already created error feedback
 				// Available after redirect
@@ -72,6 +80,10 @@ module.exports = (objRep) => {
 					message: 'A greet mentésre került.',
 				};
 			}
+
+			// Creates scroll data so browser knows where to scroll back
+			// Can't be set in setRenderVars_MW because of enctype
+			req.session.scroll = req.body.scroll;
 		} catch (err) {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {

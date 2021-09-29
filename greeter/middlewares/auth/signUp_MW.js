@@ -57,6 +57,8 @@ module.exports = (objRep) => {
 				status: 'danger',
 				message: 'Az email-cím vagy felhasználónév foglalt!',
 			};
+
+			// Sets which modal should be opened after redirect
 			req.session.modal = 'signup';
 			return res.redirect('/');
 		}

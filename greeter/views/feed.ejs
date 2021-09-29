@@ -1,25 +1,26 @@
 <%- include('header') %>
 
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" <% if (typeof scrollToElem !== 'undefined') { %>
+  onload="showCollapse('<%= scrollToElem %>')" <% } %>>
   <header>
     <%- include('nav/navbar') %>
   </header>
   <main>
     <div class="greets d-flex">
 
-      <%- include('feedback-box') %>
-
       <% if (typeof userIn !== 'undefined' && userIn.role === 'user') { %>
-      <%- include('greets/new-greet-form', {redirectTo}) %>
+      <%- include('greets/new-greet-form') %>
+      
       <% } else if (typeof userIn !== 'undefined') { %>
-        <p class="text-center alert-info" role="alert" data-mdb-color="info">
-          Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
-        </p>
+      <p class="text-center alert-info" role="alert" data-mdb-color="info">
+        Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
+      </p>
       <% } %>
 
       <% greets.forEach(greet=> { %>
       <%- include('greets/greet', {greet, redirectTo}) %>
       <% }) %>
+
     </div>
   </main>
 

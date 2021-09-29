@@ -12,6 +12,7 @@
 module.exports = (objRep) => {
 	const { greetModel, v4 } = objRep;
 	return (req, res, next) => {
+		
 		// Adding new greet
 		if (req.params.gid === 'new') {
 			req.session.gid = v4();

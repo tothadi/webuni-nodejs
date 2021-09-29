@@ -14,7 +14,7 @@ module.exports = (objRep) => {
         // Checks if req.body available (if not, calls next to render recovery view)
         if (typeof req.body.newpassword === 'undefined') {
             res.locals.secret = req.params.secret;
-            return next();
+            return res.render('profile/new-pw');
         }
 
         // Sets new password hash on user

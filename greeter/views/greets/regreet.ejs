@@ -1,0 +1,30 @@
+<div class="modal fade" id="regreet-<%= gid %>" tabindex="-1" aria-labelledby="regreet-<%= gid %>-label"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="regreet-<%= gid %>-label">Regreet</h5>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/greet/re/<%= gid %>">
+
+                    <div id="new-greet-text" class="form-outline mb-4">
+                        <i class="fas fa-edit trailing"></i>
+                        <textarea type="text" autocomplete="on" class="form-control" name="text" id="regreet-text"
+                            placeholder="Ha szeretnél hozzáfűzni valamit, írd ide!"></textarea>
+                        <label for="regreet-text" class="form-label">Regreet szövege</label>
+                    </div>
+
+                    <input type="hidden" name="scroll" class="scroll" value="greet-<%= gid %>" />
+                    <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Regreet</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Mégse</button>
+            </div>
+        </div>
+    </div>
+</div>

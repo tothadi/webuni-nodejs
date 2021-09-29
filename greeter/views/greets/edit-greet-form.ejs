@@ -1,6 +1,7 @@
 <form action="/greet/<%= greet.gid %> " method="POST" enctype="multipart/form-data" class="new-greet">
   <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
   <input type="hidden" name="removed" id="<%= greet.gid %>-removed" value="">
+  <input type="hidden" name="scroll" class="scroll" value="greet-<%= greet.gid %>"/>
   <div class="edit-greet-text form-outline mb-4">
     <i class="fas fa-edit trailing"></i>
     <textarea type="text" required autocomplete="on" class="form-control active" name="text" id="<%= greet.gid %>-text"><%= greet.text %></textarea>

@@ -5,6 +5,7 @@ const { sendUserMail } = require('../services/mail');
 
 const render_MW = require('../middlewares/render_MW');
 const isValidRoute_MW = require('../middlewares/isValidRoute_MW');
+const setRenderVars_MW = require('../middlewares/setRenderVars_MW');
 
 const avatarStorage_MW = require('../middlewares/multer/avatarStorage_MW');
 const greetStorage_MW = require('../middlewares/multer/greetStorage_MW');
@@ -35,6 +36,11 @@ const delGreet_MW = require('../middlewares/greet/delGreet_MW');
 const setGreetPics = require('../middlewares/greet/setGreetPics');
 const sendGreetPic_MW = require('../middlewares/greet/sendGreetPic_MW');
 const delGreetPics_MW = require('../middlewares/greet/delGreetPics_MW');
+const reGreet_MW = require('../middlewares/greet/reGreet_MW');
+
+const getCommentByID_MW = require('../middlewares/comment/getCommentByID_MW');
+const setComment_MW = require('../middlewares/comment/setComment_MW');
+const delComment_MW = require('../middlewares/comment/delComment_MW');
 
 module.exports = function (
 	app,
@@ -63,23 +69,13 @@ module.exports = function (
 		filename: greetStorage_MW.fileName,
 	});
 
-	app.use('/', (req, res, next) => {
-		if (typeof req.session.feedBack !== 'undefined') {
-			res.locals.feedBack = req.session.feedBack;
-			delete req.session.feedBack;
-		}
-		if (typeof req.session.modal !== 'undefined') {
-			res.locals.modal = req.session.modal;
-			delete req.session.modal;
-		}
-		res.locals.scrollpx = req.session.scroll || 0;
-		req.session.scroll = 0;
-		return next();
-	});
+	app.use(setRenderVars_MW());
 
-	/*               */
+
+
+	/*****************/
 	/* Authorization */
-	/*               */
+	/*****************/
 
 	// Register a user
 	app.post('/sign-up', signUp_MW(objRep), render_MW('index'));
@@ -101,9 +97,12 @@ module.exports = function (
 		render_MW('profile/new-pw')
 	);
 
-	/*        */
-	/* Feed's */
-	/*        */
+
+
+
+	/**********/
+	/* Feeds  */
+	/******** */
 
 	// Get public or followed users' feed
 	app.get(
@@ -111,14 +110,16 @@ module.exports = function (
 		isValidRoute_MW(),
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
-		//getComments_MW,
 		getGreets_MW(objRep),
 		render_MW('feed', 'feed')
 	);
 
-	/*         */
+
+
+
+	/***********/
 	/* Profile */
-	/*         */
+	/***********/
 
 	// Load a user's profile (even own)
 	app.get(
@@ -126,7 +127,6 @@ module.exports = function (
 		auth_MW(objRep),
 		getUserByID_MW(objRep),
 		getUsers_MW(objRep),
-		//getComments_MW(objRep),
 		getGreetsOfUser_MW(objRep),
 		render_MW('profile/profile')
 	);
@@ -167,9 +167,12 @@ module.exports = function (
 
 	app.post('/profile/upgrade', auth_MW(objRep), upgradeUser_MW(objRep));
 
-	/*         */
+
+
+
+	/***********/
 	/* Greet's */
-	/*         */
+	/***********/
 
 	// Create new/modify a greet
 	app.post(
@@ -205,9 +208,46 @@ module.exports = function (
 		delGreet_MW(objRep)
 	);
 
-	/*          */
+	// Regreet
+	app.post(
+		'/greet/re/:gid',
+		auth_MW(objRep),
+		getGreetByID_MW(objRep),
+		getUserByID_MW(objRep),
+		getGreetsOfUser_MW(objRep),
+		reGreet_MW(objRep)
+	);
+
+
+
+
+	/************/
+	/* Comments */
+	/************/
+
+	// Create new/modify a comment
+	app.post(
+		'/comment/:gid/:cid',
+		auth_MW(objRep),
+		getGreetByID_MW(objRep),
+		getCommentByID_MW(objRep),
+		setComment_MW(objRep)
+	);
+
+	// Delete a comment
+	app.post(
+		'/comment/del/:gid/:cid',
+		auth_MW(objRep),
+		getGreetByID_MW(objRep),
+		delComment_MW(objRep)
+	);
+
+
+
+	
+	/************/
 	/* Homepage */
-	/*          */
+	/************/
 
 	app.get(
 		'/',

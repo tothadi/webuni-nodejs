@@ -11,6 +11,7 @@ h1,
 h2,
 h3,
 h4,
+i,
 img {
 	pointer-events: none;
 	cursor: not-allowed;
@@ -84,6 +85,11 @@ body {
 	pointer-events: all;
 }
 
+#feedback {
+	display: flex;
+	margin-top: 16px;
+}
+
 .alert p {
 	margin: 0;
 }
@@ -93,9 +99,13 @@ body {
  */
 main {
 	position: absolute;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
 	height: 100%;
 	width: 100%;
 	padding-top: 15px;
+	padding-bottom: 75px;
 	overflow: overlay;
 }
 

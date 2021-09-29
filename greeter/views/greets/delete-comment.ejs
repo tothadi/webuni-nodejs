@@ -1,17 +1,18 @@
-<div class="modal fade" id="delete-<%= gid %>" tabindex="-1" aria-labelledby="delete-<%= gid %>-label" aria-hidden="true">
+<div class="modal fade" id="delete-<%= cid %>" tabindex="-1" aria-labelledby="delete-<%= cid %>-label"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="delete-<%= gid %>-label">Greet törlése</h5>
+        <h5 class="modal-title" id="delete-<%= cid %>-label">Komment törlése</h5>
       </div>
       <div class="modal-body">
-        <form method="POST" action="/greet/del/<%= gid %> ">
+        <form method="POST" action="/comment/del/<%= gid %>/<%= cid %>">
 
           <div class="text-center">
             <p>Biztosan törölni szeretnéd?</p>
           </div>
 
-          <input type="hidden" name="scroll" class="scroll" value="" id="delete-greet-<%= gid %>-scroll"/>
+          <input type="hidden" name="scroll" class="scroll" value="" id="delete-<%= cid %>-scroll">
           <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
 
           <button type="submit" class="btn btn-danger btn-block mb-4">Törlöm</button>

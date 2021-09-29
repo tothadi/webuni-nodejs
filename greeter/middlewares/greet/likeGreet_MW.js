@@ -11,8 +11,6 @@
 module.exports = (objRep) => {
 	const { saveToDB } = objRep;
 	return (req, res, next) => {
-		// Creates scroll data so browser knows where to scroll back
-		req.session.scroll = parseInt(req.body.scroll, 10);
 
 		try {
 			if (res.locals.greet.likerIDs.includes(req.session.uid)) {

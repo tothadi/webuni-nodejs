@@ -3,6 +3,7 @@
 /****************/
 
 .greets {
+	width: 100%;
 	flex-direction: column;
 	align-items: center;
 }
@@ -98,31 +99,41 @@
 /*** Greets in list ***/
 /*                    */
 .greet {
+	position: relative;
 	width: 90%;
-	margin-bottom: 30px;
+	margin-top: 30px;
 	max-width: 800px;
 	border-radius: 6px;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.greet-header-right {
+.greet:first-of-type {
+	margin-top: 0;
+}
+
+.greet:last-of-type {
+	margin-bottom: 30;
+}
+
+.greet-row-right {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
 }
 
-.greet-params i {
+.greet-params i, .greet-control i {
 	line-height: 1.6;
 	margin-right: 12px;
 }
 
-.greet-date {
+.greet-date, .comment-date {
 	margin: 0;
 }
 
 .author-name p {
 	margin: 0;
 	margin-left: 12px;
+	margin-right: 12px;
 }
 
 .greet .avatar {
@@ -136,6 +147,14 @@
 
 .greet-header-right button {
 	margin-left: 12px;
+}
+
+.regreet {
+	margin-right: 12px;
+}
+
+.regreet-title {
+	margin-top: 24px;
 }
 
 .card-text {
@@ -224,21 +243,22 @@
 
 /*** Greet footer ***/
 /*                  */
-.greet .card-footer {
-	flex-direction: row;
-}
-
-.likes {
-	position: relative;
+.greet .card-footer, .likes, .comment-control {
 	display: flex;
-	flex-flow: row;
-	justify-content: space-between;
-	width: 100%;
+	flex-flow: row nowrap;
+	align-items: center;
 }
 
-.likes p {
-	position: absolute;
-	left: 48px;
+.greet .card-footer {
+	justify-content: space-between;
+}
+
+.greet .card-footer button, .comment-control {
+	font-size: 20px;
+}
+
+
+.card-footer p {
 	height: 100%;
 	font-weight: bold;
 	display: flex;
@@ -247,10 +267,43 @@
 	margin: 0;
 }
 
-.likes button {
-	font-size: 20px;
+
+/*** Comments ***/
+/*              */
+
+.comments-wrapper {
+	position: relative;
+	width: 100%;
+	border-radius: 6px;
+	padding-top: 16px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+	overflow: auto;
 }
 
-.delete-greet {
-	align-self: flex-end;
+.new-comment {
+	
+}
+
+.comments  {
+	
+}
+
+.comment {
+	margin-top: 16px;
+}
+
+.comment:first-of-type {
+	margin-top: 0;
+}
+
+.comment-header {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.comment-header .avatar {
+	width: 24px;
+	height: 24px;
 }

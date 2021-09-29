@@ -20,6 +20,7 @@ module.exports = (objRep) => {
 		if (typeof req.params.secret !== 'undefined') {
 			try {
 				res.locals.user = userModel.findOne({ lost: req.params.secret });
+				
 				// If user is null, redirect to '/'
 				if (res.locals.user === null) {
 					return res.redirect('/');

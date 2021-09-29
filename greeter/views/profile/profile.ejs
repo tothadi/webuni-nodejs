@@ -1,6 +1,7 @@
 <%- include('../header') %>
 
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" <% if (typeof scrollToElem !== 'undefined') { %>
+  onload="showCollapse('<%= scrollToElem %>')" <% } %>>
   <%- include('delete-avatar') %>
   <%- include('modify-avatar') %>
   <%- include('following-modal', {users, userIn}) %>
@@ -15,7 +16,8 @@
       <%- include('profile-data', { user, lastGreet: greets[0], userIn, redirectTo: `/profile/${user.uid}` }) %>
 
       <% if (typeof greetFeedBack !== 'undefined') { %>
-      <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert" data-mdb-color="<%= greetFeedBack.status %>">
+      <div class="text-center alert <%= ` alert-${greetFeedBack.status}` %>" role="alert"
+        data-mdb-color="<%= greetFeedBack.status %>">
         <p>
           <%= greetFeedBack.message %>
         </p>
@@ -23,12 +25,12 @@
       <% } %>
 
       <% if (typeof userIn !== 'undefined' && userIn.uid === user.uid && userIn.role === 'user') { %>
-        <%- include('../greets/new-greet-form', {redirectTo}) %>
+      <%- include('../greets/new-greet-form', {redirectTo}) %>
       <% } else if (typeof userIn !== 'undefined' && userIn.uid === user.uid) { %>
-        <%- include('upgrade-modal')  %> 
-        <p class="text-center alert-info" role="alert" data-mdb-color="info">
-          Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
-        </p>
+      <%- include('upgrade-modal')  %>
+      <p class="text-center alert-info" role="alert" data-mdb-color="info">
+        Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
+      </p>
       <% } %>
 
       <% greets.forEach(greet=> { %>

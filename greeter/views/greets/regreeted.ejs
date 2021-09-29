@@ -1,0 +1,30 @@
+<div class="card-header">
+
+    <h6 class="regreet-title">Eredeti greet</h6>
+    <div class="greet-header d-flex justify-content-between align-items-center">
+
+        <div class="greet-row-right">
+            <a class="author-name d-flex align-items-center" href="/profile/<%= greet.author %>">
+                <img src="<%= typeof user !== 'undefined' && greet.authorAvatar.length && typeof userIn !== 'undefined' ? `/profile/avatar/${greet.author}.${greet.authorAvatar}` : '/placeholder.svg' %>"
+                    alt="profilkép" class="rounded-circle ripple avatar" loading="lazy" />
+                <p><%= greet.authorName %></p>
+            </a>
+        </div>
+
+
+        <div class="greet-params d-flex align-items-center">
+            <p class="greet-date"><%= new Date(greet.date).toLocaleString() %></p>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="card-body">
+    <p><%= greet.text %></p>
+    <% if (typeof greet.pics !=='undefined' && greet.pics.length) { %>
+    <%- include('carousel', {regreet: true}) %>
+    <% } %>
+</div>
