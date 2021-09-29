@@ -35,6 +35,7 @@
 	};
 
 	const dt = new DataTransfer();
+	const removedFiles = [];
 
 	function addPics(event, prefix) {
 		const thumbs = document.getElementById(`${prefix}-thumbs`);
@@ -47,8 +48,6 @@
 		});
 		picInput.files = dt.files;
 	}
-
-	const removedFiles = [];
 
 	function removePic(i, prefix) {
 		const thumbs = document.getElementById(`${prefix}-thumbs`);
@@ -95,7 +94,7 @@
 	}
 
 	function openFullCarousel(gid) {
-		const carousel = document.getElementById(`${gid}-carousel`);
+		const carousel = document.getElementById(`carousel-${gid}`);
 		const close = document.getElementById(`${gid}-close-full`);
 		close.setAttribute('style', 'display: flex')
 		carousel.classList.remove('carousel-dark');
@@ -103,7 +102,7 @@
 	}
 
 	function closeFullCarousel(gid) {
-		const carousel = document.getElementById(`${gid}-carousel`);
+		const carousel = document.getElementById(`carousel-${gid}`);
 		const close = document.getElementById(`${gid}-close-full`);
 		close.setAttribute('style', 'display: none')
 		carousel.classList.add('carousel-dark');

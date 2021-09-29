@@ -4,13 +4,15 @@
  * 1. Find greets in DB by res.locals.user.uid
  * 2. Defines res.locals.greets and adds author
  * 3. Returns next
- * @param {*} objRep – greetModel, userModel
+ * @param {*} objRep – greetModel, userModel, commentModel
  * @returns next
  */
 module.exports = (objRep) => {
 	const { greetModel, userModel, commentModel } = objRep;
 	return (req, res, next) => {
 		try {
+			// Filters user's greets and adds author's username and avatar data to it
+			// Adds comments to greetobject
 			res.locals.greets = greetModel
 				.chain()
 				.find({ author: res.locals.user.uid })
@@ -30,7 +32,6 @@ module.exports = (objRep) => {
 					greet.authorAvatar = author.avatar;
 					return greet;
 				});
-			// TODO - comments
 		} catch (err) {
 			if (err) return next(err);
 		}

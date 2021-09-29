@@ -1,0 +1,36 @@
+<%- include('header') %>
+
+<body cz-shortcut-listen="true" <% if (typeof scrollToElem !== 'undefined') { %>
+    onload="showCollapse('<%= scrollToElem %>')" <% } %>>
+    <header>
+        <%- include('nav/navbar') %>
+    </header>
+    <main>
+        <% if (typeof userIn === 'undefined') { %>
+        <%- include('auth/signin') %>
+        <%- include('auth/signup') %>
+        <%- include('auth/lost-pw') %>
+        <% } %>
+        <div class="greets d-flex">
+
+            <% if (typeof userIn !== 'undefined' && userIn.role === 'user') { %>
+            <%- include('greets/new-greet-form') %>
+
+            <% } else if (typeof userIn !== 'undefined') { %>
+            <p class="text-center alert-info" role="alert" data-mdb-color="info">
+                Greet publikálásához bővítsd profilodat a neveddel, és egy felhasználónévvel!
+            </p>
+            <% } %>
+
+            <% greets.forEach(greet=> { %>
+            <%- include('greets/greet', {greet, redirectTo}) %>
+            <% }) %>
+
+        </div>
+    </main>
+
+    <%- include('footer') %>
+
+</body>
+
+</html>

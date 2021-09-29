@@ -4,7 +4,7 @@
  * 1. Find public greets in DB
  * 2. Defines res.locals.greets and adds author
  * 3. Returns next
- * @param {*} objRep – greetModel, userModel
+ * @param {*} objRep – greetModel, userModel, commentModel
  * @returns next
  */
 module.exports = (objRep) => {
@@ -24,7 +24,7 @@ module.exports = (objRep) => {
 					  };
 
 			// Filters public greets and adds author's username and avatar data to it
-			// TODO - comments
+			// Adds comments to greetobject
 			res.locals.greets = greetModel
 				.chain()
 				.find(filter)

@@ -41,6 +41,7 @@ const reGreet_MW = require('../middlewares/greet/reGreet_MW');
 const getCommentByID_MW = require('../middlewares/comment/getCommentByID_MW');
 const setComment_MW = require('../middlewares/comment/setComment_MW');
 const delComment_MW = require('../middlewares/comment/delComment_MW');
+const searchGreet_MW = require('../middlewares/greet/searchGreet_MW');
 
 module.exports = function (
 	app,
@@ -245,6 +246,20 @@ module.exports = function (
 
 
 	
+	/************/
+	/* Homepage */
+	/************/
+
+	// Search
+	app.use(
+		'/search',
+		auth_MW(objRep, true),
+		searchGreet_MW(objRep),
+		render_MW('search-results', 'search')
+	)
+
+
+
 	/************/
 	/* Homepage */
 	/************/

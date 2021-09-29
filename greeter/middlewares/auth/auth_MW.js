@@ -8,11 +8,14 @@
  * @param {*} objRep - userModel
  * @returns next
  */
-module.exports = (objRep) => {
+module.exports = (objRep, search) => {
 	const { userModel } = objRep;
 	return (req, res, next) => {
 		// Checks for available session user
 		if (typeof req.session.uid === 'undefined') {
+			if (search) {
+				return next();
+			}
 			return res.redirect('/');
 		}
 

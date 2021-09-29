@@ -20,7 +20,9 @@
 module.exports = (objRep) => {
 	const { commentModel, saveToDB } = objRep;
 	return (req, res, next) => {
-		const redirectTo = res.locals.redirectTo;
+		
+		const redirectTo = req.session.redirectTo;
+
 		if (typeof req.body.text === 'undefined') {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {
@@ -42,7 +44,7 @@ module.exports = (objRep) => {
 			};
 
 			// Set scroll for render after redirect
-			req.session.scroll = res.locals.comment.cid;
+			req.session.scroll = `comment-${res.locals.comment.cid}`;
 
 			return saveToDB(res.redirect(redirectTo));
 		}
@@ -71,8 +73,7 @@ module.exports = (objRep) => {
 			};
 
 			// Set scroll for render after redirect
-			req.session.scroll = res.locals.cid;
-
+			req.session.scroll = `comment-${res.locals.cid}`;
 		} catch (err) {
 			// Creates error feedback - available after redirect
 			req.session.feedBack = {

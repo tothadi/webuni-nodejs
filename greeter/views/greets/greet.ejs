@@ -148,12 +148,12 @@
 
 	</div>
 
-	<%- include('comments-wrapper') %>
+	<%- include('../comments/comments-wrapper') %>
 
 	<% if (typeof userIn !=='undefined') { %>
 	<% greet.comments.forEach(comment => { %>
-	<%- include('delete-comment', {redirectTo, gid: comment.gid, cid: comment.cid }) %>
-	<%- include('modify-comment', {redirectTo, comment}) %>
+	<%- include('../comments/delete-comment', {redirectTo, gid: comment.gid, cid: comment.cid }) %>
+	<%- include('../comments/modify-comment', {redirectTo, comment}) %>
 	<% }) %>
 	<% } %>
 

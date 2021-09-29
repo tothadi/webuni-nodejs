@@ -29,8 +29,8 @@
         <img src="/greeter_logo_full.svg" height="32" alt="" loading="lazy" />
       </a>
 
-      <form class="d-flex input-group w-auto align-content-center">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+      <form class="d-flex input-group w-auto align-content-center" method="POST" action="/search">
+        <input type="search" name="searchtext" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
         <span class="input-group-text border-0" id="search-addon">
           <i class="fas fa-search"></i>
         </span>
